@@ -1,51 +1,41 @@
-/* Pasta League 2025 - Style */
 body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(180deg, #0e0e0e, #1a1a1a);
-  color: #f8f8f8;
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
   text-align: center;
-  margin: 0;
-  padding: 0;
 }
 
-header {
-  border-bottom: 2px solid gold;
-  padding: 20px 0;
-}
-
-h1 {
+h1, h2 {
   color: gold;
-  font-size: 2em;
-  margin-bottom: 5px;
 }
 
-p {
-  color: #ccc;
+table {
+  width: 90%;
+  margin: 10px auto;
+  border-collapse: collapse;
+  color: #fff;
 }
 
-main {
-  padding: 20px;
-}
-
-section {
-  margin: 40px auto;
-  max-width: 800px;
-  background: rgba(255, 255, 255, 0.05);
+th, td {
   border: 1px solid gold;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  padding: 8px;
 }
 
-h2 {
+th {
+  background-color: #222;
   color: gold;
-  margin-bottom: 15px;
 }
 
-footer {
-  border-top: 1px solid gold;
-  padding: 10px;
-  color: #888;
-  font-size: 0.9em;
-  margin-top: 50px;
+td {
+  background-color: #000;
+}
+
+#debug-box {
+  border: 1px solid yellow;
+  padding: 8px;
+  width: 90%;
+  margin: 10px auto;
+  text-align: left;
+  font-size: 13px;
+  background-color: #222;
 }
