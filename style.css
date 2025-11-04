@@ -1,70 +1,107 @@
+/* 🌑 רקע כללי */
 body {
-  background-color: #111;
-  color: #ffd700;
-  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #FFD700;
+  font-family: 'Arial', sans-serif;
   text-align: center;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
+/* 🍝 כותרת ראשית */
 h1 {
-  font-size: 26px;
-  text-shadow: 0 0 8px #ffcc00;
-}
-
-h2 {
-  color: #ffcc00;
-  margin-top: 40px;
-}
-
-table {
-  margin: 10px auto;
-  border-collapse: collapse;
-  width: 90%;
-  max-width: 600px;
-}
-
-th, td {
-  border: 1px solid #ffcc00;
-  padding: 8px;
-}
-
-th {
-  background-color: #222;
-}
-
-.debug-box {
-  color: red;
+  font-size: 2.4em;
   margin-top: 20px;
-  font-size: 12px;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD700, 0 0 20px orange;
 }
-/* 🥇 עיצוב מיוחד למקום הראשון */
+
+/* ⚽ תתי כותרות */
+h2 {
+  color: #FFD700;
+  margin-top: 30px;
+  text-shadow: 0 0 5px #FFD700;
+}
+
+/* 📋 טבלאות */
+table {
+  width: 85%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  color: #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* 🟨 גבולות של טבלה */
+th, td {
+  border: 2px solid #FFD700;
+  padding: 10px;
+  text-align: center;
+}
+
+/* 🖱️ מעבר עכבר */
+tr:hover {
+  background-color: rgba(255, 215, 0, 0.1);
+  transition: 0.3s;
+}
+
+/* 🧱 כותרות טבלה */
+th {
+  background-color: #111;
+  font-weight: bold;
+}
+
+/* 🏆 מקום ראשון מיוחד */
 tr:first-child td {
   color: gold;
   font-weight: bold;
-  animation: shine 1.5s infinite alternate;
+  background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3), rgba(255,215,0,0.1));
+  animation: shineRow 2s infinite linear;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
 }
 
-/* 🏆 גביע קטן ליד השחקן הראשון */
+/* 🏆 גביע ליד שם המקום הראשון */
 tr:first-child td:nth-child(2)::before {
   content: "🏆 ";
   font-size: 1.2em;
   vertical-align: middle;
 }
 
-/* ✨ אפקט נצנוץ */
-@keyframes shine {
-  0% { text-shadow: 0 0 10px gold, 0 0 20px orange; }
-  100% { text-shadow: 0 0 20px yellow, 0 0 40px gold; }
+/* ✨ נצנוץ על טקסט המקום הראשון */
+@keyframes shineRow {
+  0% {
+    text-shadow: 0 0 10px gold, 0 0 20px orange;
+    background-position: 0% 50%;
+  }
+  50% {
+    text-shadow: 0 0 20px yellow, 0 0 30px gold;
+    background-position: 100% 50%;
+  }
+  100% {
+    text-shadow: 0 0 10px gold, 0 0 20px orange;
+    background-position: 0% 50%;
+  }
 }
 
-/* אם רוצים שגם טבלת מלך השערים תקבל את אותו עיצוב */
+/* ⚡ אפקט כללי של טקסט מהבהב (לכותרת אם תוסיף) */
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #FFD700; }
+  50% { text-shadow: 0 0 20px #FFD700; }
+  100% { text-shadow: 0 0 5px #FFD700; }
+}
+
+/* ✨ מלך השערים מקום ראשון */
 #scorersBody tr:first-child td {
   color: gold;
   font-weight: bold;
-  animation: shine 1.5s infinite alternate;
+  background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3), rgba(255,215,0,0.1));
+  animation: shineRow 2s infinite linear;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
 }
 
+/* 🏆 גביע ליד שם מלך השערים */
 #scorersBody tr:first-child td:nth-child(2)::before {
   content: "🏆 ";
+  font-size: 1.2em;
+  vertical-align: middle;
 }
