@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasta League — Season 2025</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍝 Pasta League — Season 2025 🍝</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <p id="totalGoals">Total Goals: 0 ⚽</p>
+  <p>Total Goals: <span id="totalGoals">0</span> ⚽</p>
 
   <section>
     <h2>League Table</h2>
@@ -25,13 +25,26 @@
           <th>Pts</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="leagueBody">
+        <tr><td colspan="8">Loading...</td></tr>
+      </tbody>
     </table>
   </section>
 
   <section>
     <h2>Top Scorers</h2>
-    <div id="scorers">Loading...</div>
+    <table id="topScorers">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Goals</th>
+        </tr>
+      </thead>
+      <tbody id="scorersBody">
+        <tr><td colspan="3">Loading...</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <section>
@@ -39,53 +52,8 @@
     <p>Upload coming soon...</p>
   </section>
 
-  <div id="debug-box" style="color:yellow; font-size:12px;"></div>
+  <div id="debug" class="debug-box"></div>
 
-  <script>
-  async function loadLeagueData() {
-    const sheetId = "🔹הכנס כאן את ה-ID של הגיליון שלך🔹";
-    const sheetName = "LeagueTable";
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
-
-    const tbody = document.querySelector("#leagueTable tbody");
-    const debug = document.getElementById("debug-box");
-
-    try {
-      const res = await fetch(url);
-      const text = await res.text();
-      const json = JSON.parse(text.substr(47).slice(0, -2));
-      const rows = json.table.rows;
-
-      tbody.innerHTML = "";
-      let totalGoals = 0;
-
-      rows.forEach((r, i) => {
-        const c = r.c.map(x => (x ? x.v : ""));
-        const gf = parseInt(c[4] || 0);
-        totalGoals += gf;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${i + 1}</td>
-          <td>${c[0]}</td>
-          <td>${c[1]}</td>
-          <td>${c[2]}</td>
-          <td>${c[3]}</td>
-          <td>${c[4]}</td>
-          <td>${c[5]}</td>
-          <td>${c[6]}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      document.getElementById("totalGoals").innerText = `Total Goals: ${totalGoals} ⚽`;
-      debug.innerText = "✅ Connected to Google Sheets and loaded player names successfully!";
-    } catch (err) {
-      debug.innerText = "❌ Error loading data: " + err.message;
-    }
-  }
-
-  loadLeagueData();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
