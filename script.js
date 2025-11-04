@@ -12,10 +12,10 @@ async function fetchLeagueData() {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log("✅ Data fetched from Google Sheets:", data);
-    debugBox.innerText = "✅ Connected to Google Sheets!\nRows fetched: " + data.length;
+    console.log("✅ Data fetched:", data);
+    debugBox.innerText = `✅ Connected to Google Sheets!\nFetched ${data.length} rows.`;
 
-    const tableBody = document.querySelector("#league-table-body");
+    const tableBody = document.getElementById("league-table-body");
     tableBody.innerHTML = "";
 
     data.forEach((row, index) => {
@@ -35,7 +35,7 @@ async function fetchLeagueData() {
 
   } catch (error) {
     console.error("❌ Error fetching data:", error);
-    debugBox.innerText = "❌ Error: " + error;
+    debugBox.innerText = "❌ Error loading data:\n" + error;
   }
 }
 
