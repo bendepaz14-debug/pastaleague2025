@@ -109,22 +109,30 @@
 
   <div id="debug" class="debug-box"></div>
 
-  <!-- 🎵 WAR INTRO MUSIC + ANIMATION -->
+  <!-- 🎵 WAR MUSIC -->
   <audio id="warMusic"
     src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3"
     preload="auto"></audio>
 
+  <!-- 🍝 OPENING ANIMATION -->
   <div id="introOverlay">
-    <h1 class="introTitle">⚔️ WAR MODE — Pasta League ⚽</h1>
+    <h1 class="introTitle">🍝 Pasta League ⚽</h1>
   </div>
 
   <script>
     window.addEventListener("load", () => {
       const music = document.getElementById("warMusic");
       music.volume = 0;
-      music.play().catch(err => console.log("Autoplay blocked:", err));
+      
+      // נסה לנגן אחרי אינטראקציה (כדי לעקוף חסימות מובייל)
+      const tryPlay = () => {
+        music.play().catch(() => {
+          document.body.addEventListener('click', () => music.play(), { once: true });
+        });
+      };
+      tryPlay();
 
-      // Fade-in (0 → 0.6)
+      // Fade-in
       const fadeIn = setInterval(() => {
         if (music.volume < 0.6) {
           music.volume += 0.05;
