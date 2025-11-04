@@ -45,7 +45,7 @@
 </head>
 <body>
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <p>Total Goals: <span id="totalGoals">0 ⚽</span></p>
+  <p>Total Goals: <span id="totalGoals">Loading...</span></p>
 
   <div class="section">
     <h2>League Table</h2>
@@ -90,18 +90,18 @@
   </footer>
 
   <script>
-    // ========== SETTINGS ==========
     const SHEET_ID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
     const SHEET_NAME = "LeagueTable";
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
 
     async function loadLeagueData() {
+      const tbody = document.querySelector("#leagueTable tbody");
       try {
-        const res = await fetch(CSV_URL);
-        const csvText = await res.text();
-        const rows = csvText.trim().split("\n").map(r => r.split(","));
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error("Cannot load sheet");
+        const csv = await response.text();
+        const rows = csv.trim().split("\n").map(r => r.split(","));
         const headers = rows.shift();
-
         const playerIndex = headers.indexOf("Player");
         const wIndex = headers.indexOf("W");
         const dIndex = headers.indexOf("D");
@@ -110,30 +110,29 @@
         const gaIndex = headers.indexOf("GA");
         const ptsIndex = headers.indexOf("Pts");
 
-        const tbody = document.querySelector("#leagueTable tbody");
         tbody.innerHTML = "";
-
         let totalGoals = 0;
-        rows.forEach((row, i) => {
+
+        rows.forEach((r, i) => {
+          const gf = parseInt(r[gfIndex] || 0);
+          totalGoals += gf;
           const tr = document.createElement("tr");
-          totalGoals += parseInt(row[gfIndex] || 0);
           tr.innerHTML = `
             <td>${i + 1}</td>
-            <td>${row[playerIndex]}</td>
-            <td>${row[wIndex]}</td>
-            <td>${row[dIndex]}</td>
-            <td>${row[lIndex]}</td>
-            <td>${row[gfIndex]}</td>
-            <td>${row[gaIndex]}</td>
-            <td>${row[ptsIndex]}</td>
+            <td>${r[playerIndex]}</td>
+            <td>${r[wIndex]}</td>
+            <td>${r[dIndex]}</td>
+            <td>${r[lIndex]}</td>
+            <td>${r[gfIndex]}</td>
+            <td>${r[gaIndex]}</td>
+            <td>${r[ptsIndex]}</td>
           `;
           tbody.appendChild(tr);
         });
 
-        document.getElementById("totalGoals").textContent = `${totalGoals} ⚽`;
+        document.getElementById("totalGoals").textContent = totalGoals + " ⚽";
       } catch (err) {
-        document.querySelector("#leagueTable tbody").innerHTML =
-          `<tr><td colspan="8">⚠️ Error loading data. Check Google Sheet settings.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="color:red;">⚠️ Error loading data (${err.message})</td></tr>`;
       }
     }
 
