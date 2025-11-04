@@ -3,143 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pasta League 2025</title>
-  <style>
-    body {
-      background-color: #000;
-      color: #f1c40f;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #f1c40f;
-      text-shadow: 0 0 10px #f1c40f;
-    }
-    table {
-      margin: 0 auto;
-      border-collapse: collapse;
-      width: 90%;
-      max-width: 700px;
-      background: #111;
-      border: 1px solid #f1c40f;
-      box-shadow: 0 0 15px #f1c40f33;
-    }
-    th, td {
-      border: 1px solid #f1c40f33;
-      padding: 10px;
-    }
-    th {
-      background: #222;
-      color: #f1c40f;
-    }
-    .section {
-      margin-top: 30px;
-      padding: 15px;
-      border: 1px solid #f1c40f;
-      border-radius: 10px;
-      background: #111;
-      box-shadow: 0 0 10px #f1c40f33;
-    }
-  </style>
+  <title>Pasta League — Season 2025</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <p>Total Goals: <span id="totalGoals">Loading...</span></p>
+  <header>
+    <h1>🍝 Pasta League — Season 2025 🍝</h1>
+    <p id="totalGoals">Total Goals: 0 ⚽</p>
+  </header>
 
-  <div class="section">
-    <h2>League Table</h2>
-    <table id="leagueTable">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>Pts</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="8">Loading...</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <main>
+    <section class="table-section">
+      <h2>League Table</h2>
+      <table id="leagueTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>GF</th>
+            <th>GA</th>
+            <th>Pts</th>
+          </tr>
+        </thead>
+        <tbody id="league-table-body">
+          <tr><td colspan="8">Loading...</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-  <div class="section">
-    <h2>Top Scorers</h2>
-    <table id="scorersTable">
-      <thead>
-        <tr><th>#</th><th>Player</th><th>Goals</th></tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="3">Loading...</td></tr>
-      </tbody>
-    </table>
-  </div>
+    <section class="table-section">
+      <h2>Top Scorers</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Player</th><th>Goals</th></tr>
+        </thead>
+        <tbody id="scorers-body">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-  <div class="section">
-    <h2>Goal of the Week 🎥</h2>
-    <p>Upload coming soon...</p>
-  </div>
+    <section>
+      <h2>Goal of the Week 🎥</h2>
+      <p>Upload coming soon...</p>
+    </section>
+  </main>
 
-  <footer style="margin-top:30px; color:#888;">
-    © 2025 Pasta League. All rights reserved.
-  </footer>
-
-  <script>
-    const SHEET_ID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
-    const SHEET_NAME = "LeagueTable";
-    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
-
-    async function loadLeagueData() {
-      const tbody = document.querySelector("#leagueTable tbody");
-      try {
-        const response = await fetch(CSV_URL);
-        if (!response.ok) throw new Error("Cannot load sheet");
-        const csv = await response.text();
-        const rows = csv.trim().split("\n").map(r => r.split(","));
-        const headers = rows.shift();
-        const playerIndex = headers.indexOf("Player");
-        const wIndex = headers.indexOf("W");
-        const dIndex = headers.indexOf("D");
-        const lIndex = headers.indexOf("L");
-        const gfIndex = headers.indexOf("GF");
-        const gaIndex = headers.indexOf("GA");
-        const ptsIndex = headers.indexOf("Pts");
-
-        tbody.innerHTML = "";
-        let totalGoals = 0;
-
-        rows.forEach((r, i) => {
-          const gf = parseInt(r[gfIndex] || 0);
-          totalGoals += gf;
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${i + 1}</td>
-            <td>${r[playerIndex]}</td>
-            <td>${r[wIndex]}</td>
-            <td>${r[dIndex]}</td>
-            <td>${r[lIndex]}</td>
-            <td>${r[gfIndex]}</td>
-            <td>${r[gaIndex]}</td>
-            <td>${r[ptsIndex]}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        document.getElementById("totalGoals").textContent = totalGoals + " ⚽";
-      } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="8" style="color:red;">⚠️ Error loading data (${err.message})</td></tr>`;
-      }
-    }
-
-    loadLeagueData();
-  </script>
   <div id="debug-box" style="color: yellow; font-size: 14px; margin: 20px;"></div>
   <script src="script.js"></script>
 </body>
-</html>
 </html>
