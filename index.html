@@ -33,8 +33,10 @@
     /* 🍝 מסך פתיחה */
     #introOverlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: black;
       display: flex;
       align-items: center;
@@ -94,7 +96,7 @@
     <p>Upload coming soon...</p>
   </section>
 
-  <!-- 🎵 מוזיקה של מלחמה -->
+  <!-- 🎵 מוזיקת פתיחה -->
   <audio id="warMusic"
     src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3"
     preload="auto"></audio>
@@ -111,13 +113,13 @@
       };
       tryPlay();
 
-      // העלאת עוצמה בהדרגה
+      // fade in
       const fadeIn = setInterval(() => {
         if (music.volume < 0.7) music.volume += 0.05;
         else clearInterval(fadeIn);
       }, 150);
 
-      // הפסקה אחרי 10 שניות
+      // fade out אחרי 10 שניות
       setTimeout(() => {
         const fadeOut = setInterval(() => {
           if (music.volume > 0) music.volume -= 0.05;
@@ -129,7 +131,7 @@
         }, 150);
       }, 10000);
     });
-    </script>
+  </script>
 
   <script src="script.js"></script>
 </body>
