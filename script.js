@@ -1,26 +1,30 @@
-const sheetId = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
-const sheetName = "LeagueTable";
-const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
-
 async function loadLeagueData() {
-  const debugBox = document.getElementById("debug");
-  const tableBody = document.getElementById("leagueBody");
-  const scorersBody = document.getElementById("scorersBody");
-  const totalGoalsElem = document.getElementById("totalGoals");
-  debugBox.innerText = "";
+  const sheetURL = "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=LeagueTable";
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(sheetURL);
     const text = await res.text();
-
     const json = JSON.parse(text.substr(47).slice(0, -2));
-    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : 0)));
+    const rows = json.table.rows;
 
-    tableBody.innerHTML = "";
+    const tbody = document.getElementById("tableBody");
+    const scorersBody = document.getElementById("scorersBody");
+    tbody.innerHTML = "";
+    scorersBody.innerHTML = "";
+
     let totalGoals = 0;
 
-    rows.forEach((row, i) => {
-      const [player, w, d, l, gf, ga, pts] = row;
+    rows.forEach((r, i) => {
+      const player = r.c[0]?.v || "";
+      const w = r.c[1]?.v || 0;
+      const d = r.c[2]?.v || 0;
+      const l = r.c[3]?.v || 0;
+      const gf = r.c[4]?.v || 0;
+      const ga = r.c[5]?.v || 0;
+      const pts = r.c[6]?.v || 0;
+
+      totalGoals += gf;
+
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${i + 1}</td>
@@ -32,25 +36,28 @@ async function loadLeagueData() {
         <td>${ga}</td>
         <td>${pts}</td>
       `;
-      tableBody.appendChild(tr);
-      totalGoals += parseInt(gf) || 0;
+      tbody.appendChild(tr);
     });
 
-    totalGoalsElem.textContent = totalGoals;
+    document.getElementById("totalGoals").textContent = `Total Goals: ${totalGoals} ⚽`;
 
-    // Top scorers
-    const sorted = [...rows].sort((a, b) => b[4] - a[4]); // GF = index 4
-    scorersBody.innerHTML = "";
-    sorted.slice(0, 5).forEach((r, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${i + 1}</td><td>${r[0]}</td><td>${r[4]}</td>`;
-      scorersBody.appendChild(tr);
-    });
+    rows
+      .filter(r => r.c[4]?.v > 0)
+      .sort((a, b) => b.c[4].v - a.c[4].v)
+      .slice(0, 5)
+      .forEach((r, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${r.c[0].v}</td>
+          <td>${r.c[4].v}</td>
+        `;
+        scorersBody.appendChild(tr);
+      });
 
-    debugBox.innerHTML = `<span style="color:lightgreen;">✅ Connected to Google Sheets! (${rows.length} players)</span>`;
+    document.getElementById("debug").textContent = "✅ Connected to Google Sheets!";
   } catch (err) {
-    debugBox.innerHTML = `<span style="color:red;">❌ Error loading data:<br>${err}</span>`;
-    console.error(err);
+    document.getElementById("debug").innerHTML = `❌ Error loading data:<br>${err}`;
   }
 }
 
