@@ -56,4 +56,21 @@
 
   <script src="script.js"></script>
 </body>
+  <!-- 🎵 WAR INTRO MUSIC (10 seconds) -->
+<audio id="warMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3" preload="auto"></audio>
+
+<script>
+  window.addEventListener("load", () => {
+    const music = document.getElementById("warMusic");
+    // נגן את השיר כשנכנסים לאתר
+    music.volume = 0.6; // עוצמה בינונית
+    music.play().catch(err => console.log("Autoplay blocked:", err));
+
+    // עצירה אחרי 10 שניות
+    setTimeout(() => {
+      music.pause();
+      music.currentTime = 0;
+    }, 10000);
+  });
+</script>
 </html>
