@@ -30,11 +30,13 @@
       margin-top: 20px;
     }
 
-    /* 🔥 פרומו של פתיחה */
+    /* 🎬 מסך פתיחה */
     #introOverlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: black;
       display: flex;
       align-items: center;
@@ -66,6 +68,11 @@
 </head>
 
 <body>
+  <!-- 🍝 מסך הפתיחה -->
+  <div id="introOverlay">
+    <h1 class="introTitle">🍝 Pasta League ⚽</h1>
+  </div>
+
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
   <p id="totalGoals">Total Goals: 0 ⚽</p>
 
@@ -109,22 +116,16 @@
 
   <div id="debug" class="debug-box"></div>
 
-  <!-- 🎵 מוזיקת מלחמה -->
+  <!-- 🎵 מוזיקת פתיחה -->
   <audio id="warMusic"
     src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3"
     preload="auto"></audio>
-
-  <!-- 🍝 מסך פתיחה -->
-  <div id="introOverlay">
-    <h1 class="introTitle">🍝 Pasta League ⚽</h1>
-  </div>
 
   <script>
     window.addEventListener("load", () => {
       const music = document.getElementById("warMusic");
       music.volume = 0;
-      
-      // נגן את המוזיקה ברגע שהעמוד נפתח
+
       const tryPlay = () => {
         music.play().catch(() => {
           document.body.addEventListener('click', () => music.play(), { once: true });
@@ -132,19 +133,17 @@
       };
       tryPlay();
 
-      // fade-in למוזיקה
+      // fade-in
       const fadeIn = setInterval(() => {
-        if (music.volume < 0.7) {
-          music.volume += 0.05;
-        } else clearInterval(fadeIn);
+        if (music.volume < 0.7) music.volume += 0.05;
+        else clearInterval(fadeIn);
       }, 150);
 
       // fade-out אחרי 10 שניות
       setTimeout(() => {
         const fadeOut = setInterval(() => {
-          if (music.volume > 0) {
-            music.volume -= 0.05;
-          } else {
+          if (music.volume > 0) music.volume -= 0.05;
+          else {
             clearInterval(fadeOut);
             music.pause();
             music.currentTime = 0;
