@@ -38,3 +38,33 @@ th {
   margin-top: 20px;
   font-size: 12px;
 }
+/* 🥇 עיצוב מיוחד למקום הראשון */
+tr:first-child td {
+  color: gold;
+  font-weight: bold;
+  animation: shine 1.5s infinite alternate;
+}
+
+/* 🏆 גביע קטן ליד השחקן הראשון */
+tr:first-child td:nth-child(2)::before {
+  content: "🏆 ";
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+/* ✨ אפקט נצנוץ */
+@keyframes shine {
+  0% { text-shadow: 0 0 10px gold, 0 0 20px orange; }
+  100% { text-shadow: 0 0 20px yellow, 0 0 40px gold; }
+}
+
+/* אם רוצים שגם טבלת מלך השערים תקבל את אותו עיצוב */
+#scorersBody tr:first-child td {
+  color: gold;
+  font-weight: bold;
+  animation: shine 1.5s infinite alternate;
+}
+
+#scorersBody tr:first-child td:nth-child(2)::before {
+  content: "🏆 ";
+}
