@@ -54,7 +54,79 @@
 
   <div id="debug" class="debug-box"></div>
 
-  <script src="script.js"></script>
+  <!-- 🎵 WAR INTRO MUSIC + ANIMATION -->
+<audio id="warMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3" preload="auto"></audio>
+
+<!-- 🔥 Opening Animation -->
+<div id="introOverlay">
+  <h1 class="introTitle">🍝 Pasta League ⚽</h1>
+</div>
+
+<style>
+  /* אפקט פתיחה */
+  #introOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeOut 1.5s ease-in-out 8.5s forwards;
+  }
+
+  .introTitle {
+    color: yellow;
+    font-size: 3rem;
+    font-family: "Arial Black", sans-serif;
+    text-align: center;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px yellow; }
+    to { text-shadow: 0 0 25px orange, 0 0 50px red; }
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+  }
+</style>
+
+<script>
+  window.addEventListener("load", () => {
+    const music = document.getElementById("warMusic");
+    music.volume = 0; // מתחיל בשקט
+    music.play().catch(err => console.log("Autoplay blocked:", err));
+
+    // Fade-in בהתחלה
+    let fadeIn = setInterval(() => {
+      if (music.volume < 0.6) {
+        music.volume += 0.02;
+      } else {
+        clearInterval(fadeIn);
+      }
+    }, 200);
+
+    // Fade-out אחרי 8 שניות
+    setTimeout(() => {
+      let fadeOut = setInterval(() => {
+        if (music.volume > 0) {
+          music.volume -= 0.03;
+        } else {
+          clearInterval(fadeOut);
+          music.pause();
+          music.currentTime = 0;
+        }
+      }, 150);
+    }, 8000);
+  });
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
 </body>
   <!-- 🎵 WAR INTRO MUSIC (10 seconds) -->
 <audio id="warMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3" preload="auto"></audio>
