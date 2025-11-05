@@ -1,3 +1,22 @@
+/* רקע כללי לעמוד */
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* כותרת הדף */
+.page-title {
+  font-size: 2em;
+  color: #ffcc00;
+  margin-top: 25px;
+  text-shadow: 0 0 20px #ffcc00, 0 0 40px #ffaa00;
+}
+
+/* מכולה של כל השחקנים */
 .players-container {
   display: flex;
   flex-wrap: wrap;
@@ -6,8 +25,9 @@
   padding: 20px;
 }
 
+/* כרטיס של שחקן */
 .player-card {
-  background: rgba(0,0,0,0.75);
+  background: rgba(0, 0, 0, 0.75);
   border: 2px solid #ffcc00;
   border-radius: 15px;
   padding: 15px;
@@ -18,24 +38,30 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* אפקט מעבר */
 .player-card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 25px #00ffff;
 }
 
+/* תמונת השחקן — לא נחתכת יותר! */
 .player-card img {
   width: 100%;
+  height: auto;
   border-radius: 10px;
   border: 2px solid #ffcc00;
   margin-bottom: 10px;
+  object-fit: contain; /* שומר על פרופורציה */
+  background-color: black; /* רקע אם יש אזור ריק */
 }
 
-/* שם השחקן עם אפקט ברק כחול-לבן */
+/* שם השחקן */
 .player-name {
   font-size: 1.6em;
   margin: 10px 0;
 }
 
+/* אפקט ברק כחול-לבן לשמות */
 .lightning {
   background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
   background-size: 200% 100%;
@@ -50,7 +76,13 @@
   100% { background-position: -200% 0; }
 }
 
-/* כפתור חזרה */
+/* טקסט נתונים (ניצחונות, הפסדים וכו') */
+.player-card p {
+  margin: 6px 0;
+  font-size: 0.9em;
+}
+
+/* כפתור חזרה לעמוד הראשי */
 .back-btn {
   display: block;
   width: fit-content;
