@@ -1,93 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pasta League — Season 2025</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      margin: 0;
-      background-color: #111;
-      color: yellow;
-      font-family: "Arial Black", sans-serif;
-      text-align: center;
-    }
-
-    table {
-      margin: 20px auto;
-      border-collapse: collapse;
-      color: yellow;
-      border: 2px solid yellow;
-    }
-
-    th, td {
-      border: 1px solid yellow;
-      padding: 8px 12px;
-    }
-
-    h1 {
-      margin-top: 20px;
-    }
-
-    /* 🍝 מסך פתיחה */
-    #introOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      animation: fadeOut 1s ease-in-out 5s forwards;
-    }
-
-    .introTitle {
-      color: yellow;
-      font-size: 3rem;
-      animation: glow 1s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px yellow; }
-      to { text-shadow: 0 0 25px orange, 0 0 50px red; }
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasta League 2025</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- 🍝 מסך פתיחה -->
-  <div id="introOverlay">
-    <h1 class="introTitle">🍝 Pasta League ⚽</h1>
-  </div>
+  <header>
+    <h1>🍝 Pasta League — Season 2025 🍝</h1>
+    <p>Total Goals: ⚽ <span id="totalGoals">0</span></p>
 
-  <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <p id="totalGoals">Total Goals: 0 ⚽</p>
+    <!-- כפתור מעבר לעמוד השחקנים -->
+    <a href="players.html" class="players-btn">👤 רשימת שחקנים</a>
+  </header>
 
   <section>
     <h2>League Table</h2>
-    <table>
+    <table id="leagueTable">
       <thead>
         <tr>
-          <th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>Pts</th>
         </tr>
       </thead>
-      <tbody id="tableBody"><tr><td colspan="8">Loading...</td></tr></tbody>
+      <tbody id="tableBody">
+        <tr><td colspan="8">Loading...</td></tr>
+      </tbody>
     </table>
   </section>
 
   <section>
     <h2>Top Scorers</h2>
-    <table>
-      <thead><tr><th>#</th><th>Player</th><th>Goals</th></tr></thead>
-      <tbody id="scorersBody"><tr><td colspan="3">Loading...</td></tr></tbody>
+    <table id="scorersTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Goals</th>
+        </tr>
+      </thead>
+      <tbody id="scorersBody">
+        <tr><td colspan="3">Loading...</td></tr>
+      </tbody>
     </table>
   </section>
 
@@ -96,10 +58,8 @@
     <p>Upload coming soon...</p>
   </section>
 
-  <!-- 🎵 מוזיקת פתיחה -->
-  <audio id="warMusic"
-    src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c424a6b69.mp3?filename=battle-epic-heroic-trailer-115997.mp3"
-    preload="auto"></audio>
+  <!-- מוסיקה פתיחה -->
+  <audio id="warMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3e93a97b56.mp3?filename=epic-war-intro-11082.mp3"></audio>
 
   <script>
     window.addEventListener("load", () => {
@@ -108,18 +68,18 @@
 
       const tryPlay = () => {
         music.play().catch(() => {
-          document.body.addEventListener('click', () => music.play(), { once: true });
+          document.body.addEventListener("click", () => music.play(), { once: true });
         });
       };
       tryPlay();
 
-      // fade in
+      // Fade in
       const fadeIn = setInterval(() => {
         if (music.volume < 0.7) music.volume += 0.05;
         else clearInterval(fadeIn);
       }, 150);
 
-      // fade out אחרי 10 שניות
+      // Fade out אחרי 10 שניות
       setTimeout(() => {
         const fadeOut = setInterval(() => {
           if (music.volume > 0) music.volume -= 0.05;
