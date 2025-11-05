@@ -3,96 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pasta League 2025</title>
+  <title>Pasta League — Season 2025</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2em;
+      color: gold;
+      text-shadow: 0 0 10px #00bfff;
+    }
+    table {
+      width: 95%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      color: white;
+      border: 2px solid gold;
+      box-shadow: 0 0 15px gold;
+    }
+    th, td {
+      border: 1px solid gold;
+      padding: 10px;
+      font-size: 1em;
+    }
+    th {
+      background-color: #111;
+      color: #00bfff;
+      text-shadow: 0 0 8px #00bfff;
+    }
+    td {
+      background-color: #000;
+    }
+    a {
+      color: #00bfff;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a:hover {
+      color: gold;
+      text-shadow: 0 0 10px gold;
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <h1>🍝 Pasta League — Season 2025 🍝</h1>
-    <p>Total Goals: ⚽ <span id="totalGoals">0</span></p>
+  <h1>🍝 Pasta League — Season 2025 🍝</h1>
+  <h3>Total Goals: ⚽ 0 ⚽</h3>
 
-    <!-- כפתור מעבר לעמוד השחקנים -->
-    <a href="players.html" class="players-btn">👤 רשימת שחקנים</a>
-  </header>
+  <a href="players.html">📘 רשימת שחקנים</a>
 
-  <section>
-    <h2>League Table</h2>
-    <table id="leagueTable">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>Pts</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <tr><td colspan="8">Loading...</td></tr>
-      </tbody>
-    </table>
-  </section>
+  <h2>League Table</h2>
+  <table>
+    <tr>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>W</th>
+      <th>D</th>
+      <th>L</th>
+      <th>GF</th>
+      <th>GA</th>
+      <th>Pts</th>
+    </tr>
+    <tr><td>1</td><td>Shabo</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>2</td><td>Ilya</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>3</td><td>Liad</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>4</td><td>Aviv</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>5</td><td>Elior</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>6</td><td>Yarden</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>7</td><td>Arthur</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>8</td><td>Gil</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>9</td><td>Alex</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>10</td><td>Tibi</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+  </table>
 
-  <section>
-    <h2>Top Scorers</h2>
-    <table id="scorersTable">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Player</th>
-          <th>Goals</th>
-        </tr>
-      </thead>
-      <tbody id="scorersBody">
-        <tr><td colspan="3">Loading...</td></tr>
-      </tbody>
-    </table>
-  </section>
+  <h2>Top Scorers</h2>
+  <p># Player Goals</p>
 
-  <section>
-    <h2>Goal of the Week 🎥</h2>
-    <p>Upload coming soon...</p>
-  </section>
-
-  <!-- מוסיקה פתיחה -->
-  <audio id="warMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3e93a97b56.mp3?filename=epic-war-intro-11082.mp3"></audio>
-
-  <script>
-    window.addEventListener("load", () => {
-      const music = document.getElementById("warMusic");
-      music.volume = 0;
-
-      const tryPlay = () => {
-        music.play().catch(() => {
-          document.body.addEventListener("click", () => music.play(), { once: true });
-        });
-      };
-      tryPlay();
-
-      // Fade in
-      const fadeIn = setInterval(() => {
-        if (music.volume < 0.7) music.volume += 0.05;
-        else clearInterval(fadeIn);
-      }, 150);
-
-      // Fade out אחרי 10 שניות
-      setTimeout(() => {
-        const fadeOut = setInterval(() => {
-          if (music.volume > 0) music.volume -= 0.05;
-          else {
-            clearInterval(fadeOut);
-            music.pause();
-            music.currentTime = 0;
-          }
-        }, 150);
-      }, 10000);
-    });
-  </script>
-
-  <script src="script.js"></script>
+  <h2>Goal of the Week 🎥</h2>
 </body>
 </html>
