@@ -13,12 +13,46 @@
       text-align: center;
       margin: 0;
       padding: 20px;
+      overflow-x: hidden;
     }
+
+    /* מסך פתיחה עם לוגו */
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      animation: fadeOut 1s ease-in-out 2s forwards;
+    }
+
+    #intro img {
+      width: 150px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 0px gold); }
+      to { filter: drop-shadow(0 0 25px gold); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* טבלה */
     h1 {
       font-size: 2em;
       color: gold;
       text-shadow: 0 0 10px #00bfff;
     }
+
     table {
       width: 95%;
       margin: 20px auto;
@@ -27,37 +61,55 @@
       border: 2px solid gold;
       box-shadow: 0 0 15px gold;
     }
+
     th, td {
       border: 1px solid gold;
       padding: 10px;
       font-size: 1em;
     }
+
     th {
       background-color: #111;
       color: #00bfff;
       text-shadow: 0 0 8px #00bfff;
     }
+
     td {
       background-color: #000;
     }
-    a {
-      color: #00bfff;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    a:hover {
+
+    /* מקום ראשון מנצנץ */
+    .first-place {
       color: gold;
-      text-shadow: 0 0 10px gold;
+      text-shadow: 0 0 10px gold, 0 0 20px orange;
+      animation: sparkle 1.5s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      from { text-shadow: 0 0 5px gold, 0 0 10px orange; }
+      to { text-shadow: 0 0 20px gold, 0 0 40px orange; }
+    }
+
+    .trophy {
+      font-size: 1.2em;
+      margin-left: 5px;
     }
   </style>
 </head>
 
 <body>
+  <!-- מסך פתיחה -->
+  <div id="intro">
+    <img src="https://em-content.zobj.net/source/apple/391/spaghetti_1f35d.png" alt="Pasta Logo">
+    <audio autoplay>
+      <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+    </audio>
+  </div>
+
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
   <h3>Total Goals: ⚽ 0 ⚽</h3>
 
-  <a href="players.html">📘 רשימת שחקנים</a>
+  <a href="players.html" style="color:#00bfff; text-decoration:none;">📘 רשימת שחקנים</a>
 
   <h2>League Table</h2>
   <table>
@@ -71,7 +123,7 @@
       <th>GA</th>
       <th>Pts</th>
     </tr>
-    <tr><td>1</td><td>Shabo</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td class="first-place">Shabo 🏆</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>2</td><td>Ilya</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>3</td><td>Liad</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>4</td><td>Aviv</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
