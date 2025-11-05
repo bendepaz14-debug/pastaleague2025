@@ -110,3 +110,74 @@ td {
   background-color: #fff;
   box-shadow: 0 0 20px #FFD700;
 }
+/* עיצוב דף השחקנים */
+.players-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+}
+
+.player-card {
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #ffcc00;
+  border-radius: 15px;
+  padding: 15px;
+  width: 250px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 10px #ffcc00;
+  transition: transform 0.3s ease;
+}
+
+.player-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ffff;
+}
+
+.player-card img {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #ffcc00;
+}
+
+.player-name {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+/* אפקט ברק כחול-לבן */
+.lightning {
+  background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lightningMove 2.5s infinite linear;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ffffff;
+}
+
+@keyframes lightningMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* כפתור חזרה */
+.back-btn {
+  display: inline-block;
+  margin: 40px auto;
+  padding: 10px 20px;
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.back-btn:hover {
+  background-color: #ffcc00;
+  color: black;
+  box-shadow: 0 0 15px #ffcc00;
+}
