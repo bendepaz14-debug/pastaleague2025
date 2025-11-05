@@ -6,54 +6,82 @@
   <title>שחקני Pasta League</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <h1>👥 רשימת שחקנים - Pasta League</h1>
-    <a href="index.html" class="back-btn">🏠 חזרה לעמוד הראשי</a>
-  </header>
+  <h1 class="page-title">⚡ שחקני הליגה ⚡</h1>
 
-  <div class="players-container" id="playersContainer">
-    <p>טוען נתונים...</p>
+  <div class="players-container">
+
+    <div class="player-card">
+      <img src="Alex.jpeg" alt="Alex">
+      <h2 class="player-name lightning">Alex</h2>
+      <p>ניצחונות: 2 | הפסדים: 1 | תיקו: 1 | שערים: 2</p>
+      <p>הקפטן המושלם</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Tibi.jpeg" alt="Tibi">
+      <h2 class="player-name lightning">Tibi</h2>
+      <p>ניצחונות: 3 | הפסדים: 1 | תיקו: 0 | שערים: 6</p>
+      <p>החלוץ הגדול</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Artur.jpeg" alt="Artur">
+      <h2 class="player-name lightning">Artur</h2>
+      <p>ניצחונות: 4 | הפסדים: 2 | תיקו: 1 | שערים: 5</p>
+      <p>הבוס של ההגנה</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Liad.jpeg" alt="Liad">
+      <h2 class="player-name lightning">Liad</h2>
+      <p>ניצחונות: 7 | הפסדים: 1 | תיקו: 0 | שערים: 15</p>
+      <p>מכונת שערים רשמית</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Yarden.jpeg" alt="Yarden">
+      <h2 class="player-name lightning">Yarden</h2>
+      <p>ניצחונות: 3 | הפסדים: 3 | תיקו: 1 | שערים: 3</p>
+      <p>מהיר כמו רוח</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Elior.jpeg" alt="Elior">
+      <h2 class="player-name lightning">Elior</h2>
+      <p>ניצחונות: 5 | הפסדים: 2 | תיקו: 1 | שערים: 4</p>
+      <p>אמן ההגנה</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Gil.jpeg" alt="Gil">
+      <h2 class="player-name lightning">Gil</h2>
+      <p>ניצחונות: 2 | הפסדים: 2 | תיקו: 1 | שערים: 1</p>
+      <p>קוסם על הדשא</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Aviv.jpeg" alt="Aviv">
+      <h2 class="player-name lightning">Aviv</h2>
+      <p>ניצחונות: 5 | הפסדים: 3 | תיקו: 1 | שערים: 9</p>
+      <p>מנצנץ כמו שמש</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Ilya.jpeg" alt="Ilya">
+      <h2 class="player-name lightning">Ilya</h2>
+      <p>ניצחונות: 6 | הפסדים: 0 | תיקו: 2 | שערים: 10</p>
+      <p>השרירן עם הנשמה</p>
+    </div>
+
+    <div class="player-card">
+      <img src="Shabo.jpeg" alt="Shabo">
+      <h2 class="player-name lightning">Shabo</h2>
+      <p>ניצחונות: 8 | הפסדים: 1 | תיקו: 0 | שערים: 11</p>
+      <p>המאמן והאגדה</p>
+    </div>
   </div>
 
-  <script>
-    const sheetURL = "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=Player";
-    
-    fetch(sheetURL)
-      .then(res => res.text())
-      .then(text => {
-        const json = JSON.parse(text.substring(47, text.length - 2));
-        const rows = json.table.rows;
-        const container = document.getElementById("playersContainer");
-        container.innerHTML = "";
-
-        rows.forEach(row => {
-          const name = row.c[0]?.v || "Unknown";
-          const games = row.c[1]?.v || 0;
-          const wins = row.c[2]?.v || 0;
-          const draws = row.c[3]?.v || 0;
-          const losses = row.c[4]?.v || 0;
-          const goals = row.c[5]?.v || 0;
-          const desc = row.c[6]?.v || "";
-          const img = row.c[7]?.v || "";
-
-          const card = `
-            <div class="player-card">
-              <img src="${img}" alt="${name}">
-              <h2>${name}</h2>
-              <p>${desc}</p>
-              <p>משחקים: ${games} | ניצחונות: ${wins} | תיקו: ${draws} | הפסדים: ${losses}</p>
-              <p>⚽ שערים: ${goals}</p>
-            </div>
-          `;
-          container.innerHTML += card;
-        });
-      })
-      .catch(err => {
-        document.getElementById("playersContainer").innerHTML = `<p>⚠️ שגיאה בטעינת הנתונים</p>`;
-        console.error(err);
-      });
-  </script>
+  <a href="index.html" class="back-btn">חזור לעמוד הראשי</a>
 </body>
 </html>
