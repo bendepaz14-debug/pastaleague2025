@@ -1,123 +1,59 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasta League Players</title>
-<style>
-  body {
-    background-color: #000;
-    color: #FFD700;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-
-  h1 {
-    text-shadow: 0 0 10px #FFD700;
-    margin-top: 20px;
-  }
-
-  .players-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin: 40px auto;
-    max-width: 1000px;
-  }
-
-  .player-card {
-    background: #111;
-    border: 2px solid #FFD700;
-    border-radius: 10px;
-    width: 220px;
-    padding: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .player-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #FFD700;
-  }
-
-  .player-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-
-  .player-name {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .player-desc {
-    font-size: 14px;
-    color: #ccc;
-    margin-bottom: 10px;
-  }
-
-  .player-stats {
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .back-link {
-    color: #FFD700;
-    text-decoration: none;
-    display: inline-block;
-    margin: 20px auto;
-    font-size: 18px;
-  }
-  .back-link:hover {
-    color: #fff;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>שחקני Pasta League</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <header>
+    <h1>👥 רשימת שחקנים - Pasta League</h1>
+    <a href="index.html" class="back-btn">🏠 חזרה לעמוד הראשי</a>
+  </header>
 
-<h1>🏆 שחקני Pasta League 🏆</h1>
-<div class="players-container" id="playersContainer">טוען שחקנים...</div>
-<a class="back-link" href="index.html">⬅ חזרה לטבלת הליגה</a>
+  <div class="players-container" id="playersContainer">
+    <p>טוען נתונים...</p>
+  </div>
 
-<script>
-const sheetID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
-const sheetName = "Players";
-const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+  <script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=Player";
+    
+    fetch(sheetURL)
+      .then(res => res.text())
+      .then(text => {
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        const rows = json.table.rows;
+        const container = document.getElementById("playersContainer");
+        container.innerHTML = "";
 
-async function loadPlayers() {
-  const container = document.getElementById("playersContainer");
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    container.innerHTML = "";
+        rows.forEach(row => {
+          const name = row.c[0]?.v || "Unknown";
+          const games = row.c[1]?.v || 0;
+          const wins = row.c[2]?.v || 0;
+          const draws = row.c[3]?.v || 0;
+          const losses = row.c[4]?.v || 0;
+          const goals = row.c[5]?.v || 0;
+          const desc = row.c[6]?.v || "";
+          const img = row.c[7]?.v || "";
 
-    data.forEach(player => {
-      const card = document.createElement("div");
-      card.className = "player-card";
-      card.innerHTML = `
-        <img src="${player.ImageURL}" alt="${player.Name}" class="player-img">
-        <div class="player-name">${player.Name}</div>
-        <div class="player-desc">${player.Description}</div>
-        <div class="player-stats">
-          משחקים: ${player.Games || 0}<br>
-          נצחונות: ${player.Wins || 0}<br>
-          תיקו: ${player.Draws || 0}<br>
-          הפסדים: ${player.Losses || 0}<br>
-          שערים: ${player.Goals || 0}
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  } catch (err) {
-    container.innerHTML = `<p>⚠️ שגיאה בטעינת הנתונים</p>`;
-    console.error(err);
-  }
-}
-
-loadPlayers();
-</script>
+          const card = `
+            <div class="player-card">
+              <img src="${img}" alt="${name}">
+              <h2>${name}</h2>
+              <p>${desc}</p>
+              <p>משחקים: ${games} | ניצחונות: ${wins} | תיקו: ${draws} | הפסדים: ${losses}</p>
+              <p>⚽ שערים: ${goals}</p>
+            </div>
+          `;
+          container.innerHTML += card;
+        });
+      })
+      .catch(err => {
+        document.getElementById("playersContainer").innerHTML = `<p>⚠️ שגיאה בטעינת הנתונים</p>`;
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
