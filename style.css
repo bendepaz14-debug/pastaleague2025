@@ -1,116 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color: #FFD700;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  padding: 20px 0;
-}
-
-h1, h2 {
-  text-shadow: 0 0 10px #FFD700;
-}
-
-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-  width: 80%;
-  border: 2px solid #FFD700;
-}
-
-th, td {
-  border: 1px solid #FFD700;
-  padding: 8px;
-}
-
-th {
-  background-color: #222;
-  color: #FFD700;
-}
-
-td {
-  background-color: #111;
-  color: #fff;
-}
-
-/* כפתור מעבר לעמוד השחקנים */
-.players-btn {
-  display: inline-block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #FFD700;
-  color: #000;
-  font-weight: bold;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 0 10px #FFD700;
-  transition: all 0.3s;
-}
-
-.players-btn:hover {
-  background-color: #fff;
-  box-shadow: 0 0 20px #FFD700;
-}
-
-/* עמוד השחקנים */
-.players-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
-}
-
-.player-card {
-  background-color: #111;
-  border: 2px solid #FFD700;
-  border-radius: 10px;
-  width: 250px;
-  padding: 15px;
-  box-shadow: 0 0 15px #FFD70033;
-  transition: 0.3s;
-}
-
-.player-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #FFD700;
-}
-
-.player-card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.player-card h2 {
-  color: #FFD700;
-  margin: 10px 0 5px 0;
-}
-
-/* כפתור חזרה לעמוד הראשי */
-.back-btn {
-  display: inline-block;
-  margin: 15px auto;
-  padding: 10px 20px;
-  background-color: #FFD700;
-  color: #000;
-  font-weight: bold;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 0 10px #FFD700;
-  transition: all 0.3s;
-}
-
-.back-btn:hover {
-  background-color: #fff;
-  box-shadow: 0 0 20px #FFD700;
-}
-/* עיצוב דף השחקנים */
 .players-container {
   display: flex;
   flex-wrap: wrap;
@@ -120,15 +7,15 @@ td {
 }
 
 .player-card {
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.75);
   border: 2px solid #ffcc00;
   border-radius: 15px;
   padding: 15px;
-  width: 250px;
+  width: 260px;
   text-align: center;
   color: white;
-  box-shadow: 0 0 10px #ffcc00;
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px #ffcc00;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .player-card:hover {
@@ -140,21 +27,22 @@ td {
   width: 100%;
   border-radius: 10px;
   border: 2px solid #ffcc00;
+  margin-bottom: 10px;
 }
 
+/* שם השחקן עם אפקט ברק כחול-לבן */
 .player-name {
-  font-size: 1.5em;
+  font-size: 1.6em;
   margin: 10px 0;
 }
 
-/* אפקט ברק כחול-לבן */
 .lightning {
   background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: lightningMove 2.5s infinite linear;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #ffffff;
+  text-shadow: 0 0 15px #00ffff, 0 0 25px #ffffff;
 }
 
 @keyframes lightningMove {
@@ -164,15 +52,16 @@ td {
 
 /* כפתור חזרה */
 .back-btn {
-  display: inline-block;
+  display: block;
+  width: fit-content;
   margin: 40px auto;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: 2px solid #ffcc00;
   border-radius: 8px;
   color: #ffcc00;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   text-align: center;
 }
 
