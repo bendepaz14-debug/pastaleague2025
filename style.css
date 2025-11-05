@@ -1,107 +1,112 @@
-/* 🌑 רקע כללי */
 body {
+  font-family: Arial, sans-serif;
   background-color: #000;
   color: #FFD700;
-  font-family: 'Arial', sans-serif;
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
-/* 🍝 כותרת ראשית */
-h1 {
-  font-size: 2.4em;
-  margin-top: 20px;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FFD700, 0 0 20px orange;
+header {
+  padding: 20px 0;
 }
 
-/* ⚽ תתי כותרות */
-h2 {
-  color: #FFD700;
-  margin-top: 30px;
-  text-shadow: 0 0 5px #FFD700;
+h1, h2 {
+  text-shadow: 0 0 10px #FFD700;
 }
 
-/* 📋 טבלאות */
 table {
-  width: 85%;
   margin: 20px auto;
   border-collapse: collapse;
-  color: #FFD700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-}
-
-/* 🟨 גבולות של טבלה */
-th, td {
+  width: 80%;
   border: 2px solid #FFD700;
-  padding: 10px;
-  text-align: center;
 }
 
-/* 🖱️ מעבר עכבר */
-tr:hover {
-  background-color: rgba(255, 215, 0, 0.1);
+th, td {
+  border: 1px solid #FFD700;
+  padding: 8px;
+}
+
+th {
+  background-color: #222;
+  color: #FFD700;
+}
+
+td {
+  background-color: #111;
+  color: #fff;
+}
+
+/* כפתור מעבר לעמוד השחקנים */
+.players-btn {
+  display: inline-block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #FFD700;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #FFD700;
+  transition: all 0.3s;
+}
+
+.players-btn:hover {
+  background-color: #fff;
+  box-shadow: 0 0 20px #FFD700;
+}
+
+/* עמוד השחקנים */
+.players-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.player-card {
+  background-color: #111;
+  border: 2px solid #FFD700;
+  border-radius: 10px;
+  width: 250px;
+  padding: 15px;
+  box-shadow: 0 0 15px #FFD70033;
   transition: 0.3s;
 }
 
-/* 🧱 כותרות טבלה */
-th {
-  background-color: #111;
+.player-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #FFD700;
+}
+
+.player-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.player-card h2 {
+  color: #FFD700;
+  margin: 10px 0 5px 0;
+}
+
+/* כפתור חזרה לעמוד הראשי */
+.back-btn {
+  display: inline-block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: #FFD700;
+  color: #000;
   font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #FFD700;
+  transition: all 0.3s;
 }
 
-/* 🏆 מקום ראשון מיוחד */
-tr:first-child td {
-  color: gold;
-  font-weight: bold;
-  background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3), rgba(255,215,0,0.1));
-  animation: shineRow 2s infinite linear;
-  box-shadow: 0 0 15px rgba(255,215,0,0.5);
-}
-
-/* 🏆 גביע ליד שם המקום הראשון */
-tr:first-child td:nth-child(2)::before {
-  content: "🏆 ";
-  font-size: 1.2em;
-  vertical-align: middle;
-}
-
-/* ✨ נצנוץ על טקסט המקום הראשון */
-@keyframes shineRow {
-  0% {
-    text-shadow: 0 0 10px gold, 0 0 20px orange;
-    background-position: 0% 50%;
-  }
-  50% {
-    text-shadow: 0 0 20px yellow, 0 0 30px gold;
-    background-position: 100% 50%;
-  }
-  100% {
-    text-shadow: 0 0 10px gold, 0 0 20px orange;
-    background-position: 0% 50%;
-  }
-}
-
-/* ⚡ אפקט כללי של טקסט מהבהב (לכותרת אם תוסיף) */
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #FFD700; }
-  50% { text-shadow: 0 0 20px #FFD700; }
-  100% { text-shadow: 0 0 5px #FFD700; }
-}
-
-/* ✨ מלך השערים מקום ראשון */
-#scorersBody tr:first-child td {
-  color: gold;
-  font-weight: bold;
-  background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3), rgba(255,215,0,0.1));
-  animation: shineRow 2s infinite linear;
-  box-shadow: 0 0 15px rgba(255,215,0,0.5);
-}
-
-/* 🏆 גביע ליד שם מלך השערים */
-#scorersBody tr:first-child td:nth-child(2)::before {
-  content: "🏆 ";
-  font-size: 1.2em;
-  vertical-align: middle;
+.back-btn:hover {
+  background-color: #fff;
+  box-shadow: 0 0 20px #FFD700;
 }
