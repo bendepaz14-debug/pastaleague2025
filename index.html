@@ -6,21 +6,104 @@
 <title>Pasta League</title>
 <style>
   body {
-    background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+    background-color: black;
     color: white;
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
   }
 
-  /* אנימציית פתיחה */
+  h1 {
+    color: gold;
+    text-shadow: 0 0 20px gold;
+    margin-top: 20px;
+  }
+
+  table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: black;
+    border: 2px solid gold;
+    box-shadow: 0 0 20px gold;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid gold;
+    text-align: center;
+  }
+
+  th {
+    background-color: gold;
+    color: black;
+    text-transform: uppercase;
+  }
+
+  tr:nth-child(even) {
+    background-color: #111;
+  }
+
+  .top1 {
+    background: linear-gradient(90deg, gold, orange);
+    color: black;
+    font-weight: bold;
+  }
+
+  .top2 {
+    background: linear-gradient(90deg, gold, orange);
+    color: black;
+  }
+
+  .playoff {
+    background: linear-gradient(90deg, #0044ff, #002288);
+  }
+
+  .section {
+    margin-top: 40px;
+  }
+
+  .title {
+    font-size: 1.5em;
+    text-shadow: 0 0 15px #00e0ff;
+    color: cyan;
+  }
+
+  #fixtures {
+    margin-top: 20px;
+  }
+
+  button {
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: orange;
+  }
+
+  footer {
+    color: gray;
+    margin-top: 50px;
+  }
+
+  /* אפקט פתיחה */
   #logo {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: gold;
     font-size: 48px;
     font-weight: bold;
-    color: #00aaff;
-    text-shadow: 0 0 20px #00aaff;
-    margin-top: 40vh;
+    text-shadow: 0 0 30px gold;
     animation: fadeOut 2s ease 2s forwards;
   }
 
@@ -28,213 +111,130 @@
     to { opacity: 0; visibility: hidden; }
   }
 
-  #main-content {
+  #main {
     display: none;
-    animation: fadeIn 1s ease forwards;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  h1 {
-    margin-top: 20px;
-    text-shadow: 0 0 10px #00aaff;
-  }
-
-  table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  th, td {
-    padding: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  th {
-    background-color: #00aaff;
-    color: black;
-  }
-
-  tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-
-  /* מקום ראשון ושני */
-  .top2 {
-    background: linear-gradient(90deg, gold, orange);
-    color: black;
-    font-weight: bold;
-  }
-
-  /* מקומות 3–6 */
-  .playoff {
-    background: linear-gradient(90deg, #3b82f6, #1e40af);
-    font-weight: bold;
-  }
-
-  /* טבלת מלך השערים */
-  .top-scorers {
-    width: 60%;
-    margin: 30px auto;
-    border-collapse: collapse;
-    background-color: rgba(255,255,255,0.1);
-  }
-
-  .top-scorers th {
-    background-color: #00aaff;
-    color: black;
-  }
-
-  /* כפתור הגרלה */
-  button {
-    background-color: #00aaff;
-    border: none;
-    color: black;
-    font-size: 18px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 15px;
-  }
-
-  button:hover {
-    background-color: #0088cc;
-  }
-
-  #fixtures {
-    margin-top: 20px;
-  }
-
-  #dateInfo {
-    color: #ccc;
-    margin-top: 8px;
-  }
-
-  footer {
-    margin: 40px 0;
-    color: #888;
-  }
 </style>
 </head>
 <body>
 
-<div id="logo">PASTA LEAGUE</div>
+<div id="logo">🍝 PASTA LEAGUE 🍝</div>
 
-<div id="main-content">
-  <h1>🏆 Pasta League Table</h1>
-
+<div id="main">
+  <h1>League Table</h1>
   <table id="leagueTable">
     <thead>
       <tr>
         <th>Rank</th>
         <th>Player</th>
-        <th>Points</th>
-        <th>Goals</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GF</th>
+        <th>GA</th>
+        <th>Pts</th>
       </tr>
     </thead>
     <tbody id="leagueBody"></tbody>
   </table>
 
-  <h2>⚽ Top Scorers</h2>
-  <table class="top-scorers" id="scorersTable">
-    <thead>
-      <tr><th>Player</th><th>Goals</th></tr>
-    </thead>
-    <tbody id="scorersBody"></tbody>
-  </table>
+  <div class="section">
+    <div class="title">Top Scorers ⚽</div>
+    <table id="scorersTable">
+      <thead>
+        <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
+      </thead>
+      <tbody id="scorersBody"></tbody>
+    </table>
+  </div>
 
-  <h2>🎯 Next Fixtures</h2>
-  <div id="fixtures"></div>
-  <div id="dateInfo"></div>
-  <button id="drawButton">Draw New Fixtures</button>
+  <div class="section">
+    <div class="title">Next Fixtures 🎯</div>
+    <div id="fixtures">No fixtures yet</div>
+    <p id="lastUpdate" style="color:gray;font-size:14px;"></p>
+    <button id="drawButton">Draw New Fixtures</button>
+  </div>
 
   <footer>© 2025 Pasta League</footer>
 </div>
 
 <script>
-  // להציג את התוכן אחרי הלוגו
+  // אפקט פתיחה
   setTimeout(() => {
-    document.getElementById('logo').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
+    document.getElementById("logo").style.display = "none";
+    document.getElementById("main").style.display = "block";
   }, 2000);
 
-  // נתוני טבלה לדוגמה
+  // רשימת שחקנים
   const players = [
-    { name: "Alex", points: 15, goals: 10 },
-    { name: "Tibi", points: 13, goals: 8 },
-    { name: "Artur", points: 12, goals: 9 },
-    { name: "Liad", points: 11, goals: 7 },
-    { name: "Yarden", points: 10, goals: 6 },
-    { name: "Elior", points: 9, goals: 5 },
-    { name: "Gil", points: 8, goals: 4 },
-    { name: "Aviv", points: 7, goals: 3 },
-    { name: "Ilya", points: 6, goals: 2 },
-    { name: "Shabo", points: 5, goals: 1 }
+    "Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"
   ];
 
+  // טבלת ליגה
   const leagueBody = document.getElementById("leagueBody");
-
-  players.forEach((p, index) => {
+  players.forEach((player, index) => {
     const row = document.createElement("tr");
-    if (index < 2) row.classList.add("top2");
-    else if (index < 6) row.classList.add("playoff");
+    if (index === 0) row.classList.add("top1");
+    else if (index === 1) row.classList.add("top2");
+    else if (index >= 2 && index <= 5) row.classList.add("playoff");
     row.innerHTML = `
-      <td>${index + 1} ${index < 2 ? "⬆️" : ""}</td>
-      <td>${p.name}</td>
-      <td>${p.points}</td>
-      <td>${p.goals}</td>
+      <td>${index + 1}</td>
+      <td>${player} ${index === 0 ? "🏆" : index === 1 ? "🥈" : ""}</td>
+      <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     `;
     leagueBody.appendChild(row);
   });
 
-  // מלך השערים
-  const topScorers = [...players].sort((a,b)=>b.goals - a.goals).slice(0,5);
+  // מלך השערים (מאופס)
   const scorersBody = document.getElementById("scorersBody");
-  topScorers.forEach(s=>{
-    const row=document.createElement("tr");
-    row.innerHTML=`<td>${s.name}</td><td>⚽ ${s.goals}</td>`;
+  players.slice(0,5).forEach((player, i) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${i+1}</td><td>${player}</td><td>0</td>`;
     scorersBody.appendChild(row);
   });
 
-  // הגרלה
+  // מערכת הגרלה
   const fixturesDiv = document.getElementById("fixtures");
-  const dateInfo = document.getElementById("dateInfo");
+  const lastUpdate = document.getElementById("lastUpdate");
   const drawButton = document.getElementById("drawButton");
 
-  let fixtures = JSON.parse(localStorage.getItem("fixtures") || "[]");
-  let dateSaved = localStorage.getItem("fixturesDate");
+  let savedFixtures = JSON.parse(localStorage.getItem("pasta_fixtures") || "[]");
+  let savedDate = localStorage.getItem("pasta_fixtures_date");
 
-  function displayFixtures() {
-    fixturesDiv.innerHTML = fixtures.length 
-      ? fixtures.map(f => `<div>${f}</div>`).join("") 
-      : "<p>No fixtures yet.</p>";
-    dateInfo.textContent = dateSaved ? `Last updated: ${dateSaved}` : "";
+  function renderFixtures() {
+    if (savedFixtures.length > 0) {
+      fixturesDiv.innerHTML = savedFixtures.map(m => `<p>${m}</p>`).join("");
+      lastUpdate.innerText = "Last updated: " + savedDate;
+    } else {
+      fixturesDiv.innerHTML = "<p>No fixtures yet</p>";
+      lastUpdate.innerText = "";
+    }
   }
 
-  displayFixtures();
+  renderFixtures();
 
-  drawButton.onclick = () => {
+  drawButton.addEventListener("click", () => {
     const pass = prompt("Enter password:");
-    if (pass !== "1122") return alert("Wrong password!");
-    
-    const shuffled = [...players].sort(()=>Math.random()-0.5);
-    const newFixtures = [];
-    for(let i=0;i<players.length;i+=2){
-      if (shuffled[i+1]) newFixtures.push(`${shuffled[i].name} ⚔️ ${shuffled[i+1].name}`);
+    if (pass !== "1122") {
+      alert("Wrong password!");
+      return;
     }
-    fixtures = newFixtures;
-    dateSaved = new Date().toLocaleString();
-    localStorage.setItem("fixtures", JSON.stringify(fixtures));
-    localStorage.setItem("fixturesDate", dateSaved);
-    displayFixtures();
-  };
+
+    const shuffled = [...players].sort(() => Math.random() - 0.5);
+    const fixtures = [];
+    for (let i = 0; i < shuffled.length; i += 2) {
+      if (shuffled[i+1]) {
+        fixtures.push(`${shuffled[i]} ⚔️ ${shuffled[i+1]}`);
+      }
+    }
+
+    savedFixtures = fixtures;
+    savedDate = new Date().toLocaleString();
+    localStorage.setItem("pasta_fixtures", JSON.stringify(fixtures));
+    localStorage.setItem("pasta_fixtures_date", savedDate);
+    renderFixtures();
+  });
 </script>
 
 </body>
