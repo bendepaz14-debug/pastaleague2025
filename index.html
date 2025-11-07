@@ -1,39 +1,70 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pasta League 2025 🍝</title>
   <style>
     body {
-      background-color: black;
-      color: white;
+      background-color: #000;
+      color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
     }
+
+    h1, h2 {
+      color: gold;
+      text-shadow: 0 0 10px gold;
+      margin-top: 30px;
+    }
+
     table {
+      width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
-      width: 90%;
-      color: white;
-      border: 2px solid gold;
       box-shadow: 0 0 20px gold;
+      border: 2px solid gold;
+      background-color: #111;
     }
+
     th, td {
       border: 1px solid gold;
       padding: 10px;
+      text-align: center;
     }
+
     th {
-      background-color: #111;
+      color: gold;
+      font-size: 1.1em;
+      text-shadow: 0 0 8px gold;
     }
-    tr.gold { background: linear-gradient(90deg, gold, #ffecb3); font-weight: bold; }
-    tr.silver { background: linear-gradient(90deg, silver, #e0e0e0); font-weight: bold; }
-    tr.playoff { background: rgba(255, 255, 100, 0.2); }
+
+    tr.gold {
+      background: linear-gradient(90deg, #ffd700, #ffed90);
+      color: black;
+      font-weight: bold;
+    }
+
+    tr.silver {
+      background: linear-gradient(90deg, #c0c0c0, #f0f0f0);
+      color: black;
+      font-weight: bold;
+    }
+
+    tr.playoff {
+      background-color: rgba(255, 255, 100, 0.2);
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: rgba(255, 215, 0, 0.1);
+    }
 
     .section-title {
-      margin-top: 40px;
-      font-size: 1.8em;
+      color: gold;
       text-shadow: 0 0 10px gold;
+      font-size: 1.8em;
+      margin-top: 40px;
     }
 
     button {
@@ -41,14 +72,16 @@
       color: black;
       border: none;
       padding: 12px 24px;
-      margin-top: 10px;
-      font-size: 1em;
       border-radius: 10px;
+      font-size: 1em;
       cursor: pointer;
+      margin-top: 10px;
     }
+
     button:hover {
       background-color: orange;
     }
+
     #fixture-section {
       margin: 40px auto;
       background: #111;
@@ -58,68 +91,68 @@
       border-radius: 10px;
       box-shadow: 0 0 15px gold;
     }
+
     .timestamp {
       margin-top: 10px;
       font-size: 0.9em;
       color: #ccc;
     }
+
     a {
       color: #00bfff;
       text-decoration: none;
     }
   </style>
 </head>
-<body>
-  <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <a href="players.html">📸 רשימת שחקנים</a>
 
-  <h2 class="section-title">טבלת ליגה 🏆</h2>
+<body>
+  <h1>🍝 Pasta League 2025 🍝</h1>
+  <a href="players.html">📸 Players List</a>
+
+  <h2 class="section-title">League Table 🏆</h2>
   <table>
     <thead>
       <tr>
-        <th>מקום</th>
-        <th>שחקן</th>
-        <th>ניצחונות</th>
-        <th>תיקו</th>
-        <th>הפסדים</th>
-        <th>שערי זכות</th>
-        <th>שערי חובה</th>
-        <th>נקודות</th>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GF</th>
+        <th>GA</th>
+        <th>Pts</th>
       </tr>
     </thead>
     <tbody id="league-table-body"></tbody>
   </table>
 
-  <h2 class="section-title">מלך השערים ⚽</h2>
+  <h2 class="section-title">Top Scorers ⚽</h2>
   <table>
     <thead>
       <tr>
-        <th>מקום</th>
-        <th>שחקן</th>
-        <th>שערים</th>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Goals</th>
       </tr>
     </thead>
     <tbody id="scorers-body"></tbody>
   </table>
 
   <div id="fixture-section">
-    <h2 class="section-title">הגרלת המחזור הבא 🎲</h2>
-    <div id="fixture-display">לחץ על כפתור ההגרלה כדי לקבוע את המשחקים הבאים.</div>
-    <button id="draw-btn" onclick="handleDraw()">בצע הגרלה</button>
+    <h2 class="section-title">Next Round Draw 🎲</h2>
+    <div id="fixture-display">Press the button to make a draw.</div>
+    <button onclick="handleDraw()">Draw Matches</button>
     <div class="timestamp" id="timestamp"></div>
   </div>
 
   <script>
     const sheetId = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
 
-    // טעינת טבלת ליגה
     async function loadLeagueTable() {
       const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=LeagueTable`;
       const response = await fetch(url);
       const data = await response.text();
-      const rows = data.trim().split("\n").map(r =>
-        r.split(",").map(c => c.replace(/^"|"$/g, "").trim())
-      );
+      const rows = data.trim().split("\n").map(r => r.split(",").map(c => c.replace(/^"|"$/g, "").trim()));
 
       const body = document.getElementById("league-table-body");
       body.innerHTML = "";
@@ -127,12 +160,18 @@
       for (let i = 1; i < rows.length; i++) {
         const [player, w, d, l, gf, ga, pts] = rows[i];
         const row = document.createElement("tr");
+
         if (i === 1) row.classList.add("gold");
         else if (i === 2) row.classList.add("silver");
         else if (i >= 3 && i <= 6) row.classList.add("playoff");
+
+        // Add arrow up (⬆️) for top 2 places
+        let displayName = player;
+        if (i === 1 || i === 2) displayName += " ⬆️";
+
         row.innerHTML = `
           <td>${i}</td>
-          <td>${player}</td>
+          <td>${displayName}</td>
           <td>${w || 0}</td>
           <td>${d || 0}</td>
           <td>${l || 0}</td>
@@ -143,14 +182,11 @@
       }
     }
 
-    // טעינת טבלת מלך השערים
     async function loadScorers() {
       const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=LeagueTable`;
       const response = await fetch(url);
       const data = await response.text();
-      const rows = data.trim().split("\n").map(r =>
-        r.split(",").map(c => c.replace(/^"|"$/g, "").trim())
-      );
+      const rows = data.trim().split("\n").map(r => r.split(",").map(c => c.replace(/^"|"$/g, "").trim()));
 
       const players = rows.slice(1).map(r => ({
         name: r[0],
@@ -168,20 +204,19 @@
       });
     }
 
-    // מערכת הגרלה
     let usedPairs = JSON.parse(localStorage.getItem("usedPairs") || "[]");
 
     function handleDraw() {
-      const password = prompt("הכנס סיסמה כדי לבצע הגרלה:");
+      const password = prompt("Enter password to draw:");
       if (password !== "1122") {
-        alert("סיסמה שגויה ❌");
+        alert("Wrong password ❌");
         return;
       }
 
       const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
       let pairs = [];
-
       const available = players.slice();
+
       while (available.length >= 2) {
         const p1 = available.splice(Math.floor(Math.random() * available.length), 1)[0];
         const p2 = available.splice(Math.floor(Math.random() * available.length), 1)[0];
@@ -193,9 +228,9 @@
       }
 
       localStorage.setItem("usedPairs", JSON.stringify(usedPairs));
-      const now = new Date().toLocaleString("he-IL");
+      const now = new Date().toLocaleString("en-GB");
       document.getElementById("fixture-display").innerHTML = pairs.join("<br>");
-      document.getElementById("timestamp").textContent = "עודכן ב־" + now;
+      document.getElementById("timestamp").textContent = "Updated at " + now;
     }
 
     loadLeagueTable();
