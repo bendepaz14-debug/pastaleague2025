@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasta League — Season 2025 🍝</title>
+<title>Pasta League 🍝</title>
 
 <style>
   body {
@@ -16,7 +16,7 @@
 
   h1 {
     text-shadow: 0 0 15px gold;
-    font-size: 2.2em;
+    font-size: 2.3em;
     margin-top: 30px;
   }
 
@@ -47,7 +47,6 @@
   tr:nth-child(even) { background-color: #111; }
   tr:nth-child(odd) { background-color: #000; }
 
-  /* 🥇 מקום ראשון ושני */
   .top2 {
     background-color: #443300;
     color: gold;
@@ -55,14 +54,12 @@
     text-shadow: 0 0 10px gold;
   }
 
-  /* ⚔️ מקום 3–6 – פלייאוף */
   .playoff {
     background-color: #002233;
     color: #00ffff;
     text-shadow: 0 0 10px #00ffff;
   }
 
-  /* שאר המקומות */
   .normal {
     background-color: #111;
     color: white;
@@ -76,7 +73,7 @@
     color: black;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 15px;
+    margin: 10px;
     transition: 0.3s;
   }
 
@@ -132,6 +129,7 @@
 
 <h1>🍝 Pasta League — Season 2025 🍝</h1>
 
+<!-- טבלת הליגה -->
 <h2>League Table 🏆</h2>
 <table>
   <tr><th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th></tr>
@@ -147,14 +145,34 @@
   <tr class="normal"><td>10</td><td>Tibi</td><td>0</td><td>1</td><td>3</td><td>2</td><td>10</td><td>1</td></tr>
 </table>
 
+<!-- טבלת מלך השערים -->
+<h2>Top Scorers ⚽</h2>
+<table>
+  <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
+  <tr class="top2"><td>1</td><td>Shabo ⚽</td><td>12</td></tr>
+  <tr class="top2"><td>2</td><td>Ilya ⚽</td><td>10</td></tr>
+  <tr class="playoff"><td>3</td><td>Liad</td><td>8</td></tr>
+  <tr class="playoff"><td>4</td><td>Aviv</td><td>7</td></tr>
+  <tr class="playoff"><td>5</td><td>Gil</td><td>5</td></tr>
+</table>
+
 <h2>⚽ תוצאות אחרונות (הגרלה אחרונה)</h2>
+
+<div id="admin-login">
+  <button onclick="adminLogin()">כניסת מנהל 🔐</button>
+</div>
+
 <div id="admin-section" style="display:none;">
   <button onclick="drawNextRound()">בצע הגרלה למחזור הבא</button>
+  <button onclick="logoutAdmin()">התנתק מניהול 🚪</button>
 </div>
 
 <div id="draw-results"></div>
 <div id="timestamp"></div>
 <div id="last-update"></div>
+
+<br>
+<a href="players.html" style="color: gold; text-decoration: none; font-size: 18px;">👥 מעבר לעמוד השחקנים</a>
 
 <script>
 const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
@@ -168,9 +186,32 @@ if (data.results) {
   document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + data.time;
 }
 
-// רק למנהל
-const isAdmin = confirm("האם אתה מנהל הליגה?");
-if (isAdmin) document.getElementById("admin-section").style.display = "block";
+// בדוק אם אתה מנהל
+let isAdmin = localStorage.getItem("isPastaAdmin") === "true";
+if (isAdmin) {
+  document.getElementById("admin-section").style.display = "block";
+  document.getElementById("admin-login").style.display = "none";
+}
+
+// כניסת מנהל
+function adminLogin() {
+  const entered = prompt("הכנס סיסמת מנהל:");
+  if (entered === password) {
+    localStorage.setItem("isPastaAdmin", "true");
+    alert("✅ מצב מנהל הופעל — אתה יכול לבצע הגרלות.");
+    document.getElementById("admin-section").style.display = "block";
+    document.getElementById("admin-login").style.display = "none";
+  } else {
+    alert("❌ סיסמה שגויה");
+  }
+}
+
+// יציאה מניהול
+function logoutAdmin() {
+  localStorage.removeItem("isPastaAdmin");
+  alert("התנתקת ממנהל. מצב מנהל בוטל.");
+  location.reload();
+}
 
 // הגרלה
 function drawNextRound() {
