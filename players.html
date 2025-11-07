@@ -1,165 +1,164 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>רשימת שחקנים - Pasta League</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #000;
-      color: white;
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasta League — Players 👥</title>
 
-    h1 {
-      color: gold;
-      text-shadow: 0 0 12px #00bfff;
-      margin-bottom: 10px;
-    }
+<style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+  }
 
-    .player-card {
-      border: 3px solid gold;
-      border-radius: 15px;
-      padding: 15px;
-      margin: 20px auto;
-      width: 85%;
-      box-shadow: 0 0 20px gold;
-      background-color: #111;
-      transition: transform 0.3s ease;
-    }
+  h1 {
+    color: gold;
+    text-shadow: 0 0 15px gold;
+    margin-top: 25px;
+    font-size: 2.2em;
+  }
 
-    .player-card:hover {
-      transform: scale(1.03);
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    margin: 30px auto;
+    width: 90%;
+  }
 
-    .player-card img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
+  .player {
+    border: 2px solid gold;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #111;
+    box-shadow: 0 0 10px #333;
+    transition: 0.3s;
+  }
 
-    .player-name {
-      font-size: 1.6em;
-      color: #00bfff;
-      text-shadow: 0 0 10px #00bfff;
-      animation: glow 1.8s infinite alternate;
-    }
+  .player:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px gold;
+  }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 8px #00bfff; }
-      to { text-shadow: 0 0 20px #00bfff, 0 0 40px white; }
-    }
+  .player img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 
-    .stats {
-      margin-top: 10px;
-      font-size: 1em;
-      color: #fff;
-    }
+  .name {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    animation: glow 2s infinite alternate;
+  }
 
-    .desc {
-      color: #ccc;
-      margin-top: 5px;
-      font-size: 0.95em;
-    }
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #00ffff; color: #b0e0ff; }
+    to { text-shadow: 0 0 20px #0066ff; color: white; }
+  }
 
-    a {
-      color: #00bfff;
-      font-weight: bold;
-      text-decoration: none;
-    }
+  /* 🥇 מקום 1–2 */
+  .top2 {
+    border-color: gold;
+    background: linear-gradient(180deg, #332200, #000);
+    box-shadow: 0 0 20px gold;
+  }
 
-    a:hover {
-      color: gold;
-      text-shadow: 0 0 10px gold;
-    }
-  </style>
+  /* ⚔️ מקום 3–6 */
+  .playoff {
+    border-color: #00ffff;
+    background: linear-gradient(180deg, #002233, #000);
+    box-shadow: 0 0 20px #00ffff;
+  }
+
+  /* ⚫ שאר המקומות */
+  .normal {
+    border-color: #666;
+    background: #111;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    color: gold;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  a:hover {
+    text-shadow: 0 0 10px gold;
+  }
+
+</style>
 </head>
 
 <body>
+<h1>👥 Pasta League Players</h1>
 
-  <!-- מוזיקה של ליגת האלופות -->
-  <audio autoplay>
-    <source src="https://ia902603.us.archive.org/27/items/uefa-champions-league-anthem_202103/UEFA%20Champions%20League%20Anthem.mp3" type="audio/mpeg">
-  </audio>
+<div class="grid">
 
-  <h1>⚽ רשימת שחקני Pasta League ⚽</h1>
-
-  <div class="player-card">
-    <img src="IMG_0875.jpeg" alt="Ilya">
-    <div class="player-name">Ilya</div>
-    <div class="stats">ניצחונות: 4 | הפסדים: 1 | תיקו: 2 | שערים: 6</div>
-    <div class="desc">הטורף השקט</div>
+  <!-- 🥇 מקום 1 -->
+  <div class="player top2">
+    <img src="alex.jpg" alt="Alex">
+    <div class="name">Alex 🥇</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0876.png" alt="Aviv">
-    <div class="player-name">Aviv</div>
-    <div class="stats">ניצחונות: 3 | הפסדים: 2 | תיקו: 1 | שערים: 5</div>
-    <div class="desc">הקוסם של החוף</div>
+  <!-- 🥈 מקום 2 -->
+  <div class="player top2">
+    <img src="shabo.jpg" alt="Shabo">
+    <div class="name">Shabo 🥈</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0877.jpeg" alt="Gil">
-    <div class="player-name">Gil</div>
-    <div class="stats">ניצחונות: 2 | הפסדים: 2 | תיקו: 3 | שערים: 4</div>
-    <div class="desc">הלב של הקבוצה</div>
+  <!-- ⚔️ מקום 3–6 -->
+  <div class="player playoff">
+    <img src="ilya.jpg" alt="Ilya">
+    <div class="name">Ilya ⚔️</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0878.jpeg" alt="Elior">
-    <div class="player-name">Elior</div>
-    <div class="stats">ניצחונות: 5 | הפסדים: 2 | תיקו: 1 | שערים: 4</div>
-    <div class="desc">אמן ההגנה</div>
+  <div class="player playoff">
+    <img src="liad.jpg" alt="Liad">
+    <div class="name">Liad ⚔️</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0879.jpeg" alt="Yarden">
-    <div class="player-name">Yarden</div>
-    <div class="stats">ניצחונות: 3 | הפסדים: 3 | תיקו: 1 | שערים: 3</div>
-    <div class="desc">מהיר כמו רוח</div>
+  <div class="player playoff">
+    <img src="aviv.jpg" alt="Aviv">
+    <div class="name">Aviv ⚔️</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0880.jpeg" alt="Liad">
-    <div class="player-name">Liad</div>
-    <div class="stats">ניצחונות: 4 | הפסדים: 3 | תיקו: 0 | שערים: 7</div>
-    <div class="desc">הכוכב העולה</div>
+  <div class="player playoff">
+    <img src="gil.jpg" alt="Gil">
+    <div class="name">Gil ⚔️</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0881.jpeg" alt="Arthur">
-    <div class="player-name">Arthur</div>
-    <div class="stats">ניצחונות: 2 | הפסדים: 4 | תיקו: 1 | שערים: 2</div>
-    <div class="desc">הברזילאי של הליגה</div>
+  <!-- ⚫ 7–10 -->
+  <div class="player normal">
+    <img src="elior.jpg" alt="Elior">
+    <div class="name">Elior</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0882.jpeg" alt="Tibi">
-    <div class="player-name">Tibi</div>
-    <div class="stats">ניצחונות: 3 | הפסדים: 1 | תיקו: 2 | שערים: 6</div>
-    <div class="desc">החלוץ הגדול</div>
+  <div class="player normal">
+    <img src="yarden.jpg" alt="Yarden">
+    <div class="name">Yarden</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0883.png" alt="Alex">
-    <div class="player-name">Alex</div>
-    <div class="stats">ניצחונות: 2 | הפסדים: 1 | תיקו: 1 | שערים: 2</div>
-    <div class="desc">הקפטן המושלם</div>
+  <div class="player normal">
+    <img src="artur.jpg" alt="Artur">
+    <div class="name">Artur</div>
   </div>
 
-  <div class="player-card">
-    <img src="IMG_0884.jpeg" alt="Shabo">
-    <div class="player-name">Shabo</div>
-    <div class="stats">ניצחונות: 3 | הפסדים: 1 | תיקו: 0 | שערים: 4</div>
-    <div class="desc">המאסטרו של Pasta</div>
+  <div class="player normal">
+    <img src="tibi.jpg" alt="Tibi">
+    <div class="name">Tibi</div>
   </div>
 
-  <br>
-  <a href="index.html">🏆 חזרה לעמוד הראשי</a>
+</div>
+
+<a href="index.html">🏠 חזרה לעמוד הראשי</a>
 
 </body>
 </html>
