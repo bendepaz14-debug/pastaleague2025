@@ -1,40 +1,81 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>רשימת שחקנים — Pasta League</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pasta League Players 📸</title>
   <style>
     body {
-      background-color: black;
-      color: white;
+      background-color: #000;
+      color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
     }
+
+    h1 {
+      color: gold;
+      text-shadow: 0 0 10px gold;
+      margin-top: 20px;
+    }
+
+    .players-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 30px auto;
+      width: 90%;
+    }
+
     .player-card {
+      background-color: #111;
       border: 2px solid gold;
       border-radius: 15px;
-      box-shadow: 0 0 20px gold;
-      width: 85%;
-      margin: 20px auto;
-      padding: 15px;
-      background-color: #111;
+      box-shadow: 0 0 15px gold;
+      width: 250px;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s;
     }
-    img {
+
+    .player-card:hover {
+      transform: scale(1.05);
+    }
+
+    .player-card img {
       width: 100%;
+      height: 200px;
       border-radius: 10px;
+      object-fit: cover;
       border: 2px solid gold;
+      box-shadow: 0 0 10px gold;
     }
-    h2 {
-      color: cyan;
+
+    .player-card h2 {
+      color: gold;
+      font-size: 1.2em;
+      margin: 10px 0 5px 0;
+      text-shadow: 0 0 10px gold;
+    }
+
+    .player-card p {
+      font-size: 0.9em;
+      color: #ccc;
+      margin: 0 10px 10px 10px;
+    }
+
+    a {
+      color: #00bfff;
+      text-decoration: none;
+      font-size: 1.1em;
     }
   </style>
 </head>
 <body>
-  <h1>📸 רשימת שחקנים</h1>
-  <a href="index.html">⬅️ חזרה לליגה</a>
+  <h1>📸 Pasta League Players</h1>
+  <a href="index.html">🏆 Back to League Table</a>
 
-  <div id="players-list"></div>
+  <div class="players-container" id="players-list"></div>
 
   <script>
     const sheetId = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
@@ -43,23 +84,25 @@
       const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Players`;
       const response = await fetch(url);
       const data = await response.text();
-      const rows = data.trim().split("\n").map(r =>
-        r.split(",").map(c => c.replace(/^"|"$/g, "").trim())
-      );
+      const rows = data.trim().split("\n").map(r => r.split(",").map(c => c.replace(/^"|"$/g, "").trim()));
 
       const container = document.getElementById("players-list");
+      container.innerHTML = "";
+
       for (let i = 1; i < rows.length; i++) {
-        const [name, games, wins, draws, losses, goals, desc, img] = rows[i];
+        const [name, games, wins, draws, losses, goals, description, imageUrl] = rows[i];
+
         const card = document.createElement("div");
-        card.className = "player-card";
+        card.classList.add("player-card");
         card.innerHTML = `
-          <img src="${img}" alt="${name}">
+          <img src="${imageUrl}" alt="${name}">
           <h2>${name}</h2>
-          <p>${desc}</p>
+          <p>${description}</p>
         `;
         container.appendChild(card);
       }
     }
+
     loadPlayers();
   </script>
 </body>
