@@ -1,267 +1,216 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasta League 🍝</title>
-
+<title>Pasta League 2025 ⚽</title>
 <style>
-  body {
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 2.5em;
+  color: gold;
+  text-shadow: 0 0 20px yellow;
+  margin-top: 20px;
+}
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  color: white;
+  box-shadow: 0 0 20px yellow;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid yellow;
+}
+th {
+  background-color: #111;
+  color: gold;
+}
+tr:nth-child(odd) { background-color: #222; }
+tr:nth-child(even) { background-color: #111; }
 
-  h1 {
-    text-shadow: 0 0 15px gold;
-    font-size: 2.3em;
-    margin-top: 30px;
-  }
+.gold { background-color: rgba(255,215,0,0.2); border: 2px solid gold; }
+.playoff { background-color: rgba(0,191,255,0.2); border: 2px solid #00bfff; }
 
-  h2 {
-    color: gold;
-    text-shadow: 0 0 10px yellow;
-  }
+.player-card {
+  display: inline-block;
+  width: 180px;
+  margin: 15px;
+  background: #111;
+  border: 2px solid yellow;
+  border-radius: 10px;
+  box-shadow: 0 0 10px yellow;
+  padding: 10px;
+}
+.player-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+#drawButton {
+  background: gold;
+  color: black;
+  font-size: 18px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+#drawButton:hover { background: orange; }
 
-  table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    border: 2px solid gold;
-    box-shadow: 0 0 20px gold;
-  }
-
-  th, td {
-    border: 1px solid gold;
-    padding: 10px;
-    text-align: center;
-  }
-
-  th {
-    background-color: #222;
-    color: gold;
-  }
-
-  tr:nth-child(even) { background-color: #111; }
-  tr:nth-child(odd) { background-color: #000; }
-
-  .top2 {
-    background-color: #443300;
-    color: gold;
-    font-weight: bold;
-    text-shadow: 0 0 10px gold;
-  }
-
-  .playoff {
-    background-color: #002233;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-  }
-
-  .normal {
-    background-color: #111;
-    color: white;
-  }
-
-  button {
-    padding: 12px 25px;
-    font-size: 16px;
-    border: none;
-    background: gold;
-    color: black;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.3s;
-  }
-
-  button:hover {
-    background: #ffcc00;
-    transform: scale(1.05);
-  }
-
-  #draw-results {
-    margin-top: 20px;
-    font-size: 18px;
-    white-space: pre-line;
-    text-shadow: 0 0 10px gold;
-  }
-
-  #timestamp {
-    margin-top: 10px;
-    color: #66ccff;
-    font-size: 14px;
-  }
-
-  #last-update {
-    margin-top: 15px;
-    color: #00ffff;
-    font-size: 14px;
-    text-shadow: 0 0 10px #00ffff;
-  }
-
-  #logo-screen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: gold;
-    font-size: 2em;
-    text-shadow: 0 0 20px gold;
-    animation: fadeOut 2.5s ease-in-out forwards;
-    animation-delay: 2s;
-    z-index: 9999;
-  }
-
-  @keyframes fadeOut {
-    to { opacity: 0; visibility: hidden; }
-  }
+.match-box {
+  margin-top: 10px;
+  background: #111;
+  border: 1px solid yellow;
+  border-radius: 8px;
+  padding: 5px;
+  display: inline-block;
+  min-width: 150px;
+}
 </style>
 </head>
-
 <body>
-<div id="logo-screen">🍝 Pasta League 🍝</div>
 
-<h1>🍝 Pasta League — Season 2025 🍝</h1>
+<h1>🍝 Pasta League — Season 2025 ⚽</h1>
 
-<!-- טבלת הליגה -->
-<h2>League Table 🏆</h2>
-<table>
-  <tr><th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th></tr>
-  <tr class="top2"><td>1</td><td>Shabo 🏆</td><td>4</td><td>0</td><td>0</td><td>15</td><td>5</td><td>12</td></tr>
-  <tr class="top2"><td>2</td><td>Ilya</td><td>3</td><td>1</td><td>0</td><td>12</td><td>4</td><td>10</td></tr>
-  <tr class="playoff"><td>3</td><td>Liad</td><td>3</td><td>0</td><td>1</td><td>9</td><td>6</td><td>9</td></tr>
-  <tr class="playoff"><td>4</td><td>Aviv</td><td>2</td><td>1</td><td>1</td><td>8</td><td>7</td><td>7</td></tr>
-  <tr class="playoff"><td>5</td><td>Gil</td><td>2</td><td>0</td><td>2</td><td>6</td><td>8</td><td>6</td></tr>
-  <tr class="playoff"><td>6</td><td>Elior</td><td>1</td><td>2</td><td>1</td><td>7</td><td>6</td><td>5</td></tr>
-  <tr class="normal"><td>7</td><td>Arthur</td><td>1</td><td>0</td><td>3</td><td>5</td><td>9</td><td>3</td></tr>
-  <tr class="normal"><td>8</td><td>Yarden</td><td>1</td><td>0</td><td>3</td><td>4</td><td>10</td><td>3</td></tr>
-  <tr class="normal"><td>9</td><td>Alex</td><td>0</td><td>1</td><td>3</td><td>3</td><td>9</td><td>1</td></tr>
-  <tr class="normal"><td>10</td><td>Tibi</td><td>0</td><td>1</td><td>3</td><td>2</td><td>10</td><td>1</td></tr>
+<h2>🏆 טבלת ליגה</h2>
+<table id="leagueTable">
+  <thead>
+    <tr><th>מקום</th><th>שחקן</th><th>נצחונות</th><th>תיקו</th><th>הפסדים</th><th>שערי זכות</th><th>שערי חובה</th><th>נק'</th></tr>
+  </thead>
+  <tbody></tbody>
 </table>
 
-<!-- טבלת מלך השערים -->
-<h2>Top Scorers ⚽</h2>
-<table>
-  <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
-  <tr class="top2"><td>1</td><td>Shabo ⚽</td><td>12</td></tr>
-  <tr class="top2"><td>2</td><td>Ilya ⚽</td><td>10</td></tr>
-  <tr class="playoff"><td>3</td><td>Liad</td><td>8</td></tr>
-  <tr class="playoff"><td>4</td><td>Aviv</td><td>7</td></tr>
-  <tr class="playoff"><td>5</td><td>Gil</td><td>5</td></tr>
+<h2>⚽ מלך השערים</h2>
+<table id="scorersTable">
+  <thead><tr><th>מקום</th><th>שחקן</th><th>שערים</th></tr></thead>
+  <tbody></tbody>
 </table>
 
-<h2>⚽ תוצאות אחרונות (הגרלה אחרונה)</h2>
+<h2>📸 רשימת שחקנים</h2>
+<div id="playersList"></div>
 
-<div id="admin-login">
-  <button onclick="adminLogin()">כניסת מנהל 🔐</button>
-</div>
-
-<div id="admin-section" style="display:none;">
-  <button onclick="drawNextRound()">בצע הגרלה למחזור הבא</button>
-  <button onclick="logoutAdmin()">התנתק מניהול 🚪</button>
-</div>
-
-<div id="draw-results"></div>
-<div id="timestamp"></div>
-<div id="last-update"></div>
-
-<br>
-<a href="players.html" style="color: gold; text-decoration: none; font-size: 18px;">👥 מעבר לעמוד השחקנים</a>
+<h2>🎲 הגרלה למחזור הבא</h2>
+<button id="drawButton">בצע הגרלה</button>
+<p id="drawInfo"></p>
+<div id="matchResults"></div>
 
 <script>
-const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
-const password = "pastaAdmin";
-let data = JSON.parse(localStorage.getItem("pastaMatches")) || { round: 0, playedPairs: [], results: "" };
+// === SETTINGS ===
+const SHEET_ID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
+const LEAGUE_SHEET = "LeagueTable";
+const PLAYERS_SHEET = "Players";
+const LEAGUE_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${LEAGUE_SHEET}`;
+const PLAYERS_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${PLAYERS_SHEET}`;
+const DRAW_KEY = "pasta_league_draw_results";
+const PASSWORD = "1122";
 
-// הצגת ההגרלה האחרונה
-if (data.results) {
-  document.getElementById("draw-results").innerText = data.results;
-  document.getElementById("timestamp").innerText = "הוגרל בתאריך: " + data.time;
-  document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + data.time;
+// === FETCH LEAGUE TABLE ===
+async function loadLeague() {
+  const res = await fetch(LEAGUE_URL);
+  const text = await res.text();
+  const rows = text.split("\n").slice(1).map(r => r.split(","));
+  const tbody = document.querySelector("#leagueTable tbody");
+  tbody.innerHTML = "";
+
+  rows.forEach((r, i) => {
+    if (!r[0]) return;
+    const tr = document.createElement("tr");
+    if (i < 2) tr.classList.add("gold");
+    else if (i < 6) tr.classList.add("playoff");
+
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td>${r[0]}</td>
+      <td>${r[1]}</td>
+      <td>${r[2]}</td>
+      <td>${r[3]}</td>
+      <td>${r[4]}</td>
+      <td>${r[5]}</td>
+      <td>${r[6]}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
-// בדוק אם אתה מנהל
-let isAdmin = localStorage.getItem("isPastaAdmin") === "true";
-if (isAdmin) {
-  document.getElementById("admin-section").style.display = "block";
-  document.getElementById("admin-login").style.display = "none";
+// === FETCH PLAYERS + SCORERS ===
+async function loadPlayers() {
+  const res = await fetch(PLAYERS_URL);
+  const text = await res.text();
+  const rows = text.split("\n").slice(1).map(r => r.split(","));
+  const list = document.getElementById("playersList");
+  const scorers = [];
+
+  list.innerHTML = "";
+  rows.forEach(r => {
+    if (!r[0]) return;
+    list.innerHTML += `
+      <div class="player-card">
+        <img src="${r[8] || ''}" alt="${r[0]}">
+        <h3>${r[0]}</h3>
+        <p>${r[6]}</p>
+      </div>`;
+    scorers.push({name: r[0], goals: parseInt(r[5]||0)});
+  });
+
+  scorers.sort((a,b)=>b.goals - a.goals);
+  const tbody = document.querySelector("#scorersTable tbody");
+  tbody.innerHTML = "";
+  scorers.slice(0,5).forEach((s,i)=>{
+    tbody.innerHTML += `<tr><td>${i+1}</td><td>${s.name} ${i===0?'⚽':''}</td><td>${s.goals}</td></tr>`;
+  });
 }
 
-// כניסת מנהל
-function adminLogin() {
-  const entered = prompt("הכנס סיסמת מנהל:");
-  if (entered === password) {
-    localStorage.setItem("isPastaAdmin", "true");
-    alert("✅ מצב מנהל הופעל — אתה יכול לבצע הגרלות.");
-    document.getElementById("admin-section").style.display = "block";
-    document.getElementById("admin-login").style.display = "none";
-  } else {
-    alert("❌ סיסמה שגויה");
+// === DRAW SYSTEM ===
+function shuffle(arr) {
+  return arr.sort(()=>Math.random()-0.5);
+}
+
+function loadDraw() {
+  const saved = localStorage.getItem(DRAW_KEY);
+  if (!saved) return;
+  const data = JSON.parse(saved);
+  document.getElementById("drawInfo").innerText = `עודכן לאחרונה: ${data.date}`;
+  const box = document.getElementById("matchResults");
+  box.innerHTML = "";
+  data.matches.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "match-box";
+    div.innerText = `${m[0]} ⚔️ ${m[1]}`;
+    box.appendChild(div);
+  });
+}
+
+function doDraw() {
+  const pass = prompt("הכנס סיסמה:");
+  if (pass !== PASSWORD) return alert("סיסמה שגויה ❌");
+
+  const players = Array.from(document.querySelectorAll("#leagueTable tbody tr td:nth-child(2)")).map(td => td.textContent);
+  const shuffled = shuffle(players);
+  const matches = [];
+  for (let i=0; i<shuffled.length; i+=2) {
+    if (shuffled[i+1]) matches.push([shuffled[i], shuffled[i+1]]);
   }
+  const date = new Date().toLocaleString("he-IL");
+  localStorage.setItem(DRAW_KEY, JSON.stringify({date, matches}));
+  loadDraw();
 }
 
-// יציאה מניהול
-function logoutAdmin() {
-  localStorage.removeItem("isPastaAdmin");
-  alert("התנתקת ממנהל. מצב מנהל בוטל.");
-  location.reload();
-}
-
-// הגרלה
-function drawNextRound() {
-  const entered = prompt("הכנס סיסמת מנהל כדי לבצע הגרלה:");
-  if (entered !== password) {
-    alert("גישה נדחתה ❌ — רק מנהל הליגה יכול לבצע הגרלה.");
-    return;
-  }
-
-  if (data.round >= 9) {
-    alert("🎉 כל 9 המחזורים שוחקו!");
-    return;
-  }
-
-  let matches = [];
-  let used = new Set(data.playedPairs);
-
-  const shuffled = [...players].sort(() => Math.random() - 0.5);
-  let available = [...shuffled];
-
-  while (available.length >= 2) {
-    const p1 = available.shift();
-    let p2Index = available.findIndex(p => !used.has(pairKey(p1, p)));
-    if (p2Index === -1) break;
-    const p2 = available.splice(p2Index, 1)[0];
-    used.add(pairKey(p1, p2));
-    matches.push(`${p1} 🆚 ${p2}`);
-  }
-
-  data.round++;
-  const now = new Date();
-  const timeString = now.toLocaleString("he-IL");
-  const results = `⚽ מחזור ${data.round} ⚽\n\n${matches.join("\n")}`;
-
-  data.results = results;
-  data.playedPairs = Array.from(used);
-  data.time = timeString;
-  localStorage.setItem("pastaMatches", JSON.stringify(data));
-
-  document.getElementById("draw-results").innerText = results;
-  document.getElementById("timestamp").innerText = "הוגרל בתאריך: " + timeString;
-  document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + timeString;
-
-  alert("✅ ההגרלה למחזור " + data.round + " נשמרה בהצלחה!");
-}
-
-function pairKey(a, b) {
-  return [a, b].sort().join("-");
-}
+// === INIT ===
+loadLeague();
+loadPlayers();
+loadDraw();
+document.getElementById("drawButton").addEventListener("click", doDraw);
 </script>
-
 </body>
 </html>
