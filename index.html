@@ -25,6 +25,49 @@
     text-shadow: 0 0 10px yellow;
   }
 
+  table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 2px solid gold;
+    box-shadow: 0 0 20px gold;
+  }
+
+  th, td {
+    border: 1px solid gold;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #222;
+    color: gold;
+  }
+
+  tr:nth-child(even) { background-color: #111; }
+  tr:nth-child(odd) { background-color: #000; }
+
+  /* 🥇 מקום ראשון ושני */
+  .top2 {
+    background-color: #443300;
+    color: gold;
+    font-weight: bold;
+    text-shadow: 0 0 10px gold;
+  }
+
+  /* ⚔️ מקום 3–6 – פלייאוף */
+  .playoff {
+    background-color: #002233;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+  }
+
+  /* שאר המקומות */
+  .normal {
+    background-color: #111;
+    color: white;
+  }
+
   button {
     padding: 12px 25px;
     font-size: 16px;
@@ -37,7 +80,10 @@
     transition: 0.3s;
   }
 
-  button:hover { background: #ffcc00; transform: scale(1.05); }
+  button:hover {
+    background: #ffcc00;
+    transform: scale(1.05);
+  }
 
   #draw-results {
     margin-top: 20px;
@@ -86,7 +132,22 @@
 
 <h1>🍝 Pasta League — Season 2025 🍝</h1>
 
-<h2>Next Round Draw 🎲</h2>
+<h2>League Table 🏆</h2>
+<table>
+  <tr><th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th></tr>
+  <tr class="top2"><td>1</td><td>Shabo 🏆</td><td>4</td><td>0</td><td>0</td><td>15</td><td>5</td><td>12</td></tr>
+  <tr class="top2"><td>2</td><td>Ilya</td><td>3</td><td>1</td><td>0</td><td>12</td><td>4</td><td>10</td></tr>
+  <tr class="playoff"><td>3</td><td>Liad</td><td>3</td><td>0</td><td>1</td><td>9</td><td>6</td><td>9</td></tr>
+  <tr class="playoff"><td>4</td><td>Aviv</td><td>2</td><td>1</td><td>1</td><td>8</td><td>7</td><td>7</td></tr>
+  <tr class="playoff"><td>5</td><td>Gil</td><td>2</td><td>0</td><td>2</td><td>6</td><td>8</td><td>6</td></tr>
+  <tr class="playoff"><td>6</td><td>Elior</td><td>1</td><td>2</td><td>1</td><td>7</td><td>6</td><td>5</td></tr>
+  <tr class="normal"><td>7</td><td>Arthur</td><td>1</td><td>0</td><td>3</td><td>5</td><td>9</td><td>3</td></tr>
+  <tr class="normal"><td>8</td><td>Yarden</td><td>1</td><td>0</td><td>3</td><td>4</td><td>10</td><td>3</td></tr>
+  <tr class="normal"><td>9</td><td>Alex</td><td>0</td><td>1</td><td>3</td><td>3</td><td>9</td><td>1</td></tr>
+  <tr class="normal"><td>10</td><td>Tibi</td><td>0</td><td>1</td><td>3</td><td>2</td><td>10</td><td>1</td></tr>
+</table>
+
+<h2>⚽ תוצאות אחרונות (הגרלה אחרונה)</h2>
 <div id="admin-section" style="display:none;">
   <button onclick="drawNextRound()">בצע הגרלה למחזור הבא</button>
 </div>
@@ -97,21 +158,21 @@
 
 <script>
 const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
-const password = "pastaAdmin"; // רק אתה יודע
+const password = "pastaAdmin";
 let data = JSON.parse(localStorage.getItem("pastaMatches")) || { round: 0, playedPairs: [], results: "" };
 
-// הצגת ההגרלה האחרונה (אם קיימת)
+// הצגת ההגרלה האחרונה
 if (data.results) {
   document.getElementById("draw-results").innerText = data.results;
   document.getElementById("timestamp").innerText = "הוגרל בתאריך: " + data.time;
   document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + data.time;
 }
 
-// אם אתה מנהל — תראה את הכפתור
+// רק למנהל
 const isAdmin = confirm("האם אתה מנהל הליגה?");
 if (isAdmin) document.getElementById("admin-section").style.display = "block";
 
-// פונקציה לבחירת משחקים חדשים בלי חזרות
+// הגרלה
 function drawNextRound() {
   const entered = prompt("הכנס סיסמת מנהל כדי לבצע הגרלה:");
   if (entered !== password) {
