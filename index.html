@@ -1,269 +1,222 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pasta League 2025 🍝</title>
+  <title>Pasta League ⚽</title>
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: white;
+      font-family: "Poppins", sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 0;
     }
-
-    h1, h2 {
-      color: gold;
-      text-shadow: 0 0 10px gold;
-      margin-top: 30px;
+    h1 {
+      font-size: 2.5em;
+      color: #ffd700;
+      margin-top: 20px;
     }
-
     table {
       width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
-      box-shadow: 0 0 20px gold;
-      border: 2px solid gold;
-      background-color: #111;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      overflow: hidden;
     }
-
     th, td {
-      border: 1px solid gold;
+      border: 1px solid rgba(255,255,255,0.2);
       padding: 10px;
-      text-align: center;
-    }
-
-    th {
-      color: gold;
       font-size: 1.1em;
-      text-shadow: 0 0 8px gold;
     }
-
-    tr.gold {
-      background: linear-gradient(90deg, #ffd700, #ffed90);
+    th {
+      background: #222;
+    }
+    .first-place {
+      background: linear-gradient(90deg, gold, #ffef9f);
       color: black;
       font-weight: bold;
     }
-
-    tr.silver {
-      background: linear-gradient(90deg, #c0c0c0, #f0f0f0);
+    .second-place {
+      background: linear-gradient(90deg, silver, #dddddd);
       color: black;
       font-weight: bold;
     }
-
-    tr.playoff {
-      background-color: rgba(255, 255, 100, 0.2);
+    .playoff {
+      background: linear-gradient(90deg, #007bff, #00c3ff);
+      color: white;
       font-weight: bold;
     }
-
-    tr:hover {
-      background-color: rgba(255, 215, 0, 0.1);
+    .top-scorers {
+      width: 60%;
+      margin: 40px auto;
     }
-
-    .section-title {
-      color: gold;
-      text-shadow: 0 0 10px gold;
-      font-size: 1.8em;
-      margin-top: 40px;
+    .fixture {
+      background: rgba(255,255,255,0.08);
+      margin: 6px auto;
+      padding: 8px;
+      border-radius: 6px;
+      width: 80%;
+      border: 1px solid #555;
     }
-
-    button {
-      background-color: gold;
+    .draw-button {
+      background: #ffd700;
       color: black;
       border: none;
-      padding: 12px 24px;
+      padding: 10px 25px;
+      font-weight: bold;
       border-radius: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 10px;
+      margin-top: 20px;
     }
-
-    button:hover {
-      background-color: orange;
-    }
-
-    #fixture-section {
-      margin: 40px auto;
-      background: #111;
-      width: 85%;
-      padding: 20px;
-      border: 2px solid gold;
-      border-radius: 10px;
-      box-shadow: 0 0 15px gold;
-    }
-
-    .timestamp {
+    .draw-button:hover { cursor:pointer; opacity:0.9; }
+    #draw-date {
       margin-top: 10px;
-      font-size: 0.9em;
       color: #ccc;
     }
-
-    a {
-      color: #00bfff;
-      text-decoration: none;
+    .player-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .player-card {
+      width: 120px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .player-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .player-card h3 {
+      margin: 8px 0 0;
+      font-size: 1em;
     }
   </style>
 </head>
-
 <body>
-  <h1>🍝 Pasta League 2025 🍝</h1>
-  <a href="players.html">📸 Players List</a>
+  <h1>🏆 Pasta League 🏆</h1>
 
-  <h2 class="section-title">League Table 🏆</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>W</th>
-        <th>D</th>
-        <th>L</th>
-        <th>GF</th>
-        <th>GA</th>
-        <th>Pts</th>
-      </tr>
-    </thead>
-    <tbody id="league-table-body"></tbody>
+  <!-- League Table -->
+  <table id="leagueTable">
+    <tr><th>Pos</th><th>Player</th><th>Points</th></tr>
+    <tr class="first-place"><td>1</td><td>Alex</td><td>25</td></tr>
+    <tr class="second-place"><td>2</td><td>Tibi</td><td>22</td></tr>
+    <tr class="playoff"><td>3</td><td>Liad</td><td>19</td></tr>
+    <tr class="playoff"><td>4</td><td>Aviv</td><td>18</td></tr>
+    <tr class="playoff"><td>5</td><td>Elior</td><td>16</td></tr>
+    <tr class="playoff"><td>6</td><td>Yarden</td><td>14</td></tr>
+    <tr><td>7</td><td>Artur</td><td>13</td></tr>
+    <tr><td>8</td><td>Gil</td><td>11</td></tr>
+    <tr><td>9</td><td>Ilya</td><td>10</td></tr>
+    <tr><td>10</td><td>Shabo</td><td>8</td></tr>
   </table>
 
-  <h2 class="section-title">Top Scorers ⚽</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>Goals</th>
-      </tr>
-    </thead>
-    <tbody id="scorers-body"></tbody>
+  <!-- Top Scorers -->
+  <h2>⚽ Top Scorers</h2>
+  <table class="top-scorers">
+    <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
+    <tr><td>1</td><td>Alex</td><td>9</td></tr>
+    <tr><td>2</td><td>Tibi</td><td>8</td></tr>
+    <tr><td>3</td><td>Liad</td><td>7</td></tr>
+    <tr><td>4</td><td>Aviv</td><td>6</td></tr>
+    <tr><td>5</td><td>Gil</td><td>5</td></tr>
   </table>
 
-  <div id="fixture-section">
-    <h2 class="section-title">Next Round Draw 🎲</h2>
-    <div id="fixture-display">Press the button to make a draw.</div>
-    <button onclick="handleDraw()">Draw Matches</button>
-    <button onclick="resetDraws()">Reset Draws</button>
-    <div class="timestamp" id="timestamp"></div>
+  <!-- Fixtures -->
+  <section id="fixtures">
+    <h2>Next Matchday Fixtures ⚽</h2>
+    <div id="fixtures-container"></div>
+    <button id="draw-button" class="draw-button">Draw New Fixtures</button>
+    <p id="draw-date"></p>
+  </section>
+
+  <!-- Player Gallery -->
+  <h2>📸 Players</h2>
+  <div class="player-gallery">
+    <div class="player-card"><img src="https://i.imgur.com/ErD3KcB.jpeg"><h3>Alex</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/ZX7Yhdq.jpeg"><h3>Tibi</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/0Q3JYwB.jpeg"><h3>Liad</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/ExrMLq8.jpeg"><h3>Aviv</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/OpYud80.jpeg"><h3>Elior</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/TPLvPBo.jpeg"><h3>Yarden</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/6Z3GrVr.jpeg"><h3>Artur</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/nQzKWhF.jpeg"><h3>Gil</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/jR2T6j2.jpeg"><h3>Ilya</h3></div>
+    <div class="player-card"><img src="https://i.imgur.com/cE5yEt4.jpeg"><h3>Shabo</h3></div>
   </div>
 
   <script>
-    const sheetId = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
+    const sheetId = "1-0WXbluyvAOphZzuoXJ0yYqBQmJXoTOrdWny8KURwdI";
+    const fixturesSheet = "PastaLeague_Fixtures";
+    const password = "1122";
+    const drawButton = document.getElementById("draw-button");
+    const fixturesContainer = document.getElementById("fixtures-container");
+    const drawDateElement = document.getElementById("draw-date");
 
-    async function loadLeagueTable() {
-      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=LeagueTable`;
-      const response = await fetch(url);
-      const data = await response.text();
-      const rows = data.trim().split("\n").map(r => r.split(",").map(c => c.replace(/^"|"$/g, "").trim()));
-
-      const body = document.getElementById("league-table-body");
-      body.innerHTML = "";
-
-      for (let i = 1; i < rows.length; i++) {
-        const [player, w, d, l, gf, ga, pts] = rows[i];
-        const row = document.createElement("tr");
-
-        if (i === 1) row.classList.add("gold");
-        else if (i === 2) row.classList.add("silver");
-        else if (i >= 3 && i <= 6) row.classList.add("playoff");
-
-        let displayName = player;
-        if (i === 1 || i === 2) displayName += " ⬆️";
-
-        row.innerHTML = `
-          <td>${i}</td>
-          <td>${displayName}</td>
-          <td>${w || 0}</td>
-          <td>${d || 0}</td>
-          <td>${l || 0}</td>
-          <td>${gf || 0}</td>
-          <td>${ga || 0}</td>
-          <td>${pts || 0}</td>`;
-        body.appendChild(row);
-      }
-    }
-
-    async function loadScorers() {
-      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=LeagueTable`;
-      const response = await fetch(url);
-      const data = await response.text();
-      const rows = data.trim().split("\n").map(r => r.split(",").map(c => c.replace(/^"|"$/g, "").trim()));
-
-      const players = rows.slice(1).map(r => ({
-        name: r[0],
-        goals: parseInt(r[4]) || 0
-      }));
-
-      players.sort((a, b) => b.goals - a.goals);
-      const body = document.getElementById("scorers-body");
-      body.innerHTML = "";
-
-      players.slice(0, 5).forEach((p, i) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${i + 1}</td><td>${p.name}</td><td>${p.goals}</td>`;
-        body.appendChild(row);
-      });
-    }
-
-    let usedPairs = JSON.parse(localStorage.getItem("usedPairs") || "[]");
-    let lastFixture = JSON.parse(localStorage.getItem("lastFixture") || "null");
-
-    // Load saved fixture on start
-    window.addEventListener("load", () => {
-      if (lastFixture && lastFixture.matches) {
-        document.getElementById("fixture-display").innerHTML = lastFixture.matches.join("<br>");
-        document.getElementById("timestamp").textContent = "Updated at " + lastFixture.time;
-      }
-    });
-
-    function handleDraw() {
-      const password = prompt("Enter password to draw:");
-      if (password !== "1122") {
-        alert("Wrong password ❌");
-        return;
-      }
-
-      const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
-      let pairs = [];
-      const available = players.slice();
-
-      while (available.length >= 2) {
-        const p1 = available.splice(Math.floor(Math.random() * available.length), 1)[0];
-        const p2 = available.splice(Math.floor(Math.random() * available.length), 1)[0];
-        const match = [p1, p2].sort().join("-");
-        if (!usedPairs.includes(match)) {
-          usedPairs.push(match);
-          pairs.push(`${p1} 🆚 ${p2}`);
+    async function loadFixtures() {
+      try {
+        const response = await fetch(
+          `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${fixturesSheet}`
+        );
+        const text = await response.text();
+        const json = JSON.parse(text.substr(47).slice(0, -2));
+        const rows = json.table.rows;
+        if (rows.length === 0) {
+          fixturesContainer.innerHTML = "<p>No fixtures yet 🔄</p>";
+          return;
         }
+        fixturesContainer.innerHTML = "";
+        rows.forEach(row => {
+          const match = document.createElement("div");
+          match.classList.add("fixture");
+          match.textContent = `${row.c[0].v} 🆚 ${row.c[1].v}`;
+          fixturesContainer.appendChild(match);
+        });
+        const lastDraw = rows[0].c[2]?.v;
+        if (lastDraw) drawDateElement.textContent = `Last Draw: ${lastDraw}`;
+      } catch {
+        fixturesContainer.innerHTML = "<p>⚠️ Can't load fixtures right now</p>";
       }
-
-      localStorage.setItem("usedPairs", JSON.stringify(usedPairs));
-      const now = new Date().toLocaleString("en-GB");
-      const fixtureData = { matches: pairs, time: now };
-      localStorage.setItem("lastFixture", JSON.stringify(fixtureData));
-
-      document.getElementById("fixture-display").innerHTML = pairs.join("<br>");
-      document.getElementById("timestamp").textContent = "Updated at " + now;
     }
 
-    function resetDraws() {
-      const password = prompt("Enter password to reset:");
-      if (password !== "1122") {
-        alert("Wrong password ❌");
-        return;
+    async function drawFixtures() {
+      const pass = prompt("Enter password:");
+      if (pass !== password) return alert("❌ Wrong password!");
+
+      const players = ["Shabo","Ilya","Liad","Aviv","Elior","Yarden","Artur","Gil","Alex","Tibi"];
+      const shuffled = players.sort(() => Math.random() - 0.5);
+      const fixtures = [];
+      for (let i=0;i<shuffled.length;i+=2){
+        fixtures.push([shuffled[i],shuffled[i+1]]);
       }
 
-      localStorage.removeItem("usedPairs");
-      localStorage.removeItem("lastFixture");
-      usedPairs = [];
-      lastFixture = null;
+      const today = new Date().toLocaleString("en-GB");
+      fixturesContainer.innerHTML = "";
+      fixtures.forEach(pair => {
+        const match = document.createElement("div");
+        match.classList.add("fixture");
+        match.textContent = `${pair[0]} 🆚 ${pair[1]}`;
+        fixturesContainer.appendChild(match);
+      });
+      drawDateElement.textContent = `Last Draw: ${today}`;
 
-      document.getElementById("fixture-display").innerHTML = "Press the button to make a draw.";
-      document.getElementById("timestamp").textContent = "";
-      alert("All draws have been reset ✅");
+      // שמירה בגיליון דרך "Form Response"
+      const url = `https://script.google.com/macros/s/AKfycbz-your-script-id/exec`; 
+      const data = new URLSearchParams();
+      data.append("matches", JSON.stringify(fixtures));
+      data.append("date", today);
+      await fetch(url, { method: "POST", body: data });
     }
 
-    loadLeagueTable();
-    loadScorers();
+    drawButton.addEventListener("click", drawFixtures);
+    loadFixtures();
   </script>
 </body>
 </html>
