@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pasta League ⚽</title>
   <style>
     body {
@@ -49,10 +49,6 @@
       color: white;
       font-weight: bold;
     }
-    .top-scorers {
-      width: 60%;
-      margin: 40px auto;
-    }
     .fixture {
       background: rgba(255,255,255,0.08);
       margin: 6px auto;
@@ -75,29 +71,6 @@
       margin-top: 10px;
       color: #ccc;
     }
-    .player-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .player-card {
-      width: 120px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      padding: 10px;
-    }
-    .player-card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .player-card h3 {
-      margin: 8px 0 0;
-      font-size: 1em;
-    }
   </style>
 </head>
 <body>
@@ -106,8 +79,8 @@
   <!-- League Table -->
   <table id="leagueTable">
     <tr><th>Pos</th><th>Player</th><th>Points</th></tr>
-    <tr class="first-place"><td>1</td><td>Alex</td><td>25</td></tr>
-    <tr class="second-place"><td>2</td><td>Tibi</td><td>22</td></tr>
+    <tr class="first-place"><td>1</td><td>Alex ⬆️</td><td>25</td></tr>
+    <tr class="second-place"><td>2</td><td>Tibi ⬆️</td><td>22</td></tr>
     <tr class="playoff"><td>3</td><td>Liad</td><td>19</td></tr>
     <tr class="playoff"><td>4</td><td>Aviv</td><td>18</td></tr>
     <tr class="playoff"><td>5</td><td>Elior</td><td>16</td></tr>
@@ -137,21 +110,6 @@
     <p id="draw-date"></p>
   </section>
 
-  <!-- Player Gallery -->
-  <h2>📸 Players</h2>
-  <div class="player-gallery">
-    <div class="player-card"><img src="https://i.imgur.com/ErD3KcB.jpeg"><h3>Alex</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/ZX7Yhdq.jpeg"><h3>Tibi</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/0Q3JYwB.jpeg"><h3>Liad</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/ExrMLq8.jpeg"><h3>Aviv</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/OpYud80.jpeg"><h3>Elior</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/TPLvPBo.jpeg"><h3>Yarden</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/6Z3GrVr.jpeg"><h3>Artur</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/nQzKWhF.jpeg"><h3>Gil</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/jR2T6j2.jpeg"><h3>Ilya</h3></div>
-    <div class="player-card"><img src="https://i.imgur.com/cE5yEt4.jpeg"><h3>Shabo</h3></div>
-  </div>
-
   <script>
     const sheetId = "1-0WXbluyvAOphZzuoXJ0yYqBQmJXoTOrdWny8KURwdI";
     const sheetName = "Draws";
@@ -171,11 +129,11 @@
         rows.forEach(row => {
           const match = document.createElement("div");
           match.className = "fixture";
-          match.textContent = row.c[0].v;
+          match.textContent = row.c[0]?.v;
           fixturesContainer.appendChild(match);
         });
         drawDateElement.textContent = `Last Draw: ${rows[0].c[1]?.v || ""}`;
-      } catch {
+      } catch (e) {
         fixturesContainer.innerHTML = "<p>⚠️ Can't load fixtures right now</p>";
       }
     }
@@ -198,13 +156,10 @@
         fixturesContainer.appendChild(div);
       });
       drawDateElement.textContent = `Last Draw: ${today}`;
-      const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLScXdummyFormID/formResponse`; // 🔧 כאן תשנה ל-Form שלך
-      fixtures.forEach(fix => {
-        fetch(formUrl, {
-          method: "POST",
-          mode: "no-cors",
-          body: new URLSearchParams({ "entry.1111111111": fix, "entry.2222222222": today })
-        });
+      // שמירה ב־Apps Script
+      fetch(`https://script.google.com/macros/s/AKfycbxYOUR_SCRIPT_ID/exec`, {
+        method: "POST",
+        body: JSON.stringify({ fixtures, date: today })
       });
     }
 
