@@ -154,33 +154,27 @@
 
   <script>
     const sheetId = "1-0WXbluyvAOphZzuoXJ0yYqBQmJXoTOrdWny8KURwdI";
-    const fixturesSheet = "PastaLeague_Fixtures";
+    const sheetName = "Draws";
     const password = "1122";
-    const drawButton = document.getElementById("draw-button");
     const fixturesContainer = document.getElementById("fixtures-container");
+    const drawButton = document.getElementById("draw-button");
     const drawDateElement = document.getElementById("draw-date");
 
     async function loadFixtures() {
       try {
-        const response = await fetch(
-          `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${fixturesSheet}`
-        );
-        const text = await response.text();
+        const res = await fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`);
+        const text = await res.text();
         const json = JSON.parse(text.substr(47).slice(0, -2));
         const rows = json.table.rows;
-        if (rows.length === 0) {
-          fixturesContainer.innerHTML = "<p>No fixtures yet 🔄</p>";
-          return;
-        }
+        if (!rows.length) return (fixturesContainer.innerHTML = "<p>No fixtures yet</p>");
         fixturesContainer.innerHTML = "";
         rows.forEach(row => {
           const match = document.createElement("div");
-          match.classList.add("fixture");
-          match.textContent = `${row.c[0].v} 🆚 ${row.c[1].v}`;
+          match.className = "fixture";
+          match.textContent = row.c[0].v;
           fixturesContainer.appendChild(match);
         });
-        const lastDraw = rows[0].c[2]?.v;
-        if (lastDraw) drawDateElement.textContent = `Last Draw: ${lastDraw}`;
+        drawDateElement.textContent = `Last Draw: ${rows[0].c[1]?.v || ""}`;
       } catch {
         fixturesContainer.innerHTML = "<p>⚠️ Can't load fixtures right now</p>";
       }
@@ -189,30 +183,29 @@
     async function drawFixtures() {
       const pass = prompt("Enter password:");
       if (pass !== password) return alert("❌ Wrong password!");
-
       const players = ["Shabo","Ilya","Liad","Aviv","Elior","Yarden","Artur","Gil","Alex","Tibi"];
       const shuffled = players.sort(() => Math.random() - 0.5);
       const fixtures = [];
       for (let i=0;i<shuffled.length;i+=2){
-        fixtures.push([shuffled[i],shuffled[i+1]]);
+        fixtures.push(`${shuffled[i]} 🆚 ${shuffled[i+1]}`);
       }
-
       const today = new Date().toLocaleString("en-GB");
       fixturesContainer.innerHTML = "";
-      fixtures.forEach(pair => {
-        const match = document.createElement("div");
-        match.classList.add("fixture");
-        match.textContent = `${pair[0]} 🆚 ${pair[1]}`;
-        fixturesContainer.appendChild(match);
+      fixtures.forEach(f => {
+        const div = document.createElement("div");
+        div.className = "fixture";
+        div.textContent = f;
+        fixturesContainer.appendChild(div);
       });
       drawDateElement.textContent = `Last Draw: ${today}`;
-
-      // שמירה בגיליון דרך "Form Response"
-      const url = `https://script.google.com/macros/s/AKfycbz-your-script-id/exec`; 
-      const data = new URLSearchParams();
-      data.append("matches", JSON.stringify(fixtures));
-      data.append("date", today);
-      await fetch(url, { method: "POST", body: data });
+      const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLScXdummyFormID/formResponse`; // 🔧 כאן תשנה ל-Form שלך
+      fixtures.forEach(fix => {
+        fetch(formUrl, {
+          method: "POST",
+          mode: "no-cors",
+          body: new URLSearchParams({ "entry.1111111111": fix, "entry.2222222222": today })
+        });
+      });
     }
 
     drawButton.addEventListener("click", drawFixtures);
