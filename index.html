@@ -14,7 +14,6 @@
     overflow-x: hidden;
   }
 
-  /* כותרות */
   h1 {
     text-shadow: 0 0 15px gold;
     font-size: 2.2em;
@@ -26,61 +25,6 @@
     text-shadow: 0 0 10px yellow;
   }
 
-  /* טבלאות */
-  table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    border: 2px solid gold;
-    box-shadow: 0 0 20px gold;
-  }
-
-  th, td {
-    border: 1px solid gold;
-    padding: 10px;
-    text-align: center;
-  }
-
-  th {
-    background-color: #222;
-    color: gold;
-  }
-
-  tr:nth-child(even) { background-color: #111; }
-  tr:nth-child(odd) { background-color: #000; }
-
-  /* טבלת מלך השערים */
-  .neon-title {
-    color: #00ffff;
-    font-size: 2em;
-    text-shadow:
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 30px #ff00ff,
-      0 0 40px #ff00ff;
-    animation: neonPulse 2.5s infinite alternate;
-  }
-
-  @keyframes neonPulse {
-    from {
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
-    }
-    to {
-      text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #00ffff;
-    }
-  }
-
-  /* מקום ראשון מנצנץ */
-  .flash {
-    animation: flash 1.5s infinite alternate;
-  }
-
-  @keyframes flash {
-    from { text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff6600; }
-    to { text-shadow: 0 0 30px #ffff66, 0 0 50px #ff9933; }
-  }
-
-  /* כפתור ההגרלה */
   button {
     padding: 12px 25px;
     font-size: 16px;
@@ -93,10 +37,7 @@
     transition: 0.3s;
   }
 
-  button:hover {
-    background: #ffcc00;
-    transform: scale(1.05);
-  }
+  button:hover { background: #ffcc00; transform: scale(1.05); }
 
   #draw-results {
     margin-top: 20px;
@@ -105,7 +46,19 @@
     text-shadow: 0 0 10px gold;
   }
 
-  /* פתיח של לוגו */
+  #timestamp {
+    margin-top: 10px;
+    color: #66ccff;
+    font-size: 14px;
+  }
+
+  #last-update {
+    margin-top: 15px;
+    color: #00ffff;
+    font-size: 14px;
+    text-shadow: 0 0 10px #00ffff;
+  }
+
   #logo-screen {
     position: fixed;
     top: 0; left: 0;
@@ -129,79 +82,82 @@
 </head>
 
 <body>
-<!-- מסך פתיחה -->
 <div id="logo-screen">🍝 Pasta League 🍝</div>
 
 <h1>🍝 Pasta League — Season 2025 🍝</h1>
-<p>Total Goals: ⚽ Total Goals: 0 ⚽</p>
 
-<a href="players.html" style="color: #66ccff; text-decoration: none;">
-  <h3>רשימת שחקנים 👤</h3>
-</a>
-
-<!-- טבלת ליגה -->
-<h2>League Table</h2>
-<table>
-  <tr><th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th></tr>
-  <tr class="flash"><td>1</td><td>Shabo 🏆</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>2</td><td>Ilya</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>3</td><td>Liad</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>4</td><td>Aviv</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>5</td><td>Elior</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>6</td><td>Yarden</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>7</td><td>Arthur</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>8</td><td>Gil</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>9</td><td>Alex</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-  <tr><td>10</td><td>Tibi</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-</table>
-
-<!-- טבלת מלך השערים -->
-<h2 class="neon-title">Top Scorers ⚽</h2>
-<table style="width:85%; margin:auto; border-collapse:collapse; border:2px solid #ff6600; box-shadow:0 0 20px #ff6600;">
-  <tr style="background-color:#140014; color:#00ffff; text-shadow:0 0 10px #00ffff;">
-    <th>Rank</th><th>Player</th><th>Goals</th>
-  </tr>
-  <tr style="color:#ffcc00; background-color:#330000; text-shadow:0 0 15px #ffcc00; animation:flash 1.5s infinite alternate;">
-    <td>1</td><td>Shabo ⚽</td><td>8</td>
-  </tr>
-  <tr style="background-color:#220022; color:#fff;"><td>2</td><td>Liad</td><td>7</td></tr>
-  <tr style="background-color:#220022; color:#fff;"><td>3</td><td>Tibi</td><td>6</td></tr>
-  <tr style="background-color:#220022; color:#fff;"><td>4</td><td>Ilya</td><td>5</td></tr>
-  <tr style="background-color:#220022; color:#fff;"><td>5</td><td>Aviv</td><td>4</td></tr>
-</table>
-
-<!-- מערכת הגרלה -->
 <h2>Next Round Draw 🎲</h2>
-<button onclick="drawMatches()">בצע הגרלה למחזור הבא</button>
-<div id="draw-results"></div>
+<div id="admin-section" style="display:none;">
+  <button onclick="drawNextRound()">בצע הגרלה למחזור הבא</button>
+</div>
 
-<h2>Goal of the Week 🎥</h2>
+<div id="draw-results"></div>
+<div id="timestamp"></div>
+<div id="last-update"></div>
 
 <script>
 const players = ["Shabo", "Ilya", "Liad", "Aviv", "Elior", "Yarden", "Arthur", "Gil", "Alex", "Tibi"];
+const password = "pastaAdmin"; // רק אתה יודע
+let data = JSON.parse(localStorage.getItem("pastaMatches")) || { round: 0, playedPairs: [], results: "" };
 
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex != 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
+// הצגת ההגרלה האחרונה (אם קיימת)
+if (data.results) {
+  document.getElementById("draw-results").innerText = data.results;
+  document.getElementById("timestamp").innerText = "הוגרל בתאריך: " + data.time;
+  document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + data.time;
 }
 
-function drawMatches() {
-  const resultsDiv = document.getElementById("draw-results");
-  const shuffled = shuffle([...players]);
-  let results = "⚽ מחזור הבא ⚽\n\n";
-  for (let i = 0; i < shuffled.length; i += 2) {
-    if (shuffled[i + 1]) {
-      results += `${shuffled[i]} 🆚 ${shuffled[i + 1]}\n`;
-    } else {
-      results += `${shuffled[i]} מקבל מנוחה 💤\n`;
-    }
+// אם אתה מנהל — תראה את הכפתור
+const isAdmin = confirm("האם אתה מנהל הליגה?");
+if (isAdmin) document.getElementById("admin-section").style.display = "block";
+
+// פונקציה לבחירת משחקים חדשים בלי חזרות
+function drawNextRound() {
+  const entered = prompt("הכנס סיסמת מנהל כדי לבצע הגרלה:");
+  if (entered !== password) {
+    alert("גישה נדחתה ❌ — רק מנהל הליגה יכול לבצע הגרלה.");
+    return;
   }
-  resultsDiv.innerText = results;
+
+  if (data.round >= 9) {
+    alert("🎉 כל 9 המחזורים שוחקו!");
+    return;
+  }
+
+  let matches = [];
+  let used = new Set(data.playedPairs);
+
+  const shuffled = [...players].sort(() => Math.random() - 0.5);
+  let available = [...shuffled];
+
+  while (available.length >= 2) {
+    const p1 = available.shift();
+    let p2Index = available.findIndex(p => !used.has(pairKey(p1, p)));
+    if (p2Index === -1) break;
+    const p2 = available.splice(p2Index, 1)[0];
+    used.add(pairKey(p1, p2));
+    matches.push(`${p1} 🆚 ${p2}`);
+  }
+
+  data.round++;
+  const now = new Date();
+  const timeString = now.toLocaleString("he-IL");
+  const results = `⚽ מחזור ${data.round} ⚽\n\n${matches.join("\n")}`;
+
+  data.results = results;
+  data.playedPairs = Array.from(used);
+  data.time = timeString;
+  localStorage.setItem("pastaMatches", JSON.stringify(data));
+
+  document.getElementById("draw-results").innerText = results;
+  document.getElementById("timestamp").innerText = "הוגרל בתאריך: " + timeString;
+  document.getElementById("last-update").innerText = "📅 עודכן לאחרונה: " + timeString;
+
+  alert("✅ ההגרלה למחזור " + data.round + " נשמרה בהצלחה!");
+}
+
+function pairKey(a, b) {
+  return [a, b].sort().join("-");
 }
 </script>
 
