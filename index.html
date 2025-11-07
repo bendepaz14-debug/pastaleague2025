@@ -1,220 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pasta League ⚽</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasta League</title>
 <style>
   body {
-    background-color: #000;
+    background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
     color: white;
     font-family: "Poppins", sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
   }
 
-  /* Splash logo screen */
-  #splash {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+  /* אנימציית פתיחה */
+  #logo {
+    font-size: 48px;
+    font-weight: bold;
+    color: #00aaff;
+    text-shadow: 0 0 20px #00aaff;
+    margin-top: 40vh;
     animation: fadeOut 2s ease 2s forwards;
   }
-  #splash img {
-    width: 220px;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
+
   @keyframes fadeOut {
     to { opacity: 0; visibility: hidden; }
   }
 
+  #main-content {
+    display: none;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
   h1 {
-    color: #ffd700;
-    font-size: 2.5em;
     margin-top: 20px;
-    text-shadow: 0 0 10px #ffd700;
+    text-shadow: 0 0 10px #00aaff;
   }
 
   table {
-    width: 90%;
+    width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
-    border: 2px solid #ffd700;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
   }
+
   th, td {
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 10px;
-    font-size: 1.1em;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
+
   th {
-    background: #1a1a1a;
-    color: #ffd700;
-    text-shadow: 0 0 5px #ffd700;
+    background-color: #00aaff;
+    color: black;
   }
 
-  .first-place {
-    background: linear-gradient(90deg, gold, #ffef9f);
-    color: #000;
+  tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* מקום ראשון ושני */
+  .top2 {
+    background: linear-gradient(90deg, gold, orange);
+    color: black;
     font-weight: bold;
   }
-  .second-place {
-    background: linear-gradient(90deg, silver, #e8e8e8);
-    color: #000;
-    font-weight: bold;
-  }
+
+  /* מקומות 3–6 */
   .playoff {
-    background: linear-gradient(90deg, #007bff, #00c3ff);
-    color: #fff;
+    background: linear-gradient(90deg, #3b82f6, #1e40af);
     font-weight: bold;
   }
 
-  h2 {
-    color: #00c3ff;
-    text-shadow: 0 0 10px #00c3ff;
-    margin-top: 40px;
+  /* טבלת מלך השערים */
+  .top-scorers {
+    width: 60%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: rgba(255,255,255,0.1);
   }
 
-  .fixture {
-    background: rgba(255,255,255,0.08);
-    margin: 6px auto;
-    padding: 8px;
-    border-radius: 6px;
-    width: 80%;
-    border: 1px solid #555;
+  .top-scorers th {
+    background-color: #00aaff;
+    color: black;
   }
 
-  .draw-button {
-    background: #ffd700;
-    color: #000;
+  /* כפתור הגרלה */
+  button {
+    background-color: #00aaff;
     border: none;
-    padding: 10px 25px;
-    font-weight: bold;
+    color: black;
+    font-size: 18px;
+    padding: 10px 20px;
     border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+  button:hover {
+    background-color: #0088cc;
+  }
+
+  #fixtures {
     margin-top: 20px;
   }
-  .draw-button:hover { cursor: pointer; opacity: 0.9; }
 
-  #draw-date {
-    margin-top: 10px;
+  #dateInfo {
     color: #ccc;
+    margin-top: 8px;
+  }
+
+  footer {
+    margin: 40px 0;
+    color: #888;
   }
 </style>
 </head>
 <body>
 
-<!-- splash -->
-<div id="splash">
-  <img src="Pasta logo.png" alt="Pasta League Logo">
+<div id="logo">PASTA LEAGUE</div>
+
+<div id="main-content">
+  <h1>🏆 Pasta League Table</h1>
+
+  <table id="leagueTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Points</th>
+        <th>Goals</th>
+      </tr>
+    </thead>
+    <tbody id="leagueBody"></tbody>
+  </table>
+
+  <h2>⚽ Top Scorers</h2>
+  <table class="top-scorers" id="scorersTable">
+    <thead>
+      <tr><th>Player</th><th>Goals</th></tr>
+    </thead>
+    <tbody id="scorersBody"></tbody>
+  </table>
+
+  <h2>🎯 Next Fixtures</h2>
+  <div id="fixtures"></div>
+  <div id="dateInfo"></div>
+  <button id="drawButton">Draw New Fixtures</button>
+
+  <footer>© 2025 Pasta League</footer>
 </div>
 
-<h1>🏆 Pasta League 🏆</h1>
-
-<!-- League Table -->
-<table id="leagueTable">
-  <tr><th>Pos</th><th>Player</th><th>Points</th></tr>
-  <tr class="first-place"><td>1</td><td>Alex ⬆️</td><td>25</td></tr>
-  <tr class="second-place"><td>2</td><td>Tibi ⬆️</td><td>22</td></tr>
-  <tr class="playoff"><td>3</td><td>Liad</td><td>19</td></tr>
-  <tr class="playoff"><td>4</td><td>Aviv</td><td>18</td></tr>
-  <tr class="playoff"><td>5</td><td>Elior</td><td>16</td></tr>
-  <tr class="playoff"><td>6</td><td>Yarden</td><td>14</td></tr>
-  <tr><td>7</td><td>Artur</td><td>13</td></tr>
-  <tr><td>8</td><td>Gil</td><td>11</td></tr>
-  <tr><td>9</td><td>Ilya</td><td>10</td></tr>
-  <tr><td>10</td><td>Shabo</td><td>8</td></tr>
-</table>
-
-<!-- Top Scorers -->
-<h2>⚽ Top Scorers</h2>
-<table class="top-scorers">
-  <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
-  <tr><td>1</td><td>Alex</td><td>9</td></tr>
-  <tr><td>2</td><td>Tibi</td><td>8</td></tr>
-  <tr><td>3</td><td>Liad</td><td>7</td></tr>
-  <tr><td>4</td><td>Aviv</td><td>6</td></tr>
-  <tr><td>5</td><td>Gil</td><td>5</td></tr>
-</table>
-
-<!-- Fixtures -->
-<section id="fixtures">
-  <h2>Next Matchday Fixtures ⚽</h2>
-  <div id="fixtures-container"></div>
-  <button id="draw-button" class="draw-button">Draw New Fixtures</button>
-  <p id="draw-date"></p>
-</section>
-
 <script>
-const sheetId = "1-0WXbluyvAOphZzuoXJ0yYqBQmJXoTOrdWny8KURwdI";
-const sheetName = "Draws";
-const password = "1122";
-const fixturesContainer = document.getElementById("fixtures-container");
-const drawButton = document.getElementById("draw-button");
-const drawDateElement = document.getElementById("draw-date");
+  // להציג את התוכן אחרי הלוגו
+  setTimeout(() => {
+    document.getElementById('logo').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }, 2000);
 
-async function loadFixtures() {
-  try {
-    const res = await fetch(
-      `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`
-    );
-    const text = await res.text();
-    const json = JSON.parse(text.substr(47).slice(0, -2));
-    const rows = json.table.rows;
-    if (!rows.length) return (fixturesContainer.innerHTML = "<p>No fixtures yet</p>");
-    fixturesContainer.innerHTML = "";
-    rows.forEach((row) => {
-      const match = document.createElement("div");
-      match.className = "fixture";
-      match.textContent = row.c[0]?.v;
-      fixturesContainer.appendChild(match);
-    });
-    drawDateElement.textContent = `Last Draw: ${rows[0].c[1]?.v || ""}`;
-  } catch (e) {
-    fixturesContainer.innerHTML = "<p>⚠️ Can't load fixtures right now</p>";
-  }
-}
+  // נתוני טבלה לדוגמה
+  const players = [
+    { name: "Alex", points: 15, goals: 10 },
+    { name: "Tibi", points: 13, goals: 8 },
+    { name: "Artur", points: 12, goals: 9 },
+    { name: "Liad", points: 11, goals: 7 },
+    { name: "Yarden", points: 10, goals: 6 },
+    { name: "Elior", points: 9, goals: 5 },
+    { name: "Gil", points: 8, goals: 4 },
+    { name: "Aviv", points: 7, goals: 3 },
+    { name: "Ilya", points: 6, goals: 2 },
+    { name: "Shabo", points: 5, goals: 1 }
+  ];
 
-async function drawFixtures() {
-  const pass = prompt("Enter password:");
-  if (pass !== password) return alert("❌ Wrong password!");
-  const players = ["Shabo","Ilya","Liad","Aviv","Elior","Yarden","Artur","Gil","Alex","Tibi"];
-  const shuffled = players.sort(() => Math.random() - 0.5);
-  const fixtures = [];
-  for (let i = 0; i < shuffled.length; i += 2) {
-    fixtures.push(`${shuffled[i]} 🆚 ${shuffled[i + 1]}`);
-  }
-  const today = new Date().toLocaleString("en-GB");
-  fixturesContainer.innerHTML = "";
-  fixtures.forEach((f) => {
-    const div = document.createElement("div");
-    div.className = "fixture";
-    div.textContent = f;
-    fixturesContainer.appendChild(div);
+  const leagueBody = document.getElementById("leagueBody");
+
+  players.forEach((p, index) => {
+    const row = document.createElement("tr");
+    if (index < 2) row.classList.add("top2");
+    else if (index < 6) row.classList.add("playoff");
+    row.innerHTML = `
+      <td>${index + 1} ${index < 2 ? "⬆️" : ""}</td>
+      <td>${p.name}</td>
+      <td>${p.points}</td>
+      <td>${p.goals}</td>
+    `;
+    leagueBody.appendChild(row);
   });
-  drawDateElement.textContent = `Last Draw: ${today}`;
 
-  // Save to Google Apps Script (replace with your actual deployed script URL)
-  await fetch("https://script.google.com/macros/s/AKfycbxYOUR_SCRIPT_ID/exec", {
-    method: "POST",
-    body: JSON.stringify({ fixtures, date: today }),
+  // מלך השערים
+  const topScorers = [...players].sort((a,b)=>b.goals - a.goals).slice(0,5);
+  const scorersBody = document.getElementById("scorersBody");
+  topScorers.forEach(s=>{
+    const row=document.createElement("tr");
+    row.innerHTML=`<td>${s.name}</td><td>⚽ ${s.goals}</td>`;
+    scorersBody.appendChild(row);
   });
-}
 
-drawButton.addEventListener("click", drawFixtures);
-loadFixtures();
+  // הגרלה
+  const fixturesDiv = document.getElementById("fixtures");
+  const dateInfo = document.getElementById("dateInfo");
+  const drawButton = document.getElementById("drawButton");
+
+  let fixtures = JSON.parse(localStorage.getItem("fixtures") || "[]");
+  let dateSaved = localStorage.getItem("fixturesDate");
+
+  function displayFixtures() {
+    fixturesDiv.innerHTML = fixtures.length 
+      ? fixtures.map(f => `<div>${f}</div>`).join("") 
+      : "<p>No fixtures yet.</p>";
+    dateInfo.textContent = dateSaved ? `Last updated: ${dateSaved}` : "";
+  }
+
+  displayFixtures();
+
+  drawButton.onclick = () => {
+    const pass = prompt("Enter password:");
+    if (pass !== "1122") return alert("Wrong password!");
+    
+    const shuffled = [...players].sort(()=>Math.random()-0.5);
+    const newFixtures = [];
+    for(let i=0;i<players.length;i+=2){
+      if (shuffled[i+1]) newFixtures.push(`${shuffled[i].name} ⚔️ ${shuffled[i+1].name}`);
+    }
+    fixtures = newFixtures;
+    dateSaved = new Date().toLocaleString();
+    localStorage.setItem("fixtures", JSON.stringify(fixtures));
+    localStorage.setItem("fixturesDate", dateSaved);
+    displayFixtures();
+  };
 </script>
 
 </body>
