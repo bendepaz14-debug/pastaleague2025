@@ -75,7 +75,7 @@
       border-radius: 10px;
       font-size: 1em;
       cursor: pointer;
-      margin-top: 10px;
+      margin: 10px;
     }
 
     button:hover {
@@ -142,6 +142,7 @@
     <h2 class="section-title">Next Round Draw 🎲</h2>
     <div id="fixture-display">Press the button to make a draw.</div>
     <button onclick="handleDraw()">Draw Matches</button>
+    <button onclick="resetDraws()">Reset Draws</button>
     <div class="timestamp" id="timestamp"></div>
   </div>
 
@@ -165,7 +166,6 @@
         else if (i === 2) row.classList.add("silver");
         else if (i >= 3 && i <= 6) row.classList.add("playoff");
 
-        // Add arrow up (⬆️) for top 2 places
         let displayName = player;
         if (i === 1 || i === 2) displayName += " ⬆️";
 
@@ -205,6 +205,15 @@
     }
 
     let usedPairs = JSON.parse(localStorage.getItem("usedPairs") || "[]");
+    let lastFixture = JSON.parse(localStorage.getItem("lastFixture") || "null");
+
+    // Load saved fixture on start
+    window.addEventListener("load", () => {
+      if (lastFixture && lastFixture.matches) {
+        document.getElementById("fixture-display").innerHTML = lastFixture.matches.join("<br>");
+        document.getElementById("timestamp").textContent = "Updated at " + lastFixture.time;
+      }
+    });
 
     function handleDraw() {
       const password = prompt("Enter password to draw:");
@@ -229,8 +238,28 @@
 
       localStorage.setItem("usedPairs", JSON.stringify(usedPairs));
       const now = new Date().toLocaleString("en-GB");
+      const fixtureData = { matches: pairs, time: now };
+      localStorage.setItem("lastFixture", JSON.stringify(fixtureData));
+
       document.getElementById("fixture-display").innerHTML = pairs.join("<br>");
       document.getElementById("timestamp").textContent = "Updated at " + now;
+    }
+
+    function resetDraws() {
+      const password = prompt("Enter password to reset:");
+      if (password !== "1122") {
+        alert("Wrong password ❌");
+        return;
+      }
+
+      localStorage.removeItem("usedPairs");
+      localStorage.removeItem("lastFixture");
+      usedPairs = [];
+      lastFixture = null;
+
+      document.getElementById("fixture-display").innerHTML = "Press the button to make a draw.";
+      document.getElementById("timestamp").textContent = "";
+      alert("All draws have been reset ✅");
     }
 
     loadLeagueTable();
