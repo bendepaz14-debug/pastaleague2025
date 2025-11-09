@@ -1,104 +1,140 @@
-/* רקע כללי לעמוד */
+:root {
+  --bg: #000;
+  --gold: #ffd84d;
+  --pink1: #ff4db8;
+  --pink2: #ff0080;
+}
+
 body {
-  background-color: black;
+  background: var(--bg);
   color: white;
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: 'Rubik', sans-serif;
   text-align: center;
+  margin: 0;
 }
 
-/* כותרת הדף */
-.page-title {
-  font-size: 2em;
-  color: #ffcc00;
-  margin-top: 25px;
-  text-shadow: 0 0 20px #ffcc00, 0 0 40px #ffaa00;
+#splash {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+#splash.hide { opacity: 0; pointer-events: none; }
+
+#splash .logo {
+  font-size: 40px;
+  color: var(--gold);
+  text-shadow: 0 0 25px var(--gold), 0 0 60px var(--gold);
 }
 
-/* מכולה של כל השחקנים */
-.players-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  padding: 20px;
+h1 {
+  text-shadow: 0 0 15px var(--gold);
+  color: var(--gold);
 }
 
-/* כרטיס של שחקן */
-.player-card {
-  background: rgba(0, 0, 0, 0.75);
-  border: 2px solid #ffcc00;
+.card {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  background: #111;
   border-radius: 15px;
   padding: 15px;
-  width: 260px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 0 15px #ffcc00;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 25px rgba(255, 216, 77, 0.3);
 }
 
-/* אפקט מעבר */
-.player-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00ffff;
+.glow-title {
+  font-size: 26px;
+  color: var(--gold);
+  text-shadow: 0 0 20px var(--gold);
+  margin-bottom: 15px;
 }
 
-/* תמונת השחקן — לא נחתכת יותר! */
-.player-card img {
+.glow-title.alt {
+  color: #00ffff;
+  text-shadow: 0 0 20px #00ffff;
+}
+
+.neon-table {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
-  border: 2px solid #ffcc00;
-  margin-bottom: 10px;
-  object-fit: contain; /* שומר על פרופורציה */
-  background-color: black; /* רקע אם יש אזור ריק */
+  border-collapse: collapse;
+  font-weight: 600;
 }
-
-/* שם השחקן */
-.player-name {
-  font-size: 1.6em;
-  margin: 10px 0;
+.neon-table th, .neon-table td {
+  border: 1px solid var(--gold);
+  padding: 8px;
 }
-
-/* אפקט ברק כחול-לבן לשמות */
-.lightning {
-  background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: lightningMove 2.5s infinite linear;
-  text-shadow: 0 0 15px #00ffff, 0 0 25px #ffffff;
-}
-
-@keyframes lightningMove {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* טקסט נתונים (ניצחונות, הפסדים וכו') */
-.player-card p {
-  margin: 6px 0;
-  font-size: 0.9em;
-}
-
-/* כפתור חזרה לעמוד הראשי */
-.back-btn {
-  display: block;
-  width: fit-content;
-  margin: 40px auto;
-  padding: 12px 25px;
-  border: 2px solid #ffcc00;
-  border-radius: 8px;
-  color: #ffcc00;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.back-btn:hover {
-  background-color: #ffcc00;
+.neon-table th {
+  background: var(--gold);
   color: black;
-  box-shadow: 0 0 15px #ffcc00;
 }
+
+/* --- צבעים לפי מקום --- */
+.neon-table tbody tr.rank-1 {
+  background: linear-gradient(180deg, #ffffff, #e6e6e6);
+  color: #000;
+  font-weight: 800;
+}
+.auto-qual {
+  background: linear-gradient(180deg, #ffffff, #cccccc);
+  color: #000;
+  font-weight: 700;
+}
+.playoff {
+  background: linear-gradient(180deg, var(--pink1), var(--pink2));
+  color: #fff;
+  font-weight: 700;
+}
+.neon-table tbody tr {
+  background: #000;
+  color: #fff;
+}
+
+/* --- Draw section --- */
+.draw-list {
+  list-style: none;
+  padding: 0;
+}
+.draw-list li {
+  background: #111;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0;
+  box-shadow: 0 0 10px rgba(255, 216, 77, 0.3);
+}
+.muted { color: #777; font-style: italic; }
+
+.btn {
+  background: var(--gold);
+  border: none;
+  color: #000;
+  padding: 10px 18px;
+  margin: 6px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.btn:hover { filter: brightness(1.1); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.updated {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin: 25px 0;
+  color: #777;
+}
+.link {
+  color: #00ffff;
+  text-decoration: none;
+}
+.link:hover { text-decoration: underline; }
