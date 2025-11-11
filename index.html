@@ -125,6 +125,11 @@ footer {
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=LeagueTable";
 
+function safeNum(value) {
+  const num = parseInt(value);
+  return isNaN(num) ? 0 : num;
+}
+
 async function fetchData() {
   try {
     const res = await fetch(sheetURL);
@@ -134,16 +139,16 @@ async function fetchData() {
 
     const tableData = rows.map(r => ({
       Player: r[0],
-      W: parseInt(r[1] || 0),
-      D: parseInt(r[2] || 0),
-      L: parseInt(r[3] || 0),
-      GF: parseInt(r[4] || 0),
-      GA: parseInt(r[5] || 0),
-      Pts: parseInt(r[6] || 0)
+      W: safeNum(r[1]),
+      D: safeNum(r[2]),
+      L: safeNum(r[3]),
+      GF: safeNum(r[4]),
+      GA: safeNum(r[5]),
+      Pts: safeNum(r[6])
     }));
 
     tableData.forEach(p => p.P = p.W + p.D + p.L);
-    tableData.sort((a, b) => b.Pts - a.Pts);
+    tableData.sort((a, b) => b.Pts - a.Pts || b.GF - a.GF);
 
     const tbody = document.querySelector("#leagueTable tbody");
     tbody.innerHTML = "";
