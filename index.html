@@ -93,6 +93,7 @@ footer {
       <tr>
         <th>Rank</th>
         <th>Player</th>
+        <th>P</th>
         <th>W</th>
         <th>D</th>
         <th>L</th>
@@ -141,6 +142,7 @@ async function fetchData() {
       Pts: parseInt(r[6] || 0)
     }));
 
+    tableData.forEach(p => p.P = p.W + p.D + p.L);
     tableData.sort((a, b) => b.Pts - a.Pts);
 
     const tbody = document.querySelector("#leagueTable tbody");
@@ -151,6 +153,7 @@ async function fetchData() {
       row.innerHTML = `
         <td>${index + 1}</td>
         <td>${player.Player}${index === 0 ? ' 🏆' : ''}</td>
+        <td>${player.P}</td>
         <td>${player.W}</td>
         <td>${player.D}</td>
         <td>${player.L}</td>
