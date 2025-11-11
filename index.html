@@ -147,7 +147,12 @@ async function fetchData() {
       Pts: safeNum(r[6])
     }));
 
-    tableData.forEach(p => p.P = p.W + p.D + p.L);
+    // חישוב P (משחקים ששוחקו)
+    tableData.forEach(p => {
+      const hasAnyGame = p.W > 0 || p.D > 0 || p.L > 0 || p.GF > 0 || p.GA > 0;
+      p.P = hasAnyGame ? 1 : 0;
+    });
+
     tableData.sort((a, b) => b.Pts - a.Pts || b.GF - a.GF);
 
     const tbody = document.querySelector("#leagueTable tbody");
