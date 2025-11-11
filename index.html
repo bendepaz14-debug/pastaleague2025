@@ -1,223 +1,185 @@
-<!doctype html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pasta League — Season 2025</title>
-  <style>
-    :root {
-      --gold: #ffd84d;
-      --bg: #000;
-      --panel: #0d0d0d;
-      --line: #ffcf3a;
-      --teal: #27e6ff;
-      --pink: #ff4da6;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: #fff;
-      font-family: "Inter", system-ui, sans-serif;
-      text-align: center;
-    }
-    .wrap { max-width: 1024px; margin: 0 auto; padding: 14px; }
-    .glow { color: var(--gold); text-shadow: 0 0 22px var(--gold); }
-    h1 { font-size: 42px; margin: 16px 0 6px; }
-
-    .panel {
-      background: linear-gradient(180deg, #0b0b0b, #151515);
-      border: 2px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      margin: 16px 0;
-      box-shadow: 0 0 34px rgba(255, 216, 77, 0.25);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      overflow: hidden;
-      border-radius: 14px;
-    }
-    th {
-      background: linear-gradient(180deg, #ffd84d, #ffb800);
-      color: #000;
-      font-weight: 800;
-      padding: 10px;
-    }
-    td {
-      padding: 10px;
-      background: #0e0e0e;
-      border-bottom: 1px solid rgba(255, 216, 77, 0.25);
-    }
-
-    .rank { font-weight: 800; }
-    .player { font-weight: 700; }
-
-    /* צבעים לפי מקומות */
-    .top2 td { background: #fff; color: #000; }
-    .playoff td { background: var(--pink); color: #000; }
-    .mid td { background: #0e0e0e; }
-
-    .arrow {
-      display: inline-block;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 12px solid #0a0;
-      margin-left: 6px;
-    }
-
-    .splash {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      z-index: 9999;
-      animation: fadeOut 2s 0.4s forwards;
-    }
-    .splash img {
-      width: 150px;
-      filter: drop-shadow(0 0 25px var(--gold));
-    }
-    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-
-    .title-2 {
-      font-size: 36px;
-      margin: 8px 0 14px;
-      color: #7bf3ff;
-      text-shadow: 0 0 22px #27e6ff;
-    }
-
-    .updated { opacity: 0.8; font-size: 14px; margin-top: 6px; }
-    .btn {
-      background: var(--gold);
-      color: #000;
-      font-weight: 800;
-      padding: 10px 14px;
-      border-radius: 10px;
-      text-decoration: none;
-      margin-top: 10px;
-      display: inline-block;
-    }
-
-    .status {
-      margin-top: 20px;
-      font-weight: 600;
-    }
-    .ok { color: #00ff7f; }
-    .fail { color: #ff4040; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasta League — Season 2025</title>
+<style>
+body {
+  background-color: black;
+  color: gold;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 32px;
+  margin-top: 20px;
+  text-shadow: 0 0 20px gold;
+}
+h2 {
+  color: gold;
+  margin-top: 25px;
+  text-shadow: 0 0 10px gold;
+}
+.table-container {
+  width: 95%;
+  margin: 20px auto;
+  border-radius: 12px;
+  background: #111;
+  padding: 10px;
+  box-shadow: 0 0 30px gold;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+th, td {
+  border: 1px solid gold;
+  padding: 8px;
+}
+th {
+  background: gold;
+  color: black;
+  font-weight: bold;
+}
+.white-row {
+  background-color: white;
+  color: black;
+}
+.pink-row {
+  background-color: #ff69b4;
+  color: black;
+}
+.black-row {
+  background-color: black;
+  color: gold;
+}
+.status {
+  margin-top: 15px;
+  font-size: 14px;
+}
+</style>
 </head>
 <body>
-  <!-- לוגו פתיחה לשתי שניות -->
-  <div class="splash"><img src="pasta-logo.png" alt="Pasta Logo"></div>
 
-  <div class="wrap">
-    <h1 class="glow">Pasta League — Season 2025</h1>
+<h1>Pasta League — Season 2025</h1>
 
-    <div class="panel">
-      <h2 class="glow">League Table</h2>
-      <div class="updated" id="updatedAt">Last updated: —</div>
-      <div id="leagueTableContainer"></div>
-    </div>
+<div class="table-container">
+  <h2>League Table</h2>
+  <table id="leagueTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GF</th>
+        <th>GA</th>
+        <th>PTS</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="8">Loading data...</td></tr>
+    </tbody>
+  </table>
+</div>
 
-    <div class="panel">
-      <h2 class="title-2">Top Scorers ⚽</h2>
-      <div id="scorersContainer"></div>
-    </div>
+<div class="table-container">
+  <h2>Top Scorers ⚽</h2>
+  <table id="scorerTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Goals</th>
+      </tr>
+    </thead>
+    <tbody id="scorerBody">
+      <tr><td colspan="3">Loading...</td></tr>
+    </tbody>
+  </table>
+  <p class="status" id="status">Connecting to Google Sheets...</p>
+</div>
 
-    <a class="btn" href="players.html">📸 Players list</a>
+<script>
+const SHEET_ID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs";
+const SHEET_NAME = "LeagueTable";
+const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
-    <div class="status" id="statusText">Connecting to Google Sheets...</div>
-  </div>
+async function loadData() {
+  try {
+    const res = await fetch(API_URL);
+    const text = await res.text();
+    const json = JSON.parse(text.substr(47).slice(0, -2));
+    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-  <script>
-    const SHEET_ID = "1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs"; // שלך
-    const TAB_LEAGUE = "LeagueTable";
-    const TAB_SCORERS = "Scorers";
-
-    const cb = () => `&_=${Date.now()}`;
-
-    async function fetchSheet(tabName) {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tabName)}${cb()}`;
-      const res = await fetch(url);
-      const text = await res.text();
-      const json = JSON.parse(text.replace(/^.*setResponse\(/, "").replace(/\);\s*$/, ""));
-      return json.table.rows.map(r => (r.c || []).map(c => (c ? c.v : "")));
+    const leagueData = [];
+    for (let i = 1; i < rows.length; i++) {
+      const [player, w, d, l, gf, ga] = rows[i];
+      const pts = (Number(w) * 3) + (Number(d) * 1);
+      leagueData.push({ player, w, d, l, gf, ga, pts });
     }
 
-    function renderLeague(rows) {
-      const data = rows.slice(1).filter(r => r[0]);
-      let html = `
-        <table>
-          <thead><tr>
-            <th>RANK</th><th>PLAYER</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>PTS</th>
-          </tr></thead><tbody>
+    // Sort league by points
+    leagueData.sort((a, b) => b.pts - a.pts);
+
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    leagueData.forEach((p, i) => {
+      const row = document.createElement("tr");
+      if (i < 2) row.className = "white-row";
+      else if (i < 6) row.className = "pink-row";
+      else row.className = "black-row";
+
+      row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${p.player}</td>
+        <td>${p.w}</td>
+        <td>${p.d}</td>
+        <td>${p.l}</td>
+        <td>${p.gf}</td>
+        <td>${p.ga}</td>
+        <td>${p.pts}</td>
       `;
-      data.forEach((r, i) => {
-        const rank = i + 1;
-        let cls = "mid";
-        if (rank <= 2) cls = "top2";
-        else if (rank <= 6) cls = "playoff";
-        let medal = "";
-        if (rank === 1) medal = " 🏆<span class='arrow'></span>";
-        if (rank === 2) medal = " 🥈<span class='arrow'></span>";
-        html += `<tr class="${cls}">
-          <td>${rank}</td>
-          <td>${r[0]}${medal}</td>
-          <td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td>
-        </tr>`;
-      });
-      html += "</tbody></table>";
-      document.getElementById("leagueTableContainer").innerHTML = html;
-    }
+      tableBody.appendChild(row);
+    });
 
-    function renderScorers(rows) {
-      const data = rows.slice(1).filter(r => r[0]);
-      let html = `
-        <table>
-          <thead><tr><th>Rank</th><th>Player</th><th>Goals</th></tr></thead>
-          <tbody>
+    // Build Top Scorers
+    const scorerData = [...leagueData]
+      .sort((a, b) => b.gf - a.gf)
+      .filter(p => p.player && p.gf > 0);
+
+    const scorerBody = document.getElementById("scorerBody");
+    scorerBody.innerHTML = "";
+
+    scorerData.forEach((p, i) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${p.player}</td>
+        <td>${p.gf}</td>
       `;
-      data.forEach((r, i) => {
-        html += `<tr>
-          <td>${i + 1}</td><td>${r[0]}${i === 0 ? " ⚽" : ""}</td><td>${r[1]}</td>
-        </tr>`;
-      });
-      html += "</tbody></table>";
-      document.getElementById("scorersContainer").innerHTML = html;
-    }
+      scorerBody.appendChild(row);
+    });
 
-    function updateTime() {
-      const d = new Date();
-      const p = n => String(n).padStart(2, "0");
-      document.getElementById("updatedAt").textContent =
-        `Last updated: ${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}, ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
-    }
+    document.getElementById("status").innerHTML = "🟢 Connected to Google Sheets ✅";
+    document.getElementById("status").style.color = "lightgreen";
 
-    async function init() {
-      try {
-        const [league, scorers] = await Promise.all([
-          fetchSheet(TAB_LEAGUE),
-          fetchSheet(TAB_SCORERS)
-        ]);
-        renderLeague(league);
-        renderScorers(scorers);
-        updateTime();
-        document.getElementById("statusText").innerHTML = "✅ Connected to Google Sheets";
-        document.getElementById("statusText").className = "status ok";
-      } catch (err) {
-        document.getElementById("leagueTableContainer").innerHTML =
-          `<div style="color:#f66">⚠ Error loading Google Sheet. Check sharing & tab names.</div>`;
-        document.getElementById("statusText").innerHTML = "❌ Failed to connect to Google Sheets";
-        document.getElementById("statusText").className = "status fail";
-      }
-    }
-    init();
-  </script>
+  } catch (error) {
+    document.getElementById("tableBody").innerHTML = `<tr><td colspan="8">❌ Error loading data</td></tr>`;
+    document.getElementById("scorerBody").innerHTML = `<tr><td colspan="3">❌ Error loading data</td></tr>`;
+    document.getElementById("status").innerHTML = "🔴 Failed to connect to Google Sheets";
+    document.getElementById("status").style.color = "red";
+  }
+}
+
+loadData();
+</script>
+
 </body>
 </html>
