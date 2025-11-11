@@ -180,6 +180,7 @@
 
   <section class="card">
     <h2 class="glow-title">League Table</h2>
+    <div id="updated"></div>
     <table id="leagueTable" class="neon-table">
       <thead>
         <tr><th>RANK</th><th>PLAYER</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>PTS</th></tr>
@@ -209,27 +210,46 @@
   <footer><a class="link" href="players.html">📸 Players list</a></footer>
 
   <script>
-    const players = [
-      "Shabo", "Ilya", "Liad", "Aviv", "Elior",
-      "Yarden", "Arthur", "Gil", "Alex", "Tibi"
-    ];
-
+    // --- שליפה מגוגל שיטס ---
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:csv";
     const leagueBody = document.getElementById("leagueBody");
-    players.forEach((p, i) => {
-      const tr = document.createElement("tr");
-      if (i < 2) tr.classList.add("rank-" + (i+1));
-      else if (i < 6) tr.classList.add("playoff");
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${p} ${i===0?'🏆':''}${i===1?'🥈':''}</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>`;
-      leagueBody.appendChild(tr);
-    });
+    const updated = document.getElementById("updated");
 
+    async function loadSheet() {
+      try {
+        const res = await fetch(sheetUrl);
+        const text = await res.text();
+        const rows = text.split("\n").map(r => r.split(","));
+        leagueBody.innerHTML = "";
+        for (let i = 1; i < rows.length; i++) {
+          const [rank, player, w, d, l, gf, ga, pts] = rows[i];
+          if (!player) continue;
+          const tr = document.createElement("tr");
+
+          if (i === 1 || i === 2) tr.classList.add("rank-" + i);
+          else if (i >= 3 && i <= 6) tr.classList.add("playoff");
+
+          tr.innerHTML = `
+            <td>${rank}</td>
+            <td>${player} ${i===1?'🏆':''}${i===2?'🥈':''}</td>
+            <td>${w}</td><td>${d}</td><td>${l}</td>
+            <td>${gf}</td><td>${ga}</td><td>${pts}</td>
+          `;
+          leagueBody.appendChild(tr);
+        }
+        updated.textContent = "Last updated: " + new Date().toLocaleString();
+      } catch (err) {
+        console.error("Error loading sheet:", err);
+      }
+    }
+    loadSheet();
+
+    // --- Top Scorers demo ---
     const scorersBody = document.getElementById("scorersBody");
-    players.slice(0,5).forEach((p,i)=>{
+    const scorers = ["Ilya","Aviv","Gil","Elior","Yarden"];
+    scorers.forEach((p,i)=>{
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${i+1}</td><td>${p}</td><td>0</td>`;
+      tr.innerHTML = `<td>${i+1}</td><td>${p}</td><td>${Math.floor(Math.random()*10)}</td>`;
       scorersBody.appendChild(tr);
     });
 
@@ -239,6 +259,7 @@
     const drawBtn = document.getElementById("drawBtn");
     const resetBtn = document.getElementById("resetBtn");
     const PASS = "1122";
+    const players = ["Shabo","Ilya","Liad","Aviv","Elior","Yarden","Arthur","Gil","Alex","Tibi"];
 
     let fixtures = JSON.parse(localStorage.getItem("fixtures") || "[]");
     let dateSaved = localStorage.getItem("fixturesDate") || "";
