@@ -1,193 +1,176 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasta League — Season 2025 🍝</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pasta League 2025 ⚽</title>
 
 <style>
-  body {
-    background-color: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0 12px 40px;
-  }
-
-  /* פתיח לוגו */
-  #logo-screen {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: gold;
-    font-size: 2.1em;
-    text-shadow: 0 0 20px gold;
-    animation: fadeOut 2.5s ease-in-out forwards;
-    animation-delay: 2s;
-    z-index: 9999;
-  }
-
-  @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-
-  h1 {
-    margin: 30px 0 8px;
-    font-size: 2.2em;
-    color: #ffd24d;
-    text-shadow: 0 0 15px gold;
-  }
-
-  h2 {
-    color: gold;
-    text-shadow: 0 0 10px #ffe066;
-    margin: 24px 0 10px;
-  }
-
-  a.btn {
-    display: inline-block;
-    margin: 8px 0 18px;
-    padding: 10px 18px;
-    border: 2px solid #66ccff;
-    color: #66ccff;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: .2s;
-    font-weight: bold;
-  }
-
-  a.btn:hover { background: #66ccff; color: #000; box-shadow: 0 0 12px #66ccff; }
-
-  /* טבלאות */
-  table {
-    width: min(940px, 96%);
-    margin: 12px auto 22px;
-    border-collapse: collapse;
-    border: 2px solid gold;
-    box-shadow: 0 0 18px gold;
-    background: #000;
-  }
-
-  th, td {
-    border: 1px solid gold;
-    padding: 10px;
-    text-align: center;
-  }
-
-  th {
-    background: #161616;
-    color: gold;
-  }
-
-  tr:nth-child(even) td { background: #0c0c0c; }
-  tr:nth-child(odd)  td { background: #000; }
-
-  /* מקום ראשון מנצנץ */
-  .first-place {
-    color: gold;
-    text-shadow: 0 0 10px gold, 0 0 20px orange;
-    animation: sparkle 1.5s infinite alternate;
-    font-weight: bold;
-  }
-
-  @keyframes sparkle {
-    from { text-shadow: 0 0 6px gold, 0 0 14px orange; }
-    to   { text-shadow: 0 0 22px gold, 0 0 40px orange; }
-  }
-
-  /* טבלת מלך השערים */
-  .neon-title {
-    color: #00ffff;
-    font-size: 2em;
-    text-shadow:
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 30px #ff00ff,
-      0 0 40px #ff00ff;
-    animation: neonPulse 2.5s infinite alternate;
-  }
-
-  @keyframes neonPulse {
-    from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff; }
-    to   { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-  }
-
-  .scorers {
-    border-color: #ff6600;
-    box-shadow: 0 0 20px #ff6600;
-  }
-
-  .scorers thead th {
-    background: #140014;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-  }
-
-  .scorers .lead {
-    color: #ffcc00;
-    background: #330000;
-    text-shadow: 0 0 15px #ffcc00;
-    animation: flash 1.5s infinite alternate;
-    font-weight: bold;
-  }
-
-  .scorers .row {
-    background: #220022;
-    color: #fff;
-  }
-
-  @keyframes flash {
-    from { text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff6600; }
-    to   { text-shadow: 0 0 30px #ffff66, 0 0 50px #ff9933; }
-  }
+body {
+  background-color: #000;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 2.2em;
+  margin-top: 20px;
+  text-shadow: 0 0 15px gold;
+}
+table {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(255, 255, 0, 0.4);
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+th {
+  background-color: rgba(255, 215, 0, 0.2);
+  color: #fff;
+}
+tr:first-child {
+  background: linear-gradient(90deg, gold, orange);
+  color: black;
+  font-weight: bold;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { box-shadow: 0 0 10px gold; }
+  to { box-shadow: 0 0 25px yellow; }
+}
+#trophy {
+  font-size: 1.4em;
+  margin-left: 6px;
+}
+.top-scorers {
+  margin-top: 40px;
+}
+.top-scorers h2 {
+  text-shadow: 0 0 10px cyan;
+}
+.top-scorers table {
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+  border: 1px solid cyan;
+}
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  opacity: 0.7;
+}
 </style>
 </head>
 
 <body>
-  <!-- פתיח -->
-  <div id="logo-screen">🍝 Pasta League 🍝</div>
-
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <a class="btn" href="players.html">רשימת שחקנים 👤</a>
+  <p id="updated-time"></p>
 
-  <!-- טבלת ליגה -->
   <h2>League Table</h2>
-  <table>
+  <table id="leagueTable">
     <thead>
       <tr>
-        <th>Rank</th><th>Player</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GF</th>
+        <th>GA</th>
+        <th>Pts</th>
       </tr>
     </thead>
-    <tbody>
-      <tr><td>1</td><td class="first-place">Shabo 🏆</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>2</td><td>Ilya</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>3</td><td>Liad</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>4</td><td>Aviv</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>5</td><td>Elior</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>6</td><td>Yarden</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>7</td><td>Arthur</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>8</td><td>Gil</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>9</td><td>Alex</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>10</td><td>Tibi</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-    </tbody>
+    <tbody></tbody>
   </table>
 
-  <!-- טבלת מלך השערים -->
-  <h2 class="neon-title">Top Scorers ⚽</h2>
-  <table class="scorers">
-    <thead>
-      <tr><th>Rank</th><th>Player</th><th>Goals</th></tr>
-    </thead>
-    <tbody>
-      <tr class="lead"><td>1</td><td>Shabo ⚽</td><td>8</td></tr>
-      <tr class="row"><td>2</td><td>Liad</td><td>7</td></tr>
-      <tr class="row"><td>3</td><td>Tibi</td><td>6</td></tr>
-      <tr class="row"><td>4</td><td>Ilya</td><td>5</td></tr>
-      <tr class="row"><td>5</td><td>Aviv</td><td>4</td></tr>
-    </tbody>
-  </table>
+  <div class="top-scorers">
+    <h2>Top Scorers ⚽</h2>
+    <table id="topScorers">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Goals</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>Created by Ben De Paz © 2025</footer>
+
+<script>
+const sheetURL =
+  "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=LeagueTable";
+
+async function fetchData() {
+  try {
+    const res = await fetch(sheetURL);
+    const text = await res.text();
+    const json = JSON.parse(text.substr(47).slice(0, -2));
+    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
+
+    const tableData = rows.map(r => ({
+      Player: r[0],
+      W: parseInt(r[1] || 0),
+      D: parseInt(r[2] || 0),
+      L: parseInt(r[3] || 0),
+      GF: parseInt(r[4] || 0),
+      GA: parseInt(r[5] || 0),
+      Pts: parseInt(r[6] || 0)
+    }));
+
+    // מיון לפי נקודות
+    tableData.sort((a, b) => b.Pts - a.Pts);
+
+    const tbody = document.querySelector("#leagueTable tbody");
+    tbody.innerHTML = "";
+    tableData.forEach((player, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${player.Player}${index === 0 ? ' 🏆' : ''}</td>
+        <td>${player.W}</td>
+        <td>${player.D}</td>
+        <td>${player.L}</td>
+        <td>${player.GF}</td>
+        <td>${player.GA}</td>
+        <td>${player.Pts}</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // מלך השערים
+    const topScorers = [...tableData].sort((a, b) => b.GF - a.GF).slice(0, 5);
+    const scorersBody = document.querySelector("#topScorers tbody");
+    scorersBody.innerHTML = "";
+    topScorers.forEach((p, i) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${p.Player}${i === 0 ? ' ⚽' : ''}</td>
+        <td>${p.GF}</td>
+      `;
+      scorersBody.appendChild(row);
+    });
+
+    // עדכון זמן עדכון
+    const now = new Date();
+    document.getElementById("updated-time").innerText =
+      "Last updated: " + now.toLocaleString("he-IL");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+fetchData();
+</script>
 </body>
 </html>
