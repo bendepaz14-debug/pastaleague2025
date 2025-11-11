@@ -14,75 +14,69 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/* כותרת עליונה */
 h1 {
   font-size: 2.3em;
   margin-top: 20px;
-  color: #fff;
-  text-shadow: 0 0 25px #ff66cc, 0 0 40px #ffffff;
+  color: #ffcc00;
+  text-shadow: 0 0 25px #ffcc00;
 }
-
-/* טבלאות כלליות */
+h2 {
+  color: #ffcc00;
+  text-shadow: 0 0 15px #ffcc00;
+}
 table {
   width: 90%;
   max-width: 600px;
   margin: 20px auto;
   border-collapse: collapse;
+  border: 2px solid #ffcc00;
   border-radius: 10px;
   overflow: hidden;
   background-color: #111;
-  box-shadow: 0 0 30px rgba(255, 102, 204, 0.5);
+  box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
 }
 th, td {
   padding: 10px;
+  border: 1px solid #ffcc00;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
 }
 th {
-  background-color: #ff66cc;
-  color: #fff;
-  font-weight: bold;
-  text-shadow: 0 0 5px #fff;
-}
-tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* מקום ראשון */
-tr:first-child {
-  background: linear-gradient(90deg, #ffffff, #ffb6e6);
+  background-color: #ffcc00;
   color: black;
+}
+tr {
+  transition: 0.3s;
+}
+tr:first-child td {
   font-weight: bold;
   animation: glow 1.5s ease-in-out infinite alternate;
 }
 @keyframes glow {
-  from { box-shadow: 0 0 10px #ff66cc; }
-  to { box-shadow: 0 0 25px #ffffff; }
+  from { box-shadow: 0 0 10px gold; }
+  to { box-shadow: 0 0 25px yellow; }
 }
 
-/* טבלת מלך השערים */
+/* עיצוב לפי מקום */
+tr.rank-1, tr.rank-2 {
+  background-color: white;
+  color: black;
+}
+tr.rank-3, tr.rank-4, tr.rank-5, tr.rank-6 {
+  background-color: #ff66cc;
+  color: black;
+}
+tr.rank-7, tr.rank-8, tr.rank-9, tr.rank-10 {
+  background-color: black;
+  color: #ffcc00;
+}
+
 .top-scorers {
   margin-top: 40px;
 }
-.top-scorers h2 {
-  color: #ffb6e6;
-  text-shadow: 0 0 10px #fff;
-}
 .top-scorers table {
-  box-shadow: 0 0 25px rgba(255, 182, 230, 0.4);
-  border: 1px solid #ffb6e6;
+  border-color: #ffcc00;
+  box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
 }
-
-/* עדכון זמן */
-#updated-time {
-  font-size: 0.9em;
-  color: #ccc;
-  margin-top: -10px;
-}
-
-/* פוטר */
 footer {
   margin-top: 40px;
   font-size: 0.9em;
@@ -93,9 +87,7 @@ footer {
 
 <body>
   <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <p id="updated-time"></p>
-
-  <h2 style="color:#ff66cc;text-shadow:0 0 15px white;">League Table</h2>
+  <h2>League Table</h2>
   <table id="leagueTable">
     <thead>
       <tr>
@@ -106,7 +98,7 @@ footer {
         <th>L</th>
         <th>GF</th>
         <th>GA</th>
-        <th>Pts</th>
+        <th>PTS</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -155,6 +147,7 @@ async function fetchData() {
     tbody.innerHTML = "";
     tableData.forEach((player, index) => {
       const row = document.createElement("tr");
+      row.classList.add(`rank-${index + 1}`);
       row.innerHTML = `
         <td>${index + 1}</td>
         <td>${player.Player}${index === 0 ? ' 🏆' : ''}</td>
@@ -180,10 +173,6 @@ async function fetchData() {
       `;
       scorersBody.appendChild(row);
     });
-
-    const now = new Date();
-    document.getElementById("updated-time").innerText =
-      "Last updated: " + now.toLocaleString("he-IL");
   } catch (err) {
     console.error(err);
   }
