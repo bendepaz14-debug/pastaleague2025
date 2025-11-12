@@ -1,197 +1,83 @@
-<!DOCTYPE html>
-<html lang="he">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pasta League 2025 ⚽</title>
-
-<style>
-body {
-  background-color: #000;
-  color: white;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-h1 {
-  font-size: 2.3em;
-  margin-top: 20px;
-  color: #ffcc00;
-  text-shadow: 0 0 25px #ffcc00;
-}
-h2 {
-  color: #ffcc00;
-  text-shadow: 0 0 15px #ffcc00;
-}
-table {
-  width: 90%;
-  max-width: 600px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  border: 2px solid #ffcc00;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #111;
-  box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-}
-th, td {
-  padding: 10px;
-  border: 1px solid #ffcc00;
-  text-align: center;
-}
-th {
-  background-color: #ffcc00;
-  color: black;
-}
-tr {
-  transition: 0.3s;
-}
-tr:first-child td {
-  font-weight: bold;
-  animation: glow 1.5s ease-in-out infinite alternate;
-}
-@keyframes glow {
-  from { box-shadow: 0 0 10px gold; }
-  to { box-shadow: 0 0 25px yellow; }
-}
-
-/* עיצוב לפי מקום */
-tr.rank-1, tr.rank-2 {
-  background-color: white;
-  color: black;
-}
-tr.rank-3, tr.rank-4, tr.rank-5, tr.rank-6 {
-  background-color: #ff66cc;
-  color: black;
-}
-tr.rank-7, tr.rank-8, tr.rank-9, tr.rank-10 {
-  background-color: black;
-  color: #ffcc00;
-}
-
-.top-scorers {
-  margin-top: 40px;
-}
-.top-scorers table {
-  border-color: #ffcc00;
-  box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
-}
-footer {
-  margin-top: 40px;
-  font-size: 0.9em;
-  opacity: 0.7;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pasta League — Table · Matches · Statistics</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <h1>🍝 Pasta League — Season 2025 🍝</h1>
-  <h2>League Table</h2>
-  <table id="leagueTable">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>P</th>
-        <th>W</th>
-        <th>D</th>
-        <th>L</th>
-        <th>GF</th>
-        <th>GA</th>
-        <th>PTS</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <header class="site-header">
+    <h1 class="site-title">Pasta League</h1>
+  </header>
 
-  <div class="top-scorers">
-    <h2>Top Scorers ⚽</h2>
-    <table id="topScorers">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Goals</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <main class="container">
+
+    <!-- Standings / Table Section -->
+    <section id="table-section" class="card">
+      <h2>Table</h2>
+      <div class="table-wrapper">
+        <table id="standings-table" class="standings">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Pts</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Matches Section -->
+    <section id="matches-section" class="card">
+      <h2>Matches</h2>
+      <div class="matches-controls">
+        <button id="matches-prev" class="btn" aria-label="Previous matchday">Prev</button>
+        <div id="matches-title" class="matches-title">Matchday —</div>
+        <button id="matches-next" class="btn" aria-label="Next matchday">Next</button>
+      </div>
+
+      <div id="matches-slide" class="matches-slide">
+        <!-- Match cards injected here -->
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats-section" class="card">
+      <h2>Statistics</h2>
+      <div class="stats-controls">
+        <button id="stats-btn-scorers" class="btn stat-toggle active">Top Scorers</button>
+        <button id="stats-btn-conceded" class="btn stat-toggle">Goals Conceded</button>
+      </div>
+
+      <div id="stats-area" class="stats-area">
+        <!-- Stats table injected here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Player Modal -->
+  <div id="player-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-player-name">
+      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3 id="modal-player-name"></h3>
+      <div class="modal-content">
+        <img id="modal-player-image" alt="" />
+        <div id="modal-player-description" class="player-description"></div>
+      </div>
+    </div>
   </div>
 
-  <footer>Created by Ben De Paz © 2025</footer>
-
-<script>
-const sheetURL =
-  "https://docs.google.com/spreadsheets/d/1--or-XBf1Ys71it7cRCSnZOodHIP8wr9bW_HUoTJtCs/gviz/tq?tqx=out:json&sheet=LeagueTable";
-
-function safeNum(value) {
-  const num = parseInt(value);
-  return isNaN(num) ? 0 : num;
-}
-
-async function fetchData() {
-  try {
-    const res = await fetch(sheetURL);
-    const text = await res.text();
-    const json = JSON.parse(text.substr(47).slice(0, -2));
-    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
-
-    const tableData = rows.map(r => ({
-      Player: r[0],
-      W: safeNum(r[1]),
-      D: safeNum(r[2]),
-      L: safeNum(r[3]),
-      GF: safeNum(r[4]),
-      GA: safeNum(r[5]),
-      Pts: safeNum(r[6])
-    }));
-
-    // חישוב P (משחקים ששוחקו)
-    tableData.forEach(p => {
-      const hasAnyGame = p.W > 0 || p.D > 0 || p.L > 0 || p.GF > 0 || p.GA > 0;
-      p.P = hasAnyGame ? 1 : 0;
-    });
-
-    tableData.sort((a, b) => b.Pts - a.Pts || b.GF - a.GF);
-
-    const tbody = document.querySelector("#leagueTable tbody");
-    tbody.innerHTML = "";
-    tableData.forEach((player, index) => {
-      const row = document.createElement("tr");
-      row.classList.add(`rank-${index + 1}`);
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${player.Player}${index === 0 ? ' 🏆' : ''}</td>
-        <td>${player.P}</td>
-        <td>${player.W}</td>
-        <td>${player.D}</td>
-        <td>${player.L}</td>
-        <td>${player.GF}</td>
-        <td>${player.GA}</td>
-        <td>${player.Pts}</td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    const topScorers = [...tableData].sort((a, b) => b.GF - a.GF).slice(0, 5);
-    const scorersBody = document.querySelector("#topScorers tbody");
-    scorersBody.innerHTML = "";
-    topScorers.forEach((p, i) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${i + 1}</td>
-        <td>${p.Player}${i === 0 ? ' ⚽' : ''}</td>
-        <td>${p.GF}</td>
-      `;
-      scorersBody.appendChild(row);
-    });
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-fetchData();
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
