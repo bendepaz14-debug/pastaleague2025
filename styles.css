@@ -10,7 +10,6 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* basic reset */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -18,22 +17,16 @@ body{
   padding:0;
   background: linear-gradient(180deg,#071023 0%, #071726 100%);
   color:var(--white);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
   font-size:16px;
 }
 
-/* container for main content */
-.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:20px}
-
-/* HERO top image (centered at page top) */
+/* ---------------- HERO IMAGE ---------------- */
 .hero-top{
   width:100%;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:20px 0;
-  background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent 40%);
 }
 .hero-image{
   max-width:420px;
@@ -45,7 +38,15 @@ body{
   filter: drop-shadow(0 8px 40px rgba(0,0,0,0.6));
 }
 
-/* Card styling */
+/* ---------------- CONTAINER ---------------- */
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:20px;
+}
+
+/* ---------------- CARDS ---------------- */
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
   padding:16px;
@@ -55,7 +56,7 @@ body{
   border:1px solid rgba(255,255,255,0.03);
 }
 
-/* Table */
+/* ---------------- TABLE ---------------- */
 .table-wrapper{overflow:auto}
 .standings{
   width:100%;
@@ -70,158 +71,149 @@ body{
   vertical-align:middle;
   color:var(--white);
 }
-.standings th{
-  color:var(--muted);
-  font-weight:600;
-  text-transform:uppercase;
-  font-size:12px;
-}
+.standings th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:12px}
 .player-cell{display:flex;align-items:center;gap:12px}
 .player-thumb{
-  width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06);cursor:pointer;
-  background:linear-gradient(90deg,#0b1320,#0d1a29);
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,0.06);
 }
 .player-name{font-weight:600}
 
-/* ===== Row Colors in Standings ===== */
-/* 1–2 = Semi finals (green) */
-tr.top2 {
-  background: rgba(45,160,80,0.10);
-  border-left: 4px solid rgba(45,160,80,0.6);
+/* ROW COLORS */
+tr.top2{background:rgba(45,160,80,0.10);border-left:4px solid rgba(45,160,80,0.6);}
+tr.playoffs{background:rgba(60,120,220,0.08);border-left:4px solid rgba(60,120,220,0.55);}
+td.pts-bold{font-weight:900;color:var(--accent);}
+
+.legend{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:20px;}
+.legend-box{width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:6px;}
+.legend-box.semi{background:rgba(45,160,80,0.6);}
+.legend-box.play{background:rgba(60,120,220,0.6);}
+
+/* ---------------- MATCHES ---------------- */
+.matches-controls{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
 }
 
-/* 3–6 = Playoffs (blue) */
-tr.playoffs {
-  background: rgba(60,120,220,0.08);
-  border-left: 4px solid rgba(60,120,220,0.55);
+.matches-title{
+  flex:1;
+  text-align:center;
+  color:var(--muted);
+  font-weight:600;
 }
 
-/* PTS bold */
-td.pts-bold {
-  font-weight: 900;
-  color: var(--accent);
-}
-
-/* Legend */
-.legend { margin-top:12px; font-size:14px; color:var(--muted); display:flex; gap:20px; align-items:center; }
-.legend-box { display:inline-block; width:16px; height:16px; margin-right:6px; border-radius:4px; }
-.legend-box.semi { background:rgba(45,160,80,0.6); }
-.legend-box.play { background:rgba(60,120,220,0.6); }
-
-/* Matches */
-.matches-controls{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.matches-title{flex:1;text-align:center;color:var(--muted);font-weight:600}
 .matches-slide{
-  display:flex;flex-direction:column;gap:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-/* Single match row */
+/* MATCH ROW */
 .match-card{
   padding:12px;
   background:var(--glass);
-  border-radius:8px;
+  border-radius:10px;
   border:1px solid rgba(255,255,255,0.03);
+
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:16px;
 
-  /* LOCK horizontal layout even on small screens */
   flex-wrap:nowrap;
-  min-width: 0;
+  width:100%;
+  overflow:hidden;
 }
 
-/* player blocks */
+/* PLAYER BLOCKS */
 .player-block{
   display:flex;
   align-items:center;
-  gap:12px;
-  min-width:120px;
-  flex-shrink:0;
+  gap:10px;
+
+  /* FIX OVERFLOW */
+  flex:0 0 auto;
+  max-width:32%;
+  min-width:0; 
+}
+.player-block .player-name{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .player-block.right{
   flex-direction:row-reverse;
   text-align:right;
-  justify-content:flex-end;
 }
 
-/* score area */
+/* SCORE AREA (CENTER) */
 .score-area{
   display:flex;
   align-items:center;
-  gap:10px;
   justify-content:center;
-  flex:1;
-  min-width:120px;
+
+  gap:10px;
+  flex:1 1 auto;
+  min-width:80px;
+  max-width:30%;
 }
 .score-box{
-  width:48px;
-  height:40px;
+  width:42px;
+  height:38px;
   border-radius:8px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
   border:1px solid rgba(255,255,255,0.04);
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:18px;
   font-weight:700;
-  font-size:18px;
 }
-.score-box.empty{
-  color:var(--muted);
-  font-weight:600;
-}
+.score-box.empty{color:var(--muted)}
+
+/* DASH */
 .score-dash{
-  font-size:18px;
   font-weight:800;
   opacity:0.9;
 }
 
-/* Stats */
+/* ---------------- STATS ---------------- */
 .stats-controls{display:flex;gap:8px;margin-bottom:12px}
 .stat-toggle{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
-.stat-toggle.active{background:linear-gradient(90deg,#ffb86b 0%, #ff906b 100%);color:#112;box-shadow:0 6px 12px rgba(255,184,107,0.08)}
+.stat-toggle.active{background:linear-gradient(90deg,#ffb86b 0%, #ff906b 100%);color:#112}
+
 .stats-area{overflow:auto}
 .stats-table{width:100%;border-collapse:collapse}
-.stats-table th, .stats-table td{padding:8px 12px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03)}
-.stats-table th{color:var(--muted);text-transform:uppercase;font-size:12px}
-/* Align stats numbers right */
-.stats-table td:last-child, .stats-table th:last-child {
-  text-align:right;
+.stats-table th, .stats-table td{
+  padding:8px 12px;
+  border-bottom:1px dashed rgba(255,255,255,0.03);
+  text-align:left;
 }
+.stats-table th{color:var(--muted)}
+.stats-table td:last-child,
+.stats-table th:last-child{text-align:right}
 
-/* Buttons */
-.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white);padding:8px 10px;border-radius:8px;cursor:pointer}
-.btn:disabled{opacity:0.4;cursor:not-allowed}
-
-/* Modal */
-.modal{display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:50}
-.modal[aria-hidden="false"]{display:flex}
-.modal-backdrop{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.7),rgba(2,6,23,0.85))}
-.modal-panel{position:relative;z-index:60;background:linear-gradient(180deg,#071426, #06121e);padding:18px;border-radius:12px;max-width:780px;width:92%;box-shadow:0 30px 80px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.04)}
-.modal-close{position:absolute;right:12px;top:10px;background:transparent;border:0;color:var(--muted);font-size:24px;cursor:pointer}
-.modal-content{display:flex;flex-direction:row;gap:16px;align-items:flex-start}
-.modal-content img{max-width:260px;border-radius:8px;object-fit:cover;border:2px solid rgba(255,255,255,0.03)}
-.player-description{color:var(--white);line-height:1.4}
-
-/* 🔧 RESPONSIVE FIX (DO NOT STACK MATCH CARD ON MOBILE) */
+/* ---------------- RESPONSIVE FIX ---------------- */
 @media (max-width:900px){
+
   .match-card{
-    flex-direction:row !important;
-    justify-content:space-between;
+    flex-wrap:nowrap;
     align-items:center;
+    gap:8px;
   }
+
   .player-block{
-    flex-direction:row;
-    justify-content:flex-start;
-    text-align:left;
+    max-width:30%;
+    flex:0 1 auto;
   }
-  .player-block.right{
-    flex-direction:row-reverse;
-    text-align:right;
-  }
+
   .score-area{
-    flex:0 0 auto;
+    flex:0 1 auto;
+    max-width:25%;
   }
 }
-
-.sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
