@@ -113,70 +113,77 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   gap:12px;
 }
 
-/* MATCH ROW */
+/* ---------------- MATCH ROW — FIXED CENTERED LAYOUT ---------------- */
 .match-card{
   padding:12px;
   background:var(--glass);
   border-radius:10px;
   border:1px solid rgba(255,255,255,0.03);
 
-  display:flex;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;   /* PERFECT THREE-COLUMN CENTER LAYOUT */
+  column-gap:14px;
   align-items:center;
-  justify-content:space-between;
-  gap:16px;
 
-  flex-wrap:nowrap;
   width:100%;
-  overflow:hidden;
 }
 
-/* PLAYER BLOCKS */
+/* LEFT PLAYER BLOCK */
 .player-block{
   display:flex;
   align-items:center;
   gap:10px;
 
-  /* FIX OVERFLOW */
-  flex:0 0 auto;
-  max-width:32%;
-  min-width:0; 
+  flex-shrink:1;
+  min-width:0;
 }
 .player-block .player-name{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
+/* RIGHT PLAYER BLOCK */
 .player-block.right{
   flex-direction:row-reverse;
   text-align:right;
 }
 
-/* SCORE AREA (CENTER) */
+/* ---------------- FIXED ABSOLUTE CENTER SCORE AREA ---------------- */
 .score-area{
   display:flex;
   align-items:center;
   justify-content:center;
 
   gap:10px;
-  flex:1 1 auto;
-  min-width:80px;
-  max-width:30%;
+
+  /* AUTO size but always centered by grid layout */
+  min-width:120px;
 }
+
+/* ---------------- SCORE BOXES ---------------- */
 .score-box{
-  width:42px;
-  height:38px;
-  border-radius:8px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
-  border:1px solid rgba(255,255,255,0.04);
+  width:48px;
+  height:40px;
+  border-radius:10px;
+
+  background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
+
+  border:2px solid rgba(255,255,255,0.55);   /* STRONGER BORDER */
+  box-shadow:0 0 6px rgba(0,0,0,0.4);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:18px;
   font-weight:700;
 }
-.score-box.empty{color:var(--muted)}
 
-/* DASH */
+.score-box.empty{
+  color:var(--muted);
+}
+
 .score-dash{
   font-weight:800;
   opacity:0.9;
@@ -202,18 +209,11 @@ td.pts-bold{font-weight:900;color:var(--accent);}
 @media (max-width:900px){
 
   .match-card{
-    flex-wrap:nowrap;
-    align-items:center;
-    gap:8px;
-  }
-
-  .player-block{
-    max-width:30%;
-    flex:0 1 auto;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap:10px;
   }
 
   .score-area{
-    flex:0 1 auto;
-    max-width:25%;
+    min-width:100px;
   }
 }
