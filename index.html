@@ -3,80 +3,71 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pasta League — Table · Matches · Statistics</title>
+  <title>Pasta League</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <header class="site-header">
-    <h1 class="site-title">Pasta League</h1>
-  </header>
+  <!-- TOP LOGO -->
+  <div class="hero-top">
+    <img src="gallery/logo.jpeg" class="hero-image" alt="Pasta League Logo" />
+  </div>
 
   <main class="container">
 
-    <!-- Standings / Table Section -->
+    <!-- STANDINGS TABLE -->
     <section id="table-section" class="card">
       <h2>Table</h2>
       <div class="table-wrapper">
-        <table id="standings-table" class="standings">
+        <table id="standings-table" class="standings" aria-describedby="legend">
           <thead>
             <tr>
               <th>#</th>
               <th>Player</th>
-              <th>Pts</th>
+              <th>MP</th>
               <th>W</th>
               <th>D</th>
               <th>L</th>
               <th>GF</th>
               <th>GA</th>
+              <th>GD</th>
+              <th>PTS</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Rows injected by JS -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
+
+      <!-- Legend -->
+      <div id="legend" class="legend">
+        <div><span class="legend-box semi"></span> Top 2 — Semi-finals</div>
+        <div><span class="legend-box play"></span> Places 3–6 — Playoffs</div>
+      </div>
     </section>
 
-    <!-- Matches Section -->
+    <!-- MATCHES -->
     <section id="matches-section" class="card">
       <h2>Matches</h2>
+
       <div class="matches-controls">
-        <button id="matches-prev" class="btn" aria-label="Previous matchday">Prev</button>
+        <button id="matches-prev" class="btn">Prev</button>
         <div id="matches-title" class="matches-title">Matchday —</div>
-        <button id="matches-next" class="btn" aria-label="Next matchday">Next</button>
+        <button id="matches-next" class="btn">Next</button>
       </div>
 
-      <div id="matches-slide" class="matches-slide">
-        <!-- Match cards injected here -->
-      </div>
+      <div id="matches-slide" class="matches-slide" role="list"></div>
     </section>
 
-    <!-- Statistics Section -->
+    <!-- STATS -->
     <section id="stats-section" class="card">
       <h2>Statistics</h2>
       <div class="stats-controls">
         <button id="stats-btn-scorers" class="btn stat-toggle active">Top Scorers</button>
         <button id="stats-btn-conceded" class="btn stat-toggle">Goals Conceded</button>
       </div>
-
-      <div id="stats-area" class="stats-area">
-        <!-- Stats table injected here -->
-      </div>
+      <div id="stats-area"></div>
     </section>
   </main>
-
-  <!-- Player Modal -->
-  <div id="player-modal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-player-name">
-      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
-      <h3 id="modal-player-name"></h3>
-      <div class="modal-content">
-        <img id="modal-player-image" alt="" />
-        <div id="modal-player-description" class="player-description"></div>
-      </div>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
