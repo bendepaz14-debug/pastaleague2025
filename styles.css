@@ -113,7 +113,7 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   gap:12px;
 }
 
-/* ---------------- MATCH ROW — FIXED CENTERED LAYOUT ---------------- */
+/* ---------------- MATCH ROW ---------------- */
 .match-card{
   padding:12px;
   background:var(--glass);
@@ -121,11 +121,12 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   border:1px solid rgba(255,255,255,0.03);
 
   display:grid;
-  grid-template-columns: 1fr auto 1fr;   /* PERFECT THREE-COLUMN CENTER LAYOUT */
+  grid-template-columns: 1fr auto 1fr;
   column-gap:14px;
   align-items:center;
 
   width:100%;
+  min-height:70px; /* <<< FIX: Prevents overlap on phone */
 }
 
 /* LEFT PLAYER BLOCK */
@@ -133,14 +134,12 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   display:flex;
   align-items:center;
   gap:10px;
-
-  flex-shrink:1;
   min-width:0;
 }
 .player-block .player-name{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  white-space:nowrap;       /* <<< FIX */
+  overflow:hidden;          /* <<< FIX */
+  text-overflow:ellipsis;   /* <<< FIX */
 }
 
 /* RIGHT PLAYER BLOCK */
@@ -149,15 +148,12 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   text-align:right;
 }
 
-/* ---------------- FIXED ABSOLUTE CENTER SCORE AREA ---------------- */
+/* ---------------- SCORE AREA ---------------- */
 .score-area{
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:10px;
-
-  /* AUTO size but always centered by grid layout */
   min-width:120px;
 }
 
@@ -169,7 +165,7 @@ td.pts-bold{font-weight:900;color:var(--accent);}
 
   background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
 
-  border:2px solid rgba(255,255,255,0.55);   /* STRONGER BORDER */
+  border:2px solid rgba(255,255,255,0.55);
   box-shadow:0 0 6px rgba(0,0,0,0.4);
 
   display:flex;
@@ -201,16 +197,16 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   border-bottom:1px dashed rgba(255,255,255,0.03);
   text-align:left;
 }
-.stats-table th{color:var(--muted)}
 .stats-table td:last-child,
 .stats-table th:last-child{text-align:right}
 
-/* ---------------- RESPONSIVE FIX ---------------- */
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width:900px){
 
   .match-card{
     grid-template-columns: 1fr auto 1fr;
     column-gap:10px;
+    min-height:70px;
   }
 
   .score-area{
