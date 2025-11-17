@@ -20,7 +20,7 @@ body{
   font-size:16px;
 }
 
-/* ---------------- HERO IMAGE ---------------- */
+/* HERO */
 .hero-top{
   width:100%;
   display:flex;
@@ -38,7 +38,7 @@ body{
   filter: drop-shadow(0 8px 40px rgba(0,0,0,0.6));
 }
 
-/* ---------------- CONTAINER ---------------- */
+/* layout container */
 .container{
   width:100%;
   max-width:var(--max-width);
@@ -46,7 +46,7 @@ body{
   padding:20px;
 }
 
-/* ---------------- CARDS ---------------- */
+/* cards */
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
   padding:16px;
@@ -56,7 +56,7 @@ body{
   border:1px solid rgba(255,255,255,0.03);
 }
 
-/* ---------------- TABLE ---------------- */
+/* table */
 .table-wrapper{overflow:auto}
 .standings{
   width:100%;
@@ -72,48 +72,34 @@ body{
   color:var(--white);
 }
 .standings th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:12px}
-.player-cell{display:flex;align-items:center;gap:12px}
+.player-cell{display:flex;align-items:center;gap:12px;min-width:0}
 .player-thumb{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid rgba(255,255,255,0.06);
+  width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06);
 }
-.player-name{font-weight:600}
+.player-name{font-weight:600; max-width:calc(100% - 48px); overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
 
-/* ROW COLORS */
+/* row colors */
 tr.top2{background:rgba(45,160,80,0.10);border-left:4px solid rgba(45,160,80,0.6);}
 tr.playoffs{background:rgba(60,120,220,0.08);border-left:4px solid rgba(60,120,220,0.55);}
 td.pts-bold{font-weight:900;color:var(--accent);}
 
+/* legend */
 .legend{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:20px;}
 .legend-box{width:16px;height:16px;border-radius:4px;display:inline-block;margin-right:6px;}
 .legend-box.semi{background:rgba(45,160,80,0.6);}
 .legend-box.play{background:rgba(60,120,220,0.6);}
 
-/* ---------------- MATCHES ---------------- */
+/* matches controls */
 .matches-controls{
   display:flex;
   align-items:center;
   gap:12px;
   margin-bottom:12px;
 }
+.matches-title{flex:1;text-align:center;color:var(--muted);font-weight:600}
+.matches-slide{display:flex;flex-direction:column;gap:12px;}
 
-.matches-title{
-  flex:1;
-  text-align:center;
-  color:var(--muted);
-  font-weight:600;
-}
-
-.matches-slide{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-/* ---------------- MATCH ROW ---------------- */
+/* match row using grid: guaranteed center column */
 .match-card{
   padding:12px;
   background:var(--glass);
@@ -121,95 +107,100 @@ td.pts-bold{font-weight:900;color:var(--accent);}
   border:1px solid rgba(255,255,255,0.03);
 
   display:grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr; /* left | center | right */
   column-gap:14px;
   align-items:center;
 
   width:100%;
-  min-height:70px; /* <<< FIX: Prevents overlap on phone */
+  min-height:70px;
+  overflow:hidden;
 }
 
-/* LEFT PLAYER BLOCK */
+/* left player block */
 .player-block{
   display:flex;
   align-items:center;
   gap:10px;
   min-width:0;
+  justify-self:start;       /* ensures left column aligns left */
 }
 .player-block .player-name{
-  white-space:nowrap;       /* <<< FIX */
-  overflow:hidden;          /* <<< FIX */
-  text-overflow:ellipsis;   /* <<< FIX */
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:block;
 }
 
-/* RIGHT PLAYER BLOCK */
+/* right player block */
 .player-block.right{
   flex-direction:row-reverse;
+  justify-self:end;         /* ensures right column aligns right */
   text-align:right;
 }
 
-/* ---------------- SCORE AREA ---------------- */
+/* center score area */
 .score-area{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:10px;
+
+  /* fixed-ish center area so every row centers same */
+  flex:0 0 auto;
   min-width:120px;
+  max-width:240px;
+  justify-self:center;      /* critical: center the column inside grid */
 }
 
-/* ---------------- SCORE BOXES ---------------- */
+/* score boxes style and border difference */
 .score-box{
   width:48px;
   height:40px;
   border-radius:10px;
-
   background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
-
-  border:2px solid rgba(255,255,255,0.55);
-  box-shadow:0 0 6px rgba(0,0,0,0.4);
-
+  border:2px solid rgba(255,255,255,0.65); /* visible border */
+  box-shadow:0 0 6px rgba(0,0,0,0.35);
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:18px;
   font-weight:700;
 }
+.score-box.empty{ color:var(--muted); }
+.score-dash{ font-weight:800; opacity:0.9 }
 
-.score-box.empty{
-  color:var(--muted);
-}
-
-.score-dash{
-  font-weight:800;
-  opacity:0.9;
-}
-
-/* ---------------- STATS ---------------- */
+/* stats */
 .stats-controls{display:flex;gap:8px;margin-bottom:12px}
 .stat-toggle{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
 .stat-toggle.active{background:linear-gradient(90deg,#ffb86b 0%, #ff906b 100%);color:#112}
 
 .stats-area{overflow:auto}
 .stats-table{width:100%;border-collapse:collapse}
-.stats-table th, .stats-table td{
-  padding:8px 12px;
-  border-bottom:1px dashed rgba(255,255,255,0.03);
-  text-align:left;
-}
-.stats-table td:last-child,
-.stats-table th:last-child{text-align:right}
+.stats-table th, .stats-table td{padding:8px 12px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left}
+.stats-table th{color:var(--muted)}
+.stats-table td:last-child, .stats-table th:last-child{text-align:right}
 
-/* ---------------- RESPONSIVE ---------------- */
+/* buttons */
+.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white);padding:8px 10px;border-radius:8px;cursor:pointer}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* modal */
+.modal{display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:50}
+.modal[aria-hidden="false"]{display:flex}
+.modal-backdrop{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.7),rgba(2,6,23,0.85))}
+.modal-panel{position:relative;z-index:60;background:linear-gradient(180deg,#071426, #06121e);padding:18px;border-radius:12px;max-width:780px;width:92%;box-shadow:0 30px 80px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.04)}
+.modal-close{position:absolute;right:12px;top:10px;background:transparent;border:0;color:var(--muted);font-size:24px;cursor:pointer}
+.modal-content{display:flex;flex-direction:row;gap:16px;align-items:flex-start}
+.modal-content img{max-width:320px;border-radius:8px;object-fit:cover;border:2px solid rgba(255,255,255,0.03)}
+.player-description{color:var(--white);line-height:1.4}
+
+/* responsive tweaks */
 @media (max-width:900px){
-
-  .match-card{
-    grid-template-columns: 1fr auto 1fr;
-    column-gap:10px;
-    min-height:70px;
-  }
-
-  .score-area{
-    min-width:100px;
-  }
+  .match-card{ grid-template-columns: 1fr auto 1fr; column-gap:10px; min-height:70px; }
+  .player-block{ max-width:40%; }
+  .score-area{ min-width:100px; max-width:200px; }
+  .hero-image{ max-width:320px; }
 }
+
+/* accessible hide */
+.sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
