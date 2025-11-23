@@ -59,6 +59,22 @@ function parseMatches(rows) {
   return out;
 }
 
+// parse guides sheet (Title | Text)
+function parseGuides(rows) {
+  if (!rows || rows.length === 0) return [];
+  let start = 0;
+  const header = rows[0].map(c => (c || "").toString().toLowerCase());
+  if (header.includes("title")) start = 1;
+  const out = [];
+  for (let i = start; i < rows.length; i++) {
+    const r = rows[i] || [];
+    const title = (r[0] || "").toString().trim();
+    const content = (r[1] || "").toString().trim();
+    if (title) out.push({ title, content });
+  }
+  return out;
+}
+
 // get player image from gallery
 async function getPlayerImageUrl(name) {
   if (!name) return "gallery/default.png";
@@ -111,7 +127,7 @@ function computeStandings(matches, playersList) {
   return arr;
 }
 
-// render standings table, attach click to images for modal
+// render standings table
 async function renderStandingsTable(standings, playerInfoMap) {
   const tbody = document.querySelector("#standings-table tbody");
   tbody.innerHTML = "";
@@ -140,7 +156,6 @@ async function renderStandingsTable(standings, playerInfoMap) {
     `;
     tbody.appendChild(tr);
 
-    // attach click handler to the image to open modal with description
     const imgEl = tr.querySelector("img.player-thumb");
     if (imgEl) {
       imgEl.style.cursor = "pointer";
@@ -163,7 +178,7 @@ function groupMatches(matches) {
   return { map, days };
 }
 
-// render matches for a day and attach modal click
+// render matches for a day
 async function renderMatchesForDay(matchday, matchesForDay, playerInfoMap) {
   const container = document.getElementById("matches-slide");
   container.innerHTML = "";
@@ -204,7 +219,6 @@ async function renderMatchesForDay(matchday, matchesForDay, playerInfoMap) {
       </div>
     `;
 
-    // attach click handlers for left & right thumbs
     const leftImgEl = card.querySelector("img.left-thumb");
     const rightImgEl = card.querySelector("img.right-thumb");
     if (leftImgEl) {
@@ -260,7 +274,7 @@ function renderStatsTable(arr, label) {
   el.appendChild(tbl);
 }
 
-// modal functions
+// modal (player)
 async function openPlayerModal(name, description) {
   document.getElementById("modal-player-name").textContent = name;
   document.getElementById("modal-player-description").textContent = description || "";
@@ -274,23 +288,170 @@ function closePlayerModal() {
   document.getElementById("player-modal").setAttribute("aria-hidden", "true");
 }
 
-// main wiring
+// GUIDE helpers
+
+// split guide content into parts by markers like "חלק 1:" and remove the marker from displayed part
+function splitGuideIntoPartsClean(text) {
+  if (!text) return [];
+  const normalized = text.replace(/\r\n/g, "\n");
+  // find indexes of markers "חלק <num>:" (Hebrew)
+  const regex = /חלק\s*\d+\s*:/g;
+  const matches = [...normalized.matchAll(regex)];
+  if (matches.length === 0) {
+    // fallback: split by double newlines into paragraphs if no markers
+    return normalized.split(/\n{2,}/).map(s => s.trim()).filter(Boolean);
+  }
+  const parts = [];
+  for (let i = 0; i < matches.length; i++) {
+    const start = matches[i].index;
+    const end = (i + 1 < matches.length) ? matches[i+1].index : normalized.length;
+    let chunk = normalized.substring(start, end).trim();
+    // remove the leading marker "חלק N:" from the chunk
+    chunk = chunk.replace(regex, '').trim();
+    parts.push(chunk);
+  }
+  return parts;
+}
+
+// detect if string contains Hebrew characters
+function containsHebrew(s) {
+  return /[\u0590-\u05FF]/.test(s);
+}
+
+// Guides: display single card (title only) and allow prev/next to switch guides
+function renderGuidesSingle(guides) {
+  const container = document.getElementById("guides-single");
+  container.innerHTML = "";
+  if (!guides || guides.length === 0) {
+    container.innerHTML = "<div class='guide-card-single'><h4>No guides found</h4></div>";
+    return;
+  }
+
+  // state: index
+  let idx = 0;
+
+  const renderIndex = (i) => {
+    container.innerHTML = "";
+    const g = guides[i];
+    const card = document.createElement("div");
+    card.className = "guide-card-single";
+    card.innerHTML = `<h4>${g.title}</h4><p></p>`;
+    // open modal on click
+    card.addEventListener("click", () => {
+      const parts = splitGuideIntoPartsClean(g.content);
+      openGuideModal(g.title, parts);
+    });
+    container.appendChild(card);
+  };
+
+  // attach prev/next buttons
+  const prevBtn = document.getElementById("guides-prev");
+  const nextBtn = document.getElementById("guides-next");
+  const updateButtons = () => {
+    prevBtn.disabled = (idx === 0);
+    nextBtn.disabled = (idx === guides.length - 1);
+  };
+
+  prevBtn.addEventListener("click", () => {
+    if (idx > 0) { idx--; renderIndex(idx); updateButtons(); }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (idx < guides.length - 1) { idx++; renderIndex(idx); updateButtons(); }
+  });
+
+  // initial render
+  renderIndex(idx);
+  updateButtons();
+}
+
+// openGuideModal: shows title and parts (parts array of strings). Right-align text when title is Hebrew.
+function openGuideModal(title, parts) {
+  const modal = document.getElementById("guide-modal");
+  document.getElementById("guide-modal-title").textContent = title;
+  const container = document.getElementById("guide-slides-container");
+  container.innerHTML = "";
+
+  // create slides (parts) and remove any leading "חלק..." markers (already removed by splitGuideIntoPartsClean)
+  if (!parts || parts.length === 0) {
+    const single = document.createElement("div");
+    single.className = "guide-slide active";
+    single.innerHTML = `<div>No content</div>`;
+    container.appendChild(single);
+  } else {
+    for (let i = 0; i < parts.length; i++) {
+      const slide = document.createElement("div");
+      slide.className = "guide-slide";
+      if (i === 0) slide.classList.add("active");
+      // preserve newlines
+      slide.innerHTML = parts[i].split("\n").map(line => `<p>${line}</p>`).join("");
+      container.appendChild(slide);
+    }
+  }
+
+  // RTL if title contains Hebrew
+  const right = containsHebrew(title);
+  const slides = container.querySelectorAll(".guide-slide");
+  slides.forEach(s => {
+    s.style.direction = right ? "rtl" : "ltr";
+    s.style.textAlign = right ? "right" : "left";
+  });
+
+  // store index
+  container.dataset.index = 0;
+  document.getElementById("guide-modal").setAttribute("aria-hidden", "false");
+}
+
+// close guide modal
+function closeGuideModal() {
+  document.getElementById("guide-modal").setAttribute("aria-hidden", "true");
+}
+
+// navigate guide slides
+function guideShowIndex(idx) {
+  const container = document.getElementById("guide-slides-container");
+  const slides = container.querySelectorAll(".guide-slide");
+  if (!slides || slides.length === 0) return;
+  if (idx < 0) idx = 0;
+  if (idx >= slides.length) idx = slides.length - 1;
+  slides.forEach((s, i) => {
+    s.classList.toggle("active", i === idx);
+  });
+  container.dataset.index = idx;
+}
+
+// wiring and main
 document.addEventListener("DOMContentLoaded", async () => {
+  // existing modal handlers
   document.getElementById("modal-close").addEventListener("click", closePlayerModal);
   document.getElementById("modal-backdrop").addEventListener("click", closePlayerModal);
 
+  // guide modal handlers
+  document.getElementById("guide-modal-close").addEventListener("click", closeGuideModal);
+  document.getElementById("guide-modal-backdrop").addEventListener("click", closeGuideModal);
+  document.getElementById("guide-prev").addEventListener("click", () => {
+    const container = document.getElementById("guide-slides-container");
+    const idx = Number(container.dataset.index || 0) - 1;
+    guideShowIndex(idx);
+  });
+  document.getElementById("guide-next").addEventListener("click", () => {
+    const container = document.getElementById("guide-slides-container");
+    const idx = Number(container.dataset.index || 0) + 1;
+    guideShowIndex(idx);
+  });
+
   try {
-    const [playerRows, matchRows] = await Promise.all([
+    const [playerRows, matchRows, guidesRows] = await Promise.all([
       fetchGvizRows("PlayerInfo"),
-      fetchGvizRows("Matches")
+      fetchGvizRows("Matches"),
+      fetchGvizRows("Guides")
     ]);
 
     const playersList = parsePlayers(playerRows);
-    // build playerInfoMap for quick lookup for modal descriptions
     const playerInfoMap = {};
     playersList.forEach(p => playerInfoMap[p.name] = p);
 
     const matches = parseMatches(matchRows);
+    const guidesList = parseGuides(guidesRows);
 
     // standings
     const standings = computeStandings(matches, playersList);
@@ -330,6 +491,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("stats-btn-scorers").classList.remove("active");
       renderStatsTable(conceded, "Goals Conceded");
     });
+
+    // guides (single-card view)
+    renderGuidesSingle(guidesList);
 
   } catch (err) {
     console.error(err);
