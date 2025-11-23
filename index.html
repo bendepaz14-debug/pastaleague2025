@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pasta League — Table · Matches · Statistics</title>
+  <title>Pasta League — Table · Matches · Statistics · Guides</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- HERO IMAGE (top center) -->
   <div class="hero-top">
-    <!-- use gallery/logo.jpeg as requested -->
     <img src="gallery/logo.jpeg" alt="Pasta League Logo" class="hero-image" />
   </div>
 
@@ -39,7 +38,6 @@
         </table>
       </div>
 
-      <!-- Legend placed below table -->
       <div id="legend" class="legend" aria-hidden="false">
         <div><span class="legend-box semi"></span> Semi Final (1–2)</div>
         <div><span class="legend-box play"></span> Playoffs (3–6)</div>
@@ -55,9 +53,7 @@
         <button id="matches-next" class="btn" aria-label="Next matchday">Next</button>
       </div>
 
-      <div id="matches-slide" class="matches-slide" role="list">
-        <!-- match rows injected here -->
-      </div>
+      <div id="matches-slide" class="matches-slide" role="list"></div>
     </section>
 
     <!-- Statistics Section -->
@@ -68,13 +64,27 @@
         <button id="stats-btn-conceded" class="btn stat-toggle">Goals Conceded</button>
       </div>
 
-      <div id="stats-area" class="stats-area">
-        <!-- stats injected here -->
+      <div id="stats-area" class="stats-area"></div>
+    </section>
+
+    <!-- Guides Section (single card view with prev/next) -->
+    <section id="guides-section" class="card">
+      <h2>Guides</h2>
+
+      <div class="guides-controls">
+        <button id="guides-prev" class="btn" aria-label="Previous guide">Prev</button>
+        <div id="guides-title" class="guides-title">Guides</div>
+        <button id="guides-next" class="btn" aria-label="Next guide">Next</button>
+      </div>
+
+      <!-- Only one visible guide card at a time -->
+      <div id="guides-single" class="guides-single">
+        <!-- single guide card injected here (title only) -->
       </div>
     </section>
   </main>
 
-  <!-- Player Modal (unchanged) -->
+  <!-- Player Modal -->
   <div id="player-modal" class="modal" aria-hidden="true">
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-player-name">
@@ -83,6 +93,22 @@
       <div class="modal-content">
         <img id="modal-player-image" alt="" />
         <div id="modal-player-description" class="player-description"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide Modal -->
+  <div id="guide-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" id="guide-modal-backdrop"></div>
+    <div class="modal-panel guide-panel" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title">
+      <button id="guide-modal-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3 id="guide-modal-title"></h3>
+
+      <div id="guide-slides-container" class="guide-slides-container"></div>
+
+      <div class="guide-nav">
+        <button id="guide-prev" class="btn">Prev</button>
+        <button id="guide-next" class="btn">Next</button>
       </div>
     </div>
   </div>
