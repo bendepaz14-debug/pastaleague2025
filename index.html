@@ -7,15 +7,18 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- HERO IMAGE (top center) -->
+
+  <!-- HERO IMAGE -->
   <div class="hero-top">
     <img src="gallery/logo.jpeg" alt="Pasta League Logo" class="hero-image" />
   </div>
 
   <main class="container">
-    <!-- Standings / Table Section -->
+
+    <!-- TABLE SECTION -->
     <section id="table-section" class="card">
       <h2>Table</h2>
+
       <div class="table-wrapper">
         <table id="standings-table" class="standings" aria-describedby="legend">
           <thead>
@@ -38,27 +41,29 @@
         </table>
       </div>
 
-      <div id="legend" class="legend" aria-hidden="false">
+      <div id="legend" class="legend">
         <div><span class="legend-box semi"></span> Semi Final (1–2)</div>
         <div><span class="legend-box play"></span> Playoffs (3–6)</div>
       </div>
     </section>
 
-    <!-- Matches Section -->
+    <!-- MATCHES SECTION -->
     <section id="matches-section" class="card">
       <h2>Matches</h2>
+
       <div class="matches-controls">
-        <button id="matches-prev" class="btn" aria-label="Previous matchday">Prev</button>
+        <button id="matches-prev" class="btn">Prev</button>
         <div id="matches-title" class="matches-title">Matchday —</div>
-        <button id="matches-next" class="btn" aria-label="Next matchday">Next</button>
+        <button id="matches-next" class="btn">Next</button>
       </div>
 
       <div id="matches-slide" class="matches-slide" role="list"></div>
     </section>
 
-    <!-- Statistics Section -->
+    <!-- STATS SECTION -->
     <section id="stats-section" class="card">
       <h2>Statistics</h2>
+
       <div class="stats-controls">
         <button id="stats-btn-scorers" class="btn stat-toggle active">Top Scorers</button>
         <button id="stats-btn-conceded" class="btn stat-toggle">Goals Conceded</button>
@@ -67,29 +72,31 @@
       <div id="stats-area" class="stats-area"></div>
     </section>
 
-    <!-- Guides Section (single card view with prev/next) -->
+    <!-- GUIDES SECTION -->
     <section id="guides-section" class="card">
       <h2>Guides</h2>
 
       <div class="guides-controls">
-        <button id="guides-prev" class="btn" aria-label="Previous guide">Prev</button>
-        <div id="guides-title" class="guides-title">Guides</div>
-        <button id="guides-next" class="btn" aria-label="Next guide">Next</button>
+        <button id="guides-prev" class="btn">Prev</button>
+        <div id="guides-title" class="guides-title">Guide</div>
+        <button id="guides-next" class="btn">Next</button>
       </div>
 
-      <!-- Only one visible guide card at a time -->
       <div id="guides-single" class="guides-single">
-        <!-- single guide card injected here (title only) -->
+        <!-- Guide title injected here -->
       </div>
     </section>
+
   </main>
 
-  <!-- Player Modal -->
+  <!-- PLAYER MODAL -->
   <div id="player-modal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-player-name">
-      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+
+    <div class="modal-panel" aria-modal="true">
+      <button id="modal-close" class="modal-close">&times;</button>
       <h3 id="modal-player-name"></h3>
+
       <div class="modal-content">
         <img id="modal-player-image" alt="" />
         <div id="modal-player-description" class="player-description"></div>
@@ -97,22 +104,20 @@
     </div>
   </div>
 
-  <!-- Guide Modal -->
+  <!-- GUIDE MODAL (SCROLLABLE, NO NEXT/PREV BUTTONS) -->
   <div id="guide-modal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop" id="guide-modal-backdrop"></div>
-    <div class="modal-panel guide-panel" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title">
-      <button id="guide-modal-close" class="modal-close" aria-label="Close">&times;</button>
+    <div id="guide-modal-backdrop" class="modal-backdrop"></div>
+
+    <div class="modal-panel guide-panel" aria-modal="true">
+      <button id="guide-modal-close" class="modal-close">&times;</button>
       <h3 id="guide-modal-title"></h3>
 
+      <!-- full text scroll area -->
       <div id="guide-slides-container" class="guide-slides-container"></div>
-
-      <div class="guide-nav">
-        <button id="guide-prev" class="btn">Prev</button>
-        <button id="guide-next" class="btn">Next</button>
-      </div>
     </div>
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
