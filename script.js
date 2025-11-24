@@ -147,12 +147,14 @@ async function renderStandingsTable(standings, playerInfoMap) {
 
     const imgUrl = await getPlayerImageUrl(s.name);
 
+    // IMPORTANT: order matches the table header: # | Player | PTS | MP | W | D | L | GF | GA | GD
     tr.innerHTML = `
       <td>${i+1}</td>
       <td class="player-cell">
         <img class="player-thumb" src="${imgUrl}" alt="${s.name}">
         <span class="player-name">${s.name}</span>
       </td>
+      <td class="pts-bold">${s.pts}</td>
       <td>${s.mp}</td>
       <td>${s.w}</td>
       <td>${s.d}</td>
@@ -160,7 +162,6 @@ async function renderStandingsTable(standings, playerInfoMap) {
       <td>${s.gf}</td>
       <td>${s.ga}</td>
       <td>${s.gd}</td>
-      <td class="pts-bold">${s.pts}</td>
     `;
 
     tbody.appendChild(tr);
@@ -424,7 +425,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // matches
     const grouped = groupMatches(matches);
     const days = grouped.days;
-    if (days.length === 0) {
+    if (!days || days.length === 0) {
       document.getElementById("matches-title").textContent = "No matchdays";
       document.getElementById("matches-slide").innerHTML = "<div class='match-card'>No matches</div>";
     } else {
