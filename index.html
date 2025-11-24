@@ -7,24 +7,22 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <!-- HERO IMAGE -->
+  <!-- HERO IMAGE (top center) -->
   <div class="hero-top">
     <img src="gallery/logo.jpeg" alt="Pasta League Logo" class="hero-image" />
   </div>
 
   <main class="container">
-
-    <!-- TABLE SECTION -->
+    <!-- Standings / Table Section -->
     <section id="table-section" class="card">
       <h2>Table</h2>
-
       <div class="table-wrapper">
         <table id="standings-table" class="standings" aria-describedby="legend">
           <thead>
             <tr>
               <th>#</th>
               <th>Player</th>
+              <th>PTS</th>
               <th>MP</th>
               <th>W</th>
               <th>D</th>
@@ -32,7 +30,6 @@
               <th>GF</th>
               <th>GA</th>
               <th>GD</th>
-              <th>PTS</th>
             </tr>
           </thead>
           <tbody>
@@ -41,29 +38,27 @@
         </table>
       </div>
 
-      <div id="legend" class="legend">
+      <div id="legend" class="legend" aria-hidden="false">
         <div><span class="legend-box semi"></span> Semi Final (1–2)</div>
         <div><span class="legend-box play"></span> Playoffs (3–6)</div>
       </div>
     </section>
 
-    <!-- MATCHES SECTION -->
+    <!-- Matches Section -->
     <section id="matches-section" class="card">
       <h2>Matches</h2>
-
       <div class="matches-controls">
-        <button id="matches-prev" class="btn">Prev</button>
+        <button id="matches-prev" class="btn" aria-label="Previous matchday">Prev</button>
         <div id="matches-title" class="matches-title">Matchday —</div>
-        <button id="matches-next" class="btn">Next</button>
+        <button id="matches-next" class="btn" aria-label="Next matchday">Next</button>
       </div>
 
       <div id="matches-slide" class="matches-slide" role="list"></div>
     </section>
 
-    <!-- STATS SECTION -->
+    <!-- Statistics Section -->
     <section id="stats-section" class="card">
       <h2>Statistics</h2>
-
       <div class="stats-controls">
         <button id="stats-btn-scorers" class="btn stat-toggle active">Top Scorers</button>
         <button id="stats-btn-conceded" class="btn stat-toggle">Goals Conceded</button>
@@ -72,31 +67,29 @@
       <div id="stats-area" class="stats-area"></div>
     </section>
 
-    <!-- GUIDES SECTION -->
+    <!-- Guides Section (single card view with prev/next) -->
     <section id="guides-section" class="card">
       <h2>Guides</h2>
 
       <div class="guides-controls">
-        <button id="guides-prev" class="btn">Prev</button>
-        <div id="guides-title" class="guides-title">Guide</div>
-        <button id="guides-next" class="btn">Next</button>
+        <button id="guides-prev" class="btn" aria-label="Previous guide">Prev</button>
+        <div id="guides-title" class="guides-title">Guides</div>
+        <button id="guides-next" class="btn" aria-label="Next guide">Next</button>
       </div>
 
+      <!-- Only one visible guide card at a time -->
       <div id="guides-single" class="guides-single">
-        <!-- Guide title injected here -->
+        <!-- single guide card injected here (title only) -->
       </div>
     </section>
-
   </main>
 
-  <!-- PLAYER MODAL -->
+  <!-- Player Modal -->
   <div id="player-modal" class="modal" aria-hidden="true">
-    <div id="modal-backdrop" class="modal-backdrop"></div>
-
-    <div class="modal-panel" aria-modal="true">
-      <button id="modal-close" class="modal-close">&times;</button>
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-player-name">
+      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
       <h3 id="modal-player-name"></h3>
-
       <div class="modal-content">
         <img id="modal-player-image" alt="" />
         <div id="modal-player-description" class="player-description"></div>
@@ -104,20 +97,16 @@
     </div>
   </div>
 
-  <!-- GUIDE MODAL (SCROLLABLE, NO NEXT/PREV BUTTONS) -->
+  <!-- Guide Modal (scrollable full-text, no prev/next) -->
   <div id="guide-modal" class="modal" aria-hidden="true">
-    <div id="guide-modal-backdrop" class="modal-backdrop"></div>
-
-    <div class="modal-panel guide-panel" aria-modal="true">
-      <button id="guide-modal-close" class="modal-close">&times;</button>
+    <div class="modal-backdrop" id="guide-modal-backdrop"></div>
+    <div class="modal-panel guide-panel" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title">
+      <button id="guide-modal-close" class="modal-close" aria-label="Close">&times;</button>
       <h3 id="guide-modal-title"></h3>
-
-      <!-- full text scroll area -->
       <div id="guide-slides-container" class="guide-slides-container"></div>
     </div>
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
