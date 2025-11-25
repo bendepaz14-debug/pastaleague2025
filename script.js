@@ -117,8 +117,8 @@ function computeStandings(matches, playersList) {
     } else if (m.score2 > m.score1) {
       stats[m.player2].w++; stats[m.player2].pts += 3; stats[m.player1].l++;
     } else {
-      stats[m.player1].d++; stats[m.player2].d++; 
-      stats[m.player1].pts++; 
+      stats[m.player1].d++; stats[m.player2].d++;
+      stats[m.player1].pts++;
       stats[m.player2].pts++;
     }
   });
@@ -166,11 +166,13 @@ async function renderStandingsTable(standings, playerInfoMap) {
 
     tbody.appendChild(tr);
 
+    // attach click handler to the image to open modal (only for table)
     const imgEl = tr.querySelector("img.player-thumb");
     if (imgEl) {
       imgEl.style.cursor = "pointer";
-      imgEl.addEventListener("click", () => {
+      imgEl.addEventListener("click", async () => {
         const info = playerInfoMap[s.name] || { description: "" };
+        // open modal with FULL image + description
         openPlayerModal(s.name, info.description);
       });
     }
@@ -227,23 +229,8 @@ async function renderMatchesForDay(matchday, matchesForDay, playerInfoMap) {
       </div>
     `;
 
-    const leftImgEl = card.querySelector(".left-thumb");
-    if (leftImgEl) {
-      leftImgEl.style.cursor = "pointer";
-      leftImgEl.addEventListener("click", () => {
-        const info = playerInfoMap[m.player1] || { description: "" };
-        openPlayerModal(m.player1, info.description);
-      });
-    }
-
-    const rightImgEl = card.querySelector(".right-thumb");
-    if (rightImgEl) {
-      rightImgEl.style.cursor = "pointer";
-      rightImgEl.addEventListener("click", () => {
-        const info = playerInfoMap[m.player2] || { description: "" };
-        openPlayerModal(m.player2, info.description);
-      });
-    }
+    // IMPORTANT: DO NOT attach click handlers for match images.
+    // This disables popups for images in the matches section as requested.
 
     container.appendChild(card);
   }
@@ -253,8 +240,8 @@ async function renderMatchesForDay(matchday, matchesForDay, playerInfoMap) {
 function computeTopScorers(matches, playersList) {
   const map = new Map(playersList.map(p => [p.name, 0]));
   matches.forEach(m => {
-    if (m.score1 >= 0) map.set(m.player1, (map.get(m.player1) || 0) + m.score1);
-    if (m.score2 >= 0) map.set(m.player2, (map.get(m.player2) || 0) + m.score2);
+    if (Number.isFinite(m.score1) && m.score1 >= 0) map.set(m.player1, (map.get(m.player1) || 0) + m.score1);
+    if (Number.isFinite(m.score2) && m.score2 >= 0) map.set(m.player2, (map.get(m.player2) || 0) + m.score2);
   });
   return Array.from(map.entries())
     .map(([player, goals]) => ({ player, goals }))
@@ -264,8 +251,8 @@ function computeTopScorers(matches, playersList) {
 function computeGoalsConceded(matches, playersList) {
   const map = new Map(playersList.map(p => [p.name, 0]));
   matches.forEach(m => {
-    if (m.score1 >= 0) map.set(m.player2, (map.get(m.player2) || 0) + m.score1);
-    if (m.score2 >= 0) map.set(m.player1, (map.get(m.player1) || 0) + m.score2);
+    if (Number.isFinite(m.score1) && m.score1 >= 0) map.set(m.player2, (map.get(m.player2) || 0) + m.score1);
+    if (Number.isFinite(m.score2) && m.score2 >= 0) map.set(m.player1, (map.get(m.player1) || 0) + m.score2);
   });
   return Array.from(map.entries())
     .map(([player, goals]) => ({ player, goals }))
@@ -293,7 +280,7 @@ function renderStatsTable(arr, label) {
   el.appendChild(tbl);
 }
 
-// modal (player)
+// modal (player) — shows full image + description under image
 async function openPlayerModal(name, description) {
   document.getElementById("modal-player-name").textContent = name;
   document.getElementById("modal-player-description").textContent = description || "";
@@ -301,6 +288,7 @@ async function openPlayerModal(name, description) {
   modalImg.src = "";
   modalImg.alt = name;
   const url = await getPlayerImageUrl(name);
+  // ensure full-size display (CSS handles containment)
   modalImg.src = url;
   document.getElementById("player-modal").setAttribute("aria-hidden", "false");
 }
@@ -371,7 +359,7 @@ function renderGuidesSingle(guides) {
 }
 
 //
-// NEW — full scrollable guide modal
+// NEW — full scrollable guide modal (no prev/next inside modal)
 //
 function openGuideModal(title, parts) {
   const modal = document.getElementById("guide-modal");
