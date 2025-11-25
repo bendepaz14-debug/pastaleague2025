@@ -48,7 +48,7 @@ body{
   color:var(--white)
 }
 
-/* FIX → align numeric columns including pts */
+/* numeric columns (from 3rd column onward) aligned right */
 .standings td:nth-child(n+3),
 .standings th:nth-child(n+3) {
   text-align:right !important;
@@ -133,7 +133,7 @@ tr.playoffs{background:rgba(60,120,220,0.12);border-left:4px solid rgba(60,120,2
 .stat-toggle.active{background:linear-gradient(90deg,#ffb86b,#ff906b);color:#112}
 .stats-area{overflow:auto}
 
-/* FIX spacing between columns */
+/* spacing between stats columns */
 .stats-table{
   width:100%;
   border-collapse:separate;
@@ -190,14 +190,44 @@ tr.playoffs{background:rgba(60,120,220,0.12);border-left:4px solid rgba(60,120,2
 .modal{display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:60}
 .modal[aria-hidden="false"]{display:flex}
 .modal-backdrop{position:absolute;inset:0;background:rgba(2,6,23,0.82)}
+
+/* make player modal larger and scrollable so image is not cropped */
 .modal-panel{
   position:relative;z-index:70;background:#071426;padding:18px;border-radius:12px;
-  max-width:500px;width:92%;
-  max-height:85vh;overflow:hidden;
+  max-width:760px;width:94%;
+  max-height:90vh;
+  overflow:auto;
 }
 .modal-close{
   position:absolute;right:12px;top:10px;background:transparent;border:0;color:var(--muted);
   font-size:24px;cursor:pointer;
+}
+
+/* modal content */
+.modal-content{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  width:100%;
+  box-sizing:border-box;
+  padding-bottom:8px;
+}
+.modal-content img{
+  width:100%;
+  max-width:720px;
+  height:auto;
+  object-fit:contain;
+  border-radius:8px;
+  display:block;
+}
+.player-description{
+  width:100%;
+  color:var(--white);
+  font-size:15px;
+  line-height:1.5;
+  text-align:center;
+  padding:6px 8px 16px 8px;
 }
 
 /* small phones */
@@ -209,4 +239,7 @@ tr.playoffs{background:rgba(60,120,220,0.12);border-left:4px solid rgba(60,120,2
   .score-box{width:28px;height:24px;font-size:12px}
 
   .match-card{grid-template-columns: minmax(0,1fr) 72px minmax(0,1fr);}
+  /* modal smaller on phone but scrollable */
+  .modal-panel{max-width:94%;padding:12px}
+  .modal-content img{max-width:340px}
 }
